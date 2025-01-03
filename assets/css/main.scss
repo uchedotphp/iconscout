@@ -11,4 +11,57 @@
   --ics-light-gray: #636C7E;
 }
 
+@font-face {
+  font-family: 'Averta Std';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('~assets/fonts/AvertaStd-Thin.ttf') format('truetype');
+}
 
+@font-face {
+  font-family: 'Averta Std';
+  font-style: normal;
+  // font-weight: 400;
+  font-weight: normal;
+  font-display: swap;
+  src: url('~assets/fonts/AvertaStd-Thin.ttf') format('truetype');
+}
+
+// @font-face {
+//   font-family: 'Averta Std';
+//   font-style: normal;
+//   font-weight: 400;
+//   font-display: swap;
+//   src: url('~assets/fonts/AvertaStd-Black.ttf') format('truetype');
+// }
+
+@font-face {
+  font-family: 'Averta Std';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('~assets/fonts/AvertaStd-Bold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Averta Std';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('~assets/fonts/AvertaStd-ExtraBold.ttf') format('truetype');
+}
+
+html, body {
+  height: 100vh;
+  color: var(--ics-light-black);
+  font-family: 'Averta Std', sans-serif;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+body {
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow-x: hidden;
+}
