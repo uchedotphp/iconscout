@@ -1,31 +1,95 @@
-@use "./reset";
+@import "./reset";
 
 :root {
-  --ics-blue: #0092E4;
-  --ics-light-blue: #0058E3;
-  --ics-gray-blue: #2F72BC;
+  --ics-blue: #0092e4;
+  --ics-light-blue: #0058e3;
+  --ics-gray-blue: #2f72bc;
   --ics-black: #000000;
-  --ics-light-black: #2E334C;
-  --ics-deep-black: #1C2033;
-  --ics-gray: #5A607D;
-  --ics-light-gray: #636C7E;
+  --ics-light-black: #2e334c;
+  --ics-deep-black: #1c2033;
+  --ics-gray: #5a607d;
+  --ics-light-gray: #636c7e;
 }
 
+// * {
+//   padding: 0;
+//   margin: 0;
+//   box-sizing: border-box;
+// }
+
+// blockquote,
+// dl,
+// dd,
+// h1,
+// h2,
+// h3,
+// h4,
+// h5,
+// h6,
+// hr,
+// figure,
+// p,
+// pre {
+//   margin: 0;
+// }
+
+// h1,
+// h2,
+// h3,
+// h4,
+// h5,
+// h6 {
+//   font-size: inherit;
+//   font-weight: inherit;
+// }
+
+// /* Reset forms */
+// button,
+// input,
+// select,
+// textarea {
+//   font: inherit;
+//   color: inherit;
+//   background: none;
+//   border: none;
+//   padding: 0;
+//   margin: 0;
+//   box-shadow: none;
+//   outline: none;
+// }
+
+// a {
+//   text-decoration: none;
+//   color: inherit;
+// }
+
+// table {
+//   border-collapse: collapse;
+//   border-spacing: 0;
+// }
+
+// ol,
+// ul {
+//   list-style: none;
+//   margin: 0;
+//   padding: 0;
+// }
+
 @font-face {
-  font-family: 'Averta Std';
+  font-family: "Averta Std";
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url('~assets/fonts/AvertaStd-Thin.ttf') format('truetype');
+  src: url("~assets/fonts/AvertaStd-Thin.ttf") format("truetype");
 }
 
 @font-face {
-  font-family: 'Averta Std';
+  font-family: "Averta Std";
   font-style: normal;
   // font-weight: 400;
   font-weight: normal;
   font-display: swap;
-  src: url('~assets/fonts/AvertaStd-Thin.ttf') format('truetype');
+  src: url("~assets/fonts/AvertaStd-Thin.ttf") format("truetype");
 }
 
 // @font-face {
@@ -37,25 +101,26 @@
 // }
 
 @font-face {
-  font-family: 'Averta Std';
+  font-family: "Averta Std";
   font-style: normal;
   font-weight: 600;
   font-display: swap;
-  src: url('~assets/fonts/AvertaStd-Bold.ttf') format('truetype');
+  src: url("~assets/fonts/AvertaStd-Bold.ttf") format("truetype");
 }
 
 @font-face {
-  font-family: 'Averta Std';
+  font-family: "Averta Std";
   font-style: normal;
   font-weight: 700;
   font-display: swap;
-  src: url('~assets/fonts/AvertaStd-ExtraBold.ttf') format('truetype');
+  src: url("~assets/fonts/AvertaStd-ExtraBold.ttf") format("truetype");
 }
 
-html, body {
+html,
+body {
   height: 100vh;
   color: var(--ics-light-black);
-  font-family: 'Averta Std', sans-serif;
+  font-family: "Averta Std", sans-serif;
   font-weight: 400;
   line-height: 1.5;
 }
@@ -66,7 +131,8 @@ body {
   overflow-x: hidden;
 }
 
-
-#__nuxt, #__layout, .wrapper {
+#__nuxt,
+#__layout,
+.wrapper {
   height: 100%;
 }
