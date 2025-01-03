@@ -65,3 +65,8 @@ body {
   padding: 0 !important;
   overflow-x: hidden;
 }
+
+
+#__nuxt, #__layout, .wrapper {
+  height: 100%;
+}
