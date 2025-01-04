@@ -2,28 +2,28 @@
   <div class="wrapper">
     <TopHeader />
     <TopSubHeader class="sub-header" />
-    <main>
+    <main class="h-100">
       <div class="d-flex align-items-center secondary-navigation-area">
         <FiltersMenu />
         <ScrollableArea class="scroll-area">
           <SecondaryNavigation />
         </ScrollableArea>
       </div>
-      <b-container fluid class="px-0">
-        <b-row no-gutters>
+      <b-container fluid class="px-0 h-100">
+        <b-row no-gutters class="h-100">
           <b-col cols="auto">
             <!-- Side filter panel -->
             <LeftFilterPanel v-if="isFilterPanelExpanded" />
           </b-col>
-          <b-col>
-            <div class="h-100">
+          <b-col class="h-100 overflow-hidden">
+            <div class="h-100 overflow-auto">
               <nuxt :key="$route.fullPath" />
             </div>
           </b-col>
         </b-row>
       </b-container>
     </main>
-    <!-- <BottomFooter /> -->
+    <BottomFooter />
   </div>
 </template>
 
