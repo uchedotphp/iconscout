@@ -7,10 +7,12 @@
 
 <script lang="ts">
 import Vue from "vue";
+import { mapGetters } from 'vuex'
 
 export default Vue.extend({
   name: "TopSubHeader",
   computed: {
+    ...mapGetters(["searchedQuery"]),
     searchedKeyword() {
       return this.$route.params.keyword
         ? this.$route.params.keyword.charAt(0).toUpperCase() +
@@ -40,7 +42,7 @@ export default Vue.extend({
           })
           .join(" ");
       } else {
-        return "All Assets";
+        return "Assets";
       }
     },
   },
