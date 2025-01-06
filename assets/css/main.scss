@@ -1,15 +1,6 @@
 // @use "./reset";
-
-:root {
-  --ics-blue: #0092e4;
-  --ics-light-blue: #0058e3;
-  --ics-gray-blue: #2f72bc;
-  --ics-black: #000000;
-  --ics-light-black: #2e334c;
-  --ics-deep-black: #1c2033;
-  --ics-gray: #5a607d;
-  --ics-light-gray: #636c7e;
-}
+@use "./colors";
+@use "./typography";
 
 * {
   padding: 0;
@@ -76,49 +67,55 @@ ul {
 }
 
 @font-face {
-  font-family: "Averta Std";
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url("~assets/fonts/AvertaStd-Thin.ttf") format("truetype");
-}
-
-@font-face {
-  font-family: "Averta Std";
-  font-style: normal;
-  // font-weight: 400;
-  font-weight: normal;
-  font-display: swap;
-  src: url("~assets/fonts/AvertaStd-Thin.ttf") format("truetype");
-}
-
-// @font-face {
-//   font-family: 'Averta Std';
-//   font-style: normal;
-//   font-weight: 400;
-//   font-display: swap;
-//   src: url('~assets/fonts/AvertaStd-Black.ttf') format('truetype');
-// }
-
-@font-face {
-  font-family: "Averta Std";
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: url("~assets/fonts/AvertaStd-Bold.ttf") format("truetype");
-}
-
-@font-face {
-  font-family: "Averta Std";
-  font-style: normal;
+  font-family: "Averta";
+  src: url(https://cdna.iconscout.com/fonts/Averta-Bold.db8e01c.eot);
+  src: url(https://cdna.iconscout.com/fonts/Averta-Bold.db8e01c.eot?#iefix)
+      format("embedded-opentype"),
+    url(https://cdna.iconscout.com/fonts/Averta-Bold.6745c20.woff2)
+      format("woff2"),
+    url(https://cdna.iconscout.com/fonts/Averta-Bold.8033efc.woff)
+      format("woff"),
+    url(https://cdna.iconscout.com/fonts/Averta-Bold.2b1d5be.ttf)
+      format("truetype");
   font-weight: 700;
+  font-style: normal;
   font-display: swap;
-  src: url("~assets/fonts/AvertaStd-ExtraBold.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Averta Std";
+  src: url(https://cdna.iconscout.com/fonts/Averta-Semibold.43d9442.eot);
+  src: url(https://cdna.iconscout.com/fonts/Averta-Semibold.43d9442.eot?#iefix)
+      format("embedded-opentype"),
+    url(https://cdna.iconscout.com/fonts/Averta-Semibold.8a8b411.woff2)
+      format("woff2"),
+    url(https://cdna.iconscout.com/fonts/Averta-Semibold.9f3e7c7.woff)
+      format("woff"),
+    url(https://cdna.iconscout.com/fonts/Averta-Semibold.48fa578.ttf)
+      format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Averta Std";
+  src: url(https://cdna.iconscout.com/fonts/Averta-Regular.77b1b73.eot);
+  src: url(https://cdna.iconscout.com/fonts/Averta-Regular.77b1b73.eot?#iefix)
+      format("embedded-opentype"),
+    url(https://cdna.iconscout.com/fonts/Averta-Regular.296928a.woff2)
+      format("woff2"),
+    url(https://cdna.iconscout.com/fonts/Averta-Regular.79c0972.woff)
+      format("woff"),
+    url(https://cdna.iconscout.com/fonts/Averta-Regular.92ece56.ttf)
+      format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
 }
 
 html,
 body {
-  height: 100vh;
   color: var(--ics-light-black);
   font-family: "Averta Std", sans-serif;
   font-weight: 400;
