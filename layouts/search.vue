@@ -2,28 +2,31 @@
   <div class="wrapper">
     <TopHeader />
     <TopSubHeader class="sub-header" />
-    <main class="h-100">
+    <main>
       <div class="d-flex align-items-center secondary-navigation-area">
         <FiltersMenu />
         <ScrollableArea class="scroll-area">
           <SecondaryNavigation />
         </ScrollableArea>
       </div>
-      <b-container fluid class="px-0 h-100">
-        <b-row no-gutters class="h-100">
+      <b-container fluid class="px-0">
+        <b-row no-gutters>
           <b-col cols="auto">
             <!-- Side filter panel -->
-            <LeftFilterPanel v-if="isFilterPanelExpanded" />
+            <LeftFilterPanel
+              v-if="isFilterPanelExpanded"
+              class="filterSidebar"
+            />
           </b-col>
-          <b-col class="h-100 overflow-hidden">
-            <div class="h-100 overflow-auto">
+          <b-col>
+            <div class="main-content">
               <nuxt :key="$route.fullPath" />
             </div>
           </b-col>
         </b-row>
       </b-container>
     </main>
-    <BottomFooter />
+    <Footer />
   </div>
 </template>
 
@@ -45,14 +48,26 @@ export default defineComponent({
 }
 
 .secondary-navigation-area {
-  top: 74.59px;
+  top: 82px;
   position: sticky;
-  z-index: 1000;
+  z-index: 999;
   background-color: #fafafc;
 
   .scroll-area {
     flex: 1;
     padding-inline: 43px;
+  }
+}
+
+.filterSidebar {
+  position: sticky;
+  top: 124px;
+  border-right: 1px solid #ebedf5;
+}
+
+main {
+  .main-content {
+    padding: 20px 40px;
   }
 }
 </style>
