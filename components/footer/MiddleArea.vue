@@ -27,8 +27,8 @@
       <div class="footer-links">
         <h5>Get LottieFiles mobile app</h5>
         <div class="d-flex align-items-center">
-          <img class="pr-3" src="~/assets/images/apple-download.svg" alt="apple store download">
-          <img src="~/assets/images/android-download.svg" alt="android store download">
+          <img role="button" class="pr-3" src="~/assets/images/apple-download.svg" alt="apple store download">
+          <img role="button" src="~/assets/images/android-download.svg" alt="android store download">
         </div>
       </div>
 
