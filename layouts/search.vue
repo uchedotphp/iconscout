@@ -3,12 +3,20 @@
     <TopHeader />
     <TopSubHeader class="sub-header" />
     <main>
-      <div class="d-flex align-items-center secondary-navigation-area">
-        <FiltersMenu />
-        <ScrollableArea class="scroll-area">
-          <SecondaryNavigation />
-        </ScrollableArea>
-      </div>
+      <b-container fluid class="px-0 secondary-navigation-area">
+        <b-row no-gutters>
+          <b-col cols="auto">
+            <FiltersMenu />
+          </b-col>
+          <b-col>
+            <ScrollableArea
+              class="h-100 scroll-area"
+            >
+              <SecondaryNavigation />
+            </ScrollableArea>
+          </b-col>
+        </b-row>
+      </b-container>
       <b-container fluid class="px-0">
         <b-row no-gutters>
           <b-col cols="auto">
