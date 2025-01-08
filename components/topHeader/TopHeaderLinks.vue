@@ -19,7 +19,7 @@
         </template>
         <template v-if="title.toLocaleLowerCase() === 'free asset'" #iconLeft>
           <img
-            :src="require(`@/assets/images/${img}`)"
+            src="~/assets/images/gift.svg"
             :alt="formatAltText(img)"
           />
         </template>
@@ -43,38 +43,38 @@ export default defineComponent({
   name: "TopHeaderLinks",
   data() {
     return {
-      navigationLinks: [] as NavigationLinks[],
+      navigationLinks: [
+        {
+          id: 1,
+          title: "explore",
+          isDropDown: true,
+          link: "#",
+          img: "",
+        },
+        {
+          id: 2,
+          title: "tools",
+          isDropDown: true,
+          link: "#",
+          img: "",
+        },
+        { id: 3, title: "all features", isDropDown: false, link: "#", img: "" },
+        {
+          id: 4,
+          title: "free asset",
+          isDropDown: false,
+          img: "gift.svg",
+          link: "#",
+        },
+        {
+          id: 5,
+          title: "learn",
+          isDropDown: true,
+          link: "#",
+          img: "",
+        },
+      ] as NavigationLinks[],
     };
-  },
-  created() {
-    this.navigationLinks = [
-      {
-        id: 1,
-        title: "explore",
-        isDropDown: true,
-        link: "#",
-      },
-      {
-        id: 2,
-        title: "tools",
-        isDropDown: true,
-        link: "#",
-      },
-      { id: 3, title: "all features", isDropDown: false, link: "#" },
-      {
-        id: 4,
-        title: "free asset",
-        isDropDown: false,
-        img: "gift.svg",
-        link: "#",
-      },
-      {
-        id: 5,
-        title: "learn",
-        isDropDown: true,
-        link: "#",
-      },
-    ];
   },
   methods: {
     formatAltText(img: string = ""): string {
