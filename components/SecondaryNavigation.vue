@@ -6,7 +6,7 @@
         :key="id"
         class="h-100 d-flex align-items-center"
       >
-        <NuxtLink :to="goToLink(asset as assetType)" class="h-100 nav-item">{{
+        <NuxtLink :to="goToLink(asset)" class="h-100 nav-item">{{
           title
         }}</NuxtLink>
       </li>
@@ -22,7 +22,7 @@ import { mapState } from "vuex";
 
 interface NavigationItem {
   id: number;
-  asset: string;
+  asset: assetType;
   title: string;
 }
 export default defineComponent({
