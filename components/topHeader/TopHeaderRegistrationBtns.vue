@@ -1,46 +1,61 @@
 <template>
-  <div class="registration-buttons">
-    <button @click="handleLogin">Login</button>
-    <button @click="handleRegister">Register</button>
+  <div class="d-flex align-items-center registration-buttons">
+    <BaseAvatar v-if="isUserLoggedIn" />
+    <template v-else>
+      <BaseBtn @click="handleLogin" class="login">
+        <template #label> Login </template>
+      </BaseBtn>
+      <BaseBtn @click="handleRegister" class="register">
+        <template #label> Signup </template>
+      </BaseBtn>
+    </template>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent } from "vue";
+import { mapState } from "vuex";
 
 export default defineComponent({
-  name: 'TopHeaderRegistrationBtns',
+  name: "TopHeaderRegistrationBtns",
+  computed: {
+    ...mapState({ isUserLoggedIn: "isLoggedIn" }),
+  },
   methods: {
-    handleLogin(): void {
-      // Handle login logic here
-      console.log('Login button clicked');
+    handleLogin() {
+      this.$store.commit("logInUser");
     },
-    handleRegister(): void {
-      // Handle register logic here
-      console.log('Register button clicked');
-    }
-  }
+    handleRegister() {
+      this.$store.commit("logInUser");
+    },
+  },
 });
 </script>
 
 <style lang="scss" scoped>
 .registration-buttons {
-    button {
-      border: none;
-      background-color: var(--ics-blue);
-      color: #ffffff;
-      font-family: 'Averta Std', sans-serif;
-      font-size: 16px;
-      font-weight: 600;
-      line-height: 24px;
-      // width: 93px;
-      // height: 44px;
-      padding: 10px 20px;
-      border-radius: 999px;
+  button {
+    border: none;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 24px;
+    padding: 10px 20px;
+    border-radius: 999px;
 
-      &:first-child {
-        margin-right: 12px;
+    &:first-child {
+      margin-right: 12px;
+    }
+    &.login {
+      border: 1px solid #d8dbeb;
+      color: var(--ics-black);
+      &:hover {
+        background-color: var(--ics-hover);
       }
     }
+    &.register {
+      background-color: var(--ics-blue);
+      color: #ffffff;
+    }
   }
+}
 </style>
