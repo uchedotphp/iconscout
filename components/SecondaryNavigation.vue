@@ -2,16 +2,13 @@
   <nav class="h-100 d-flex align-items-center secondary-navigation">
     <ul class="h-100 d-flex align-items-center">
       <li
-        v-for="{ id, asset, name } in navigationItems"
+        v-for="{ id, asset, title } in navigationItems"
         :key="id"
         class="h-100 d-flex align-items-center"
       >
-        <NuxtLink
-          :to="goToLink({ name, params: $route.params.keyword || '' })"
-          class="h-100 nav-item"
-          no-prefetch
-          >{{ asset }}</NuxtLink
-        >
+        <NuxtLink :to="goToLink(asset as assetType)" class="h-100 nav-item">{{
+          title
+        }}</NuxtLink>
       </li>
     </ul>
   </nav>
@@ -19,32 +16,33 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import { navItems } from "~/data/data";
+import type { assetType } from "~/data/dataTypes";
+import { mapState } from "vuex";
 
 interface NavigationItem {
   id: number;
   asset: string;
-  name: string;
+  title: string;
 }
-
 export default defineComponent({
   name: "SecondaryNavigation",
   data() {
     return {
-      navigationItems: [] as NavigationItem[],
+      navigationItems: navItems as NavigationItem[],
     };
   },
-  created() {
-    this.navigationItems = [
-      { id: 1, asset: "All Assets", name: "all-assets" },
-      { id: 2, asset: "3D Illustrations", name: "3d-illustrations" },
-      { id: 3, asset: "Lottie Animations", name: "lottie-animations" },
-      { id: 4, asset: "Illustrations", name: "illustrations" },
-      { id: 5, asset: "Icons", name: "icons" },
-    ];
+  computed: {
+    ...mapState({
+      storeSearchTerm: (state: any) => {
+        const { options } = state;
+        return options.query;
+      },
+    }),
   },
   methods: {
-    goToLink({ name, params }: { name: string; params: string }) {
-      return `/${name}/${params}`;
+    goToLink(asset: assetType) {
+      return `/${asset}/${this.storeSearchTerm}`;
     },
   },
 });
@@ -78,7 +76,7 @@ export default defineComponent({
             content: "";
             position: absolute;
             background: var(--ics-black);
-            bottom: 0; //TODO:: return to this
+            bottom: 0;
             width: 100%;
             height: 2px;
           }
