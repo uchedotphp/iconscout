@@ -3,9 +3,7 @@
     <nav>
       <ul class="d-flex align-items-center">
         <li>
-          <nuxt-link to="/">
-            <img src="~/assets/images/iconScout-logo.svg" />
-          </nuxt-link>
+          <BaseLogo />
         </li>
         <li>
           <TopHeaderSearch />
@@ -32,8 +30,9 @@ export default defineComponent({
 <style lang="scss" scoped>
 .top-header {
   position: sticky;
+  top: 0;
   z-index: 1000;
-  background-color: #ffffff;
+  background-color: var(--ics-white);
   padding: 12px 24px;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.08), 0px 8px 12px rgba(0, 0, 0, 0.04);
 
