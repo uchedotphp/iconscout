@@ -39,7 +39,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { mapState, mapMutations } from "vuex";
+import { mapState } from "vuex";
 
 export default defineComponent({
   name: "FiltersMenu",
@@ -47,9 +47,9 @@ export default defineComponent({
     ...mapState({ isExpanded: "isFilterPanelExpanded" }),
   },
   methods: {
-    ...mapMutations(["toggleFilterPanel"]),
     togglePanel() {
-      this.toggleFilterPanel();
+      this.$store.commit("toggleFilterPanel");
+      // this.toggleFilterPanel();
     },
   },
 });
