@@ -84,7 +84,7 @@ export const mutations = {
 }
 
 export const actions = {
-  async getSearchResults({ state, commit }: { state: any, commit: any }, payload: { per_page: number, page: number }) {
+  async getSearchResults({ state, commit }: { state: any, commit: any }): Promise<any> {
     try {
       const asset = state.options.asset
       const query = state.options.query
@@ -94,8 +94,7 @@ export const actions = {
       const per_page = state.options.per_page
       const page = state.options.page
       const formatAsset = asset === 'all' ? '3d' : asset;
-      console.log('per page: ', per_page);
-
+      // @ts-ignore
       const { response }: any = await this.$axios.$get(`search?query=${query}&product_type=${product_type}&asset=${formatAsset}&price=${price}&sort=${sort}&per_page=${per_page}&page=${page}`)
       console.log('after api call: ', response);
       if (response.items) {
