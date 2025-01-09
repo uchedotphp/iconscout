@@ -9,9 +9,7 @@
             <FiltersMenu />
           </b-col>
           <b-col>
-            <ScrollableArea
-              class="h-100 scroll-area"
-            >
+            <ScrollableArea class="h-100 scroll-area">
               <SecondaryNavigation />
             </ScrollableArea>
           </b-col>
@@ -27,8 +25,9 @@
             />
           </b-col>
           <b-col>
-            <div class="main-content">
-              <nuxt :key="$route.fullPath" />
+            <div class="main-content h-100">
+              <LoadingShimmer v-if="apiLoading" assetType="assets" />
+              <Nuxt v-else :key="$route.fullPath" />
             </div>
           </b-col>
         </b-row>
@@ -44,8 +43,12 @@ import { mapState } from "vuex";
 
 export default defineComponent({
   name: "DefaultLayout",
+  mounted() {
+    this.$store.commit("setSearchQuery", this.$route.params.keyword);
+  },
+
   computed: {
-    ...mapState(["isFilterPanelExpanded"]),
+    ...mapState(["isFilterPanelExpanded", "apiLoading"]),
   },
 });
 </script>
