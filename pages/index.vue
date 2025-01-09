@@ -1,33 +1,33 @@
 <template>
-  <!-- <div> -->
-    <Nuxt />
-  <!-- </div> -->
+  <div>
+    <h1>Welcome. Please put a search term in the input box to get started.</h1>
+  </div>
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
+import { defineComponent } from "vue";
+import { mapMutations } from "vuex";
 
-export default Vue.extend({
-  name: 'IndexPage',
-  data() {
-    return {
-      pageTitle: 'My assessement'
-    }
+export default defineComponent({
+  name: "Index",
+  mounted() {
+    console.log("mounting");
+    this.setSearchQuery("");
+    this.setAssetType("all-assets");
   },
-  head() {
-    return {
-      title: this.pageTitle,
-      meta: [
-        {
-          hid: 'description',
-          name: 'description',
-          content: 'This is the home page'
-        }
-      ]
-    }
-  }
-})
+
+  methods: {
+    ...mapMutations(["setSearchQuery", "setAssetType"]),
+  },
+});
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
+h1 {
+  color: var(--ics-black);
+  font-weight: 700;
+  text-align: center;
+  margin-top: 100px;
+  font-size: 24px;
+}
 </style>

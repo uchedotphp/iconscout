@@ -1,5 +1,5 @@
 <template>
-  <div class="error-page h-100">
+  <div class="error-page status-code h-100">
     <img src="~/assets/images/2079322.jpg" height="404px" alt="404 page" />
     <p>{{ error.message }}</p>
   </div>

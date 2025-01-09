@@ -1,56 +1,109 @@
 <template>
   <div class="header-search">
-    <button class="d-flex align-items-center">
-      <span> {{ computedCategory }} </span>
-      <img src="~/assets/images/down-arrow.svg" />
-    </button>
+    <span class="assets">
+      <DropdownBtn
+        :dropdownText="getCategoryName(storeAsset)"
+        :options="assetOptions"
+        id="filter-options"
+        @click="switchAsset"
+      />
+    </span>
+
     <div class="d-flex align-items-center search-cont">
-      <button>
-        <img src="~/assets/images/small-search.svg" alt="search button" />
-      </button>
+      <BaseBtn @click="performSearch" class="pl-0">
+        <template #iconLeft>
+          <img src="~/assets/images/small-search.svg" alt="search button" />
+        </template>
+      </BaseBtn>
       <input
         type="text"
-        v-model="searchQuery"
+        v-model.trim="searchTerm"
+        @keyup.enter="performSearch"
         placeholder="Search from 8 Million+ assets"
       />
     </div>
-    <button @click="performSearch" class="img-search">
-      <img src="~/assets/images/image-search-icon.svg" alt="search icon" />
-    </button>
+    <BaseBtn disabled>
+      <template #iconLeft>
+        <img src="~/assets/images/image-search-icon.svg" alt="search icon" />
+      </template>
+    </BaseBtn>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import { assetOptions } from "~/data/data";
+import { mapState, mapMutations } from "vuex";
+
+function getCategoryName(assetType: string): string {
+  const categoryMap: { [key: string]: string } = {
+    "3d": "3D",
+    lottie: "Animations",
+    illustrations: "Illustration",
+    icons: "Icons",
+  };
+  return categoryMap[assetType] || "All";
+}
+
+
 export default defineComponent({
   name: "TopHeaderSearch",
-
   data() {
     return {
-      searchQuery: "",
+      assetOptions,
+      searchTerm: "",
+      getCategoryName
     };
   },
-
+  mounted () {
+    this.searchTerm = this.storeSearchTerm;
+  },
   computed: {
-    routeSection() {
-      return this.$route.path.split("/")[1];
-    },
-    computedCategory(): string {
-      const keyword = this.routeSection;
-      const categoryMap: { [key: string]: string } = {
-        "3d-illustrations": "3D",
-        "lottie-animations": "Animations",
-        "illustrations": "Illustrations",
-        "icons": "Icons",
-      };
-      return categoryMap[keyword] || "All";
-    },
+    ...mapState({
+      storeAsset: (state: any) => {
+        const { options } = state;
+        const assetType = options.asset;
+        return assetType;
+      },
+      storeSearchTerm: (state: any) => {
+        const { options } = state;
+        return options.query;
+      },
+    }),
   },
 
   methods: {
+    ...mapMutations(["setSearchQuery", "setAssetType"]),
+    switchAsset(val: string) {
+      const formattedVal = val.toLowerCase().replace(/\s+/g, "-");
+      this.$store.commit("setAssetType", formattedVal);
+      console.log(formattedVal, this.storeSearchTerm);
+
+
+      if (this.storeSearchTerm) {
+        this.$router.push(
+        `/${formattedVal}/${this.storeSearchTerm}`
+      );
+      }
+    },
+
     performSearch() {
-      // Implement search logic here
-      console.log("Searching for:", this.searchQuery);
+      if (this.searchTerm.length) {
+        console.log('searcingg');
+
+        // this.setSearchQuery(this.searchTerm);
+        this.$store.commit("setSearchQuery", this.searchTerm);
+        const categoryMap: { [key: string]: string } = {
+          all: "all-assets",
+          "3d": "3d-illustrations",
+          lottie: "lottie-animations",
+          illustrations: "illustrations",
+          icons: "icons",
+        };
+        this.$router.push(
+          `/${categoryMap[this.storeAsset.toLowerCase()]}/${this.searchTerm}`
+        );
+      }
     },
   },
 });
@@ -66,21 +119,24 @@ export default defineComponent({
   align-items: center;
   padding-right: 10px;
 
-  button:first-of-type {
+  button {
     border: none;
-    padding-inline: 10px 9px;
+    padding: 0;
+  }
+
+  .assets {
+    padding: 8px 10px;
     font-weight: 600;
     border-right: 1px solid #b4bad6;
   }
 }
 
 .search-cont {
-  margin-right: 10px;
-  padding: 5px;
+  padding: 9px;
   flex: 1;
   button {
     border-right: none !important;
-    // background-color: red;
+    padding-right: 9px;
   }
   input {
     width: 100%;

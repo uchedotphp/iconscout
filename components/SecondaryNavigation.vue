@@ -70,7 +70,8 @@ export default defineComponent({
           color: var(--ics-black);
         }
 
-        &.nuxt-link-exact-active {
+        // &.nuxt-link-exact-active {
+        &.nuxt-link-active {
           color: var(--ics-black);
           &::before {
             content: "";

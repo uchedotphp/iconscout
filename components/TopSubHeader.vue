@@ -1,30 +1,52 @@
 <template>
   <div class="sub-header">
-    <h1>237 {{ searchedKeyword }} {{ computedCategory }}</h1>
-    <h2>248 3Ds exclusively selected by our designer community.</h2>
+    <h1>
+      <template v-if="apiLoading">
+        {{ searchedKeyword }} {{ computedCategory }}...
+      </template>
+      <template v-else>
+        {{ totalAssetCount }} {{ searchedKeyword }} {{ computedCategory }}
+      </template>
+    </h1>
+    <h2 v-if="!apiLoading">
+      {{ totalAssetCount }} {{ computedCategory }} exclusively selected by our designer community.
+    </h2>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
-import { mapGetters } from 'vuex'
+import { mapState, mapGetters } from "vuex";
 
 export default Vue.extend({
   name: "TopSubHeader",
   computed: {
-    ...mapGetters(["searchedQuery"]),
+    ...mapState(['apiLoading']),
+    ...mapState({
+      searchQuery: (state: any) => {
+        const { options } = state;
+        return options.query;
+      },
+      // totalAssetCount: (state: any) => {
+      //   const { apiResponse } = state;
+      //   return Number(apiResponse.total)?.toLocaleString();
+      // },
+    }),
+
+    ...mapGetters(['totalAssetCount']),
+
     searchedKeyword() {
-      return this.$route.params.keyword
-        ? this.$route.params.keyword.charAt(0).toUpperCase() +
-            this.$route.params.keyword.slice(1)
+      return this.searchQuery
+        ? this.searchQuery.charAt(0).toUpperCase() + this.searchQuery.slice(1)
         : "";
     },
-    routeSection() {
+
+    routeSection(): string {
       return this.$route.path.split("/")[1];
     },
 
     computedCategory(): string {
-      const keyword = this.routeSection;
+      const keyword = this.routeSection as string;
       const availableCategories = [
         "3d-illustrations",
         "lottie-animations",
@@ -61,6 +83,7 @@ export default Vue.extend({
     font-weight: 700;
     line-height: 52.5px;
     padding-bottom: 4px;
+    text-transform: capitalize;
   }
 
   h2 {
