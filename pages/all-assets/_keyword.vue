@@ -143,13 +143,13 @@ export default Vue.extend({
     },
     calculateTwoFoldHeight() {
       // Get the height of the tiles container
-      const tilesContainer = this.$refs.tilesContainer;
-      console.log("the tiles container: ", tilesContainer.offsetHeight);
+      // const tilesContainer = this.$refs.tilesContainer;
+      // console.log("the tiles container: ", tilesContainer.offsetHeight);
 
-      if (tilesContainer) {
-        this.twoFoldHeight = 2 * tilesContainer.offsetHeight;
-        console.log("2 folds: ", this.twoFoldHeight);
-      }
+      // if (tilesContainer) {
+      //   this.twoFoldHeight = 2 * tilesContainer.offsetHeight;
+      //   console.log("2 folds: ", this.twoFoldHeight);
+      // }
     },
 
     handleScroll() {
