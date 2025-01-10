@@ -1,6 +1,6 @@
 <template>
   <div class="welcome">
-    <h1 class="text-capitalize">Million+ in {{ ads }} available</h1>
+    <h1 class="text-capitalize">Million+ of {{ ads }} available</h1>
     <div class="d-flex justify-content-center search-area">
       <TopHeaderSearch class="w-100" />
     </div>
@@ -49,25 +49,9 @@ export default Vue.extend({
       asset: (state: any) => state.options.asset,
     }),
     ads(): string {
-      let text = "";
-      switch (this.asset) {
-        case "3d":
-          text = "3D Illustrations";
-          break;
-        case "lottie":
-          text = "Lottie Animations";
-          break;
-        case "illustration":
-          text = "Illustrations";
-          break;
-        case "icon":
-          text = "Icons";
-          break;
-        default:
-          text = "assets";
-          break;
-      }
-      return text;
+      return this.asset === "all-assets"
+        ? "assets"
+        : this.asset.replace(/-/g, " ");
     },
   },
 

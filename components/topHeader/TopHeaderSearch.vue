@@ -8,7 +8,6 @@
         @click="switchAsset"
       />
     </span>
-
     <div class="d-flex align-items-center search-cont">
       <BaseBtn @click="performSearch" class="pl-0">
         <template #iconLeft>
@@ -39,9 +38,9 @@ import { mapState, mapMutations, mapActions } from "vuex";
 
 function getCategoryName(assetType: string): string {
   const categoryMap: { [key: string]: string } = {
-    "3d": "3D",
-    lottie: "Animations",
-    illustrations: "Illustration",
+    "3d-illustrations": "3D",
+    'lottie-animations': "Animations",
+    illustrations: "Illustrations",
     icons: "Icons",
   };
   return categoryMap[assetType] || "All";
@@ -71,24 +70,10 @@ export default Vue.extend({
       currentPage: (state: any) => state.apiResponse.current_page,
     }),
     placeHolderText(): string {
-      let text = "";
-      switch (this.storeAsset) {
-        case "3d":
-          text = "3D Illustrations";
-          break;
-        case "lottie":
-          text = "Lottie Animations";
-          break;
-        case "illustration":
-          text = "Illustrations";
-          break;
-        case "icon":
-          text = "Icons";
-          break;
-        default:
-          text = "assets";
-          break;
-      }
+      const text =
+        this.storeAsset === "all-assets"
+          ? "assets"
+          : this.storeAsset.replace(/-/g, " ");
       return `Search from Million+ of ${text}`;
     },
   },
@@ -117,10 +102,10 @@ export default Vue.extend({
     ...mapActions(["loadMoreResults"]),
     ...mapMutations([
       "setSearchQuery",
-      "setAssetType",
       "setApiLoading",
       "setSearchQuery",
       "setPageOption",
+      "updateAnOptionProperty",
     ]),
     handleFocus() {
       this.isFocused = true;
@@ -130,10 +115,10 @@ export default Vue.extend({
       this.isFocused = false;
     },
     switchAsset(val: string) {
-      const formattedVal = val.toLowerCase().replace(/\s+/g, "-");
-      this.$store.commit("setAssetType", formattedVal);
-      console.log(formattedVal, this.storeSearchTerm);
 
+      const formattedVal = val.toLowerCase().replace(/\s+/g, "-");
+      console.log('value: ', formattedVal);
+      this.updateAnOptionProperty({ key: "asset", value: formattedVal });
       if (this.storeSearchTerm) {
         this.$router.push(`/${formattedVal}/${this.storeSearchTerm}`);
       }
