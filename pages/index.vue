@@ -8,7 +8,7 @@
     <div class="text-center mt-2">
       Trending:
       <span v-for="(trend, index) in trending" :key="trend">
-        <NuxtLink :to="goToLink(asset)" class="font-weight-bold">{{
+        <NuxtLink :to="goToLink(trend)" class="font-weight-bold">{{
           trend
         }}</NuxtLink
         ><span v-if="index !== trending.length - 1" class="mr-1">,</span>
