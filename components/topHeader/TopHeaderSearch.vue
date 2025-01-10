@@ -31,9 +31,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import Vue from "vue";
 import { assetOptions } from "~/data/data";
-import { mapState, mapMutations } from "vuex";
+import { mapState, mapMutations, mapActions } from "vuex";
 
 function getCategoryName(assetType: string): string {
   const categoryMap: { [key: string]: string } = {
@@ -45,17 +45,16 @@ function getCategoryName(assetType: string): string {
   return categoryMap[assetType] || "All";
 }
 
-
-export default defineComponent({
+export default Vue.extend({
   name: "TopHeaderSearch",
   data() {
     return {
       assetOptions,
       searchTerm: "",
-      getCategoryName
+      getCategoryName,
     };
   },
-  mounted () {
+  mounted() {
     this.searchTerm = this.storeSearchTerm;
   },
   computed: {
@@ -65,31 +64,54 @@ export default defineComponent({
         const assetType = options.asset;
         return assetType;
       },
-      storeSearchTerm: (state: any) => {
-        const { options } = state;
-        return options.query;
-      },
+      storeSearchTerm: (state: any) => state.options.query,
+      currentPage: (state: any) => state.apiResponse.current_page,
     }),
   },
 
+  watch: {
+    "$route.param.keyword": {
+      immediate: false, // Run on component mount
+      async handler(newQuery) {
+        this.setApiLoading(true);
+        try {
+          // const val = this.$route.params.keyword;
+          // this.setPageOption(this.currentPage.current_page + 1);
+          // console.log("page option: ", this.currentPage.current_page);
+          // this.setSearchQuery(val);
+          // await this.loadMoreResults();
+          console.log('about to rerun search');
+
+        } catch (error) {
+          console.log("error fetching more data: ", error);
+        }
+        this.setApiLoading(false);
+      },
+    },
+  },
+
   methods: {
-    ...mapMutations(["setSearchQuery", "setAssetType"]),
+    ...mapActions(["loadMoreResults"]),
+    ...mapMutations([
+      "setSearchQuery",
+      "setAssetType",
+      "setApiLoading",
+      "setSearchQuery",
+      "setPageOption",
+    ]),
     switchAsset(val: string) {
       const formattedVal = val.toLowerCase().replace(/\s+/g, "-");
       this.$store.commit("setAssetType", formattedVal);
       console.log(formattedVal, this.storeSearchTerm);
 
-
       if (this.storeSearchTerm) {
-        this.$router.push(
-        `/${formattedVal}/${this.storeSearchTerm}`
-      );
+        this.$router.push(`/${formattedVal}/${this.storeSearchTerm}`);
       }
     },
 
     performSearch() {
       if (this.searchTerm.length) {
-        console.log('searcingg');
+        console.log("searcingg");
 
         // this.setSearchQuery(this.searchTerm);
         this.$store.commit("setSearchQuery", this.searchTerm);

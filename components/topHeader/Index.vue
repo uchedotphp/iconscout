@@ -5,7 +5,7 @@
         <li>
           <BaseLogo />
         </li>
-        <li>
+        <li v-if="!hideSearch">
           <TopHeaderSearch />
         </li>
         <li>
@@ -24,6 +24,12 @@ import { defineComponent } from "vue";
 
 export default defineComponent({
   name: "TopHeader",
+  props: {
+    hideSearch: {
+      type: Boolean,
+      default: false,
+    },
+  },
 });
 </script>
 

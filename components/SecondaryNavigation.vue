@@ -6,26 +6,29 @@
         :key="id"
         class="h-100 d-flex align-items-center"
       >
-        <NuxtLink :to="goToLink(asset)" class="h-100 nav-item">{{
-          title
-        }}</NuxtLink>
+        <NuxtLink
+          :to="goToLink(asset)"
+          @click.native="setAsset(asset)"
+          class="h-100 nav-item"
+          >{{ title }}</NuxtLink
+        >
       </li>
     </ul>
   </nav>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import Vue from "vue";
 import { navItems } from "~/data/data";
 import type { assetType } from "~/data/dataTypes";
-import { mapState } from "vuex";
+import { mapState, mapMutations } from "vuex";
 
 interface NavigationItem {
   id: number;
   asset: assetType;
   title: string;
 }
-export default defineComponent({
+export default Vue.extend({
   name: "SecondaryNavigation",
   data() {
     return {
@@ -41,6 +44,10 @@ export default defineComponent({
     }),
   },
   methods: {
+    ...mapMutations(["setAssetType"]),
+    setAsset(param: assetType) {
+      this.setAssetType(param);
+    },
     goToLink(asset: assetType) {
       return `/${asset}/${this.storeSearchTerm}`;
     },

@@ -30,7 +30,7 @@ export default defineComponent({
     };
   },
   mounted() {
-    console.log("the data: ", this.data);
+    // console.log("the data: ", this.data);
   },
   computed: {
     ...mapState({ filteredOptions: "options" }),
@@ -54,7 +54,7 @@ export default defineComponent({
   position: relative;
   display: block;
   cursor: pointer;
-  height: 140px;
+  height: 210px;
   // transition: background-color 0.3s ease;
   overflow: hidden;
   // box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);

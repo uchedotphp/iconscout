@@ -1,18 +1,35 @@
-import type { prices, sortOptions, viewOptions } from '~/data/dataTypes';
+import type { shorthandAssetType, prices, sortOptions, viewOptions } from '~/data/dataTypes';
+
+interface State {
+  isLoggedIn: boolean;
+  isFilterPanelExpanded: boolean;
+  apiResponse: any;
+  apiLoading: boolean;
+  options: {
+    per_page: number;
+    page: number;
+    sort: sortOptions;
+    asset: shorthandAssetType;
+    query: string;
+    view: viewOptions
+    price: prices;
+    [key: string]: string | number | any;
+  };
+}
 
 export const state = () => ({
-  isLoggedIn: false as boolean,
-  isFilterPanelExpanded: true as boolean,
+  isLoggedIn: false,
+  isFilterPanelExpanded: true,
   options: {
-    asset: 'all' as 'all' | '3d' | 'illustration' | 'lottie' | 'icon',
-    price: 'premium' as prices,
-    // view: 'pack' as viewOptions,
-    sort: 'popular' as sortOptions,
-    query: '' as string,
-    per_page: 20 as number,
-    page: 1 as number,
+    asset: 'all',
+    price: 'premium',
+    view: 'pack',
+    sort: 'popular',
+    query: '',
+    per_page: 20,
+    page: 1,
   },
-  apiLoading: false as boolean,
+  apiLoading: false,
   apiResponse: {
     data: [],
     current_page: 0,
@@ -31,14 +48,17 @@ export const state = () => ({
 export const getters = {
   apiData: (state: { apiResponse: any }) => state.apiResponse.data,
   totalAssetCount: (state: { apiResponse: any }) => state.apiResponse.total.toLocaleString(),
+  pagesRemaing(state: { apiResponse: any }) {
+    return state.apiResponse.last_page - state.apiResponse.current_page
+  }
 }
 
 export const mutations = {
-  toggleFilterPanel(state: { isFilterPanelExpanded: boolean }) {
+  toggleFilterPanel(state: State) {
     state.isFilterPanelExpanded = !state.isFilterPanelExpanded
   },
 
-  setAssetType(state: { options: { asset: string } }, payload: string) {
+  setAssetType(state: State, payload: string) {
     console.log('payload', payload);
 
     const categoryMap: { [key: string]: string } = {
@@ -49,43 +69,79 @@ export const mutations = {
       icons: "icon",
     };
     const asset = categoryMap[payload];
-    state.options.asset = asset
+    state.options.asset = asset as shorthandAssetType
   },
 
-  setSearchQuery(state: { options: { query: string } }, payload: string) {
+  setSearchQuery(state: State, payload: string) {
     console.log('setting query: ', payload);
 
     state.options.query = payload;
   },
 
-  setSort(state: { options: { sort: string } }, payload: sortOptions) {
+  setSort(state: State, payload: sortOptions) {
     state.options.sort = payload;
   },
 
-  logInUser(state: { isLoggedIn: boolean }) {
+  logInUser(state: State) {
     state.isLoggedIn = true;
   },
 
-  setApiResponse(state: { apiResponse: any }, payload: any) {
+  setApiResponse(state: State, payload: any) {
     state.apiResponse = payload
   },
 
-  setApiLoading(state: { apiLoading: boolean }, payload: boolean) {
+  setApiLoading(state: State, payload: boolean) {
     state.apiLoading = payload
   },
 
-  setPerPageOption(state: {  options: { per_page: number } }, payload: number) {
+  setPerPageOption(state: State, payload: number) {
     state.options.per_page = payload
   },
 
-  setPageOption(state: {  options: { current_page: number } }, payload: number) {
-    state.options.current_page = payload
+  setPageOption(state: State, payload: number) {
+    console.log('setting page: ', payload);
+    state.options.page + payload
+  },
+
+  updateAnOptionProperty(state: State, payload: { key: string, value: string | number }) {
+    state.options[payload.key] = payload.value
   }
 }
 
 export const actions = {
-  async getSearchResults({ state, commit }: { state: any, commit: any }): Promise<any> {
+  async getSearchResults({ state, commit }: { state: State, commit: any }, payload = { loadMoreData: false }): Promise<any> {
+    const { loadMoreData } = payload; // loadMoreData is a boolean that determines if the user is loading more data
+    const product_type = 'item'
+    console.log('loadMoreData: ', loadMoreData);
+
     try {
+      // let result;
+      // if (!loadMoreData) {
+      //   const { asset, query, price, page, per_page, sort } = state.options;
+      //   const formatAsset = asset === 'all' ? '3d' : asset;
+      //   // @ts-ignore
+      //   result = await this.$axios.$get(`search?query=${query}&product_type=${product_type}&asset=${formatAsset}&price=${price}&sort=${sort}&per_page=${per_page}&page=${page}`)
+      //   if (result.response.items) {
+      //     commit('setApiResponse', result.response.items)
+      //   }
+      // } else {
+      //   commit('updateAnOptionProperty', { key: 'page', value: state.apiResponse.current_page + 1 })
+      //   const currentItems = state.apiResponse.data;
+      //   const { asset, query, price, page, per_page, sort } = state.options;
+      //   const formatAsset = asset === 'all' ? '3d' : asset;
+      //   // @ts-ignore
+      //   result = await this.$axios.$get(`search?query=${query}&product_type=${product_type}&asset=${formatAsset}&price=${price}&sort=${sort}&per_page=${per_page}&page=${page}`)
+      //   commit('setApiResponse', { ...state.apiResponse, data: [...currentItems, ...result.response.items.data] })
+      // }
+      // return response.items
+    } catch (error) {
+      console.log('an error occurs: ', error);
+    }
+  },
+
+  async loadMoreResults({ state, commit, dispatch }: { state: any, commit: any, dispatch: any }): Promise<any> {
+    try {
+      commit('setPageOption', state.options.page + 1)
       const asset = state.options.asset
       const query = state.options.query
       const price = state.options.price
@@ -96,14 +152,9 @@ export const actions = {
       const formatAsset = asset === 'all' ? '3d' : asset;
       // @ts-ignore
       const { response }: any = await this.$axios.$get(`search?query=${query}&product_type=${product_type}&asset=${formatAsset}&price=${price}&sort=${sort}&per_page=${per_page}&page=${page}`)
-      console.log('after api call: ', response);
-      if (response.items) {
-        commit('setApiResponse', response.items)
-      }
-      return response.items
-
+      commit('setApiResponse', { ...response.items, data: [...state.apiResponse.data, ...response.items.data] })
     } catch (error) {
       console.log('an error occurs: ', error);
     }
-  },
+  }
 }

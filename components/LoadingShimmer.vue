@@ -1,74 +1,74 @@
 <template>
-  <div class="contt" :class="[assetType === 'assets' ? 'assets' : 'icons']">
+  <div class="contt" :class="[assetType === 'icons' ? 'icons' : 'assets']">
     <div
       class="loading-shimmer"
-      :class="[assetType === 'assets' ? 'assets' : 'icons']"
+      :class="[assetType === 'icons' ? 'icons' : 'assets']"
     >
       <div class="shimmer"></div>
     </div>
     <div
       class="loading-shimmer"
-      :class="[assetType === 'assets' ? 'assets' : 'icons']"
+      :class="[assetType === 'icons' ? 'icons' : 'assets']"
     >
       <div class="shimmer"></div>
     </div>
     <div
       class="loading-shimmer"
-      :class="[assetType === 'assets' ? 'assets' : 'icons']"
+      :class="[assetType === 'icons' ? 'icons' : 'assets']"
     >
       <div class="shimmer"></div>
     </div>
     <div
       class="loading-shimmer"
-      :class="[assetType === 'assets' ? 'assets' : 'icons']"
+      :class="[assetType === 'icons' ? 'icons' : 'assets']"
     >
       <div class="shimmer"></div>
     </div>
     <div
       class="loading-shimmer"
-      :class="[assetType === 'assets' ? 'assets' : 'icons']"
+      :class="[assetType === 'icons' ? 'icons' : 'assets']"
     >
       <div class="shimmer"></div>
     </div>
     <div
       class="loading-shimmer"
-      :class="[assetType === 'assets' ? 'assets' : 'icons']"
+      :class="[assetType === 'icons' ? 'icons' : 'assets']"
     >
       <div class="shimmer"></div>
     </div>
     <div
       class="loading-shimmer"
-      :class="[assetType === 'assets' ? 'assets' : 'icons']"
+      :class="[assetType === 'icons' ? 'icons' : 'assets']"
     >
       <div class="shimmer"></div>
     </div>
     <div
       class="loading-shimmer"
-      :class="[assetType === 'assets' ? 'assets' : 'icons']"
+      :class="[assetType === 'icons' ? 'icons' : 'assets']"
     >
       <div class="shimmer"></div>
     </div>
     <div
       class="loading-shimmer"
-      :class="[assetType === 'assets' ? 'assets' : 'icons']"
+      :class="[assetType === 'icons' ? 'icons' : 'assets']"
     >
       <div class="shimmer"></div>
     </div>
     <div
       class="loading-shimmer"
-      :class="[assetType === 'assets' ? 'assets' : 'icons']"
+      :class="[assetType === 'icons' ? 'icons' : 'assets']"
     >
       <div class="shimmer"></div>
     </div>
     <div
       class="loading-shimmer"
-      :class="[assetType === 'assets' ? 'assets' : 'icons']"
+      :class="[assetType === 'icons' ? 'icons' : 'assets']"
     >
       <div class="shimmer"></div>
     </div>
     <div
       class="loading-shimmer"
-      :class="[assetType === 'assets' ? 'assets' : 'icons']"
+      :class="[assetType === 'icons' ? 'icons' : 'assets']"
     >
       <div class="shimmer"></div>
     </div>
@@ -76,15 +76,20 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from "vue";
+// import { PropType } from "vue";
+import Vue from "vue";
+import { mapState } from 'vuex'
 
-export default defineComponent({
+export default Vue.extend({
   name: "LoadingShimmer",
-  props: {
-    assetType: {
-      type: String as PropType<"icons" | "assets">,
-      required: true,
-    },
+  computed: {
+    ...mapState({
+      assetType: (state: any) => {
+        const { options } = state;
+        const assetType = options.asset;
+        return assetType;
+      },
+    }),
   },
 });
 </script>

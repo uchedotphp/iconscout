@@ -1,6 +1,5 @@
 <template>
   <div class="result-view">
-    <!-- scroll menu -->
     <div
       style="position: relative; height: 38px; margin-top: 13px"
       class="align-items-center"
@@ -23,6 +22,11 @@
           <CardData :data="item" />
         </div>
       </div>
+
+      <!-- infinite scroll -->
+      <div ref="infiniteScrollTrigger" class="loading-trigger" v-if="!isEnd">
+        <span v-if="isLoadingMoreData">Loading more animations...</span>
+      </div>
     </section>
 
     <StopView v-if="showLoginRegister" />
@@ -42,24 +46,9 @@ export default Vue.extend({
     return {
       pageTitle: "All Assets",
       searchSuggestions,
-      assetData: {
-        "3D Illustrations": {
-          id: 1,
-          data: [],
-        },
-        Animations: {
-          id: 2,
-          data: [],
-        },
-        Illustrations: {
-          id: 3,
-          data: [],
-        },
-        Icons: {
-          id: 4,
-          data: [],
-        },
-      },
+      isEnd: false,
+      isLoadingMoreData: false,
+
       showGetStartedOverlay: false,
       scrolledFolds: 0,
       lastScrollTop: 0,
@@ -85,8 +74,7 @@ export default Vue.extend({
     store.commit("setApiLoading", true);
     try {
       const res = await store.dispatch("getSearchResults", {
-        per_page: 20,
-        page: 1,
+        loadMoreData: true,
       });
       console.log("fetching data pos: ", res);
     } catch (error) {
@@ -99,22 +87,20 @@ export default Vue.extend({
     ...mapState({
       filteredOptions: "options",
       isUserLoggedIn: "isLoggedIn",
+      apiResponse: "apiResponse",
     }),
-    ...mapGetters({ data: "apiData" }),
+    ...mapGetters({ data: "apiData", pagesLeft: "pagesRemaing" }),
   },
 
   mounted() {
-    // const query = this.$route.params.keyword;
-    // if (query) {
-    //   this.setSearchQuery(query);
-    // }
-    // window.addEventListener("scroll", this.handleScroll);
+    try {
+      this.setupObserver();
+    } catch (error) {
+      console.log("error setting up observer: ", error);
+    }
 
     if (!this.isUserLoggedIn) {
       console.log("not logged in");
-
-      // window.addEventListener("scroll", this.handleScroll);
-      // this.calculateTwoFoldHeight();
     }
 
     // this.$nextTick(() => {
@@ -129,37 +115,49 @@ export default Vue.extend({
   // },
 
   methods: {
-    ...mapMutations(["setSearchQuery", "setApiLoading"]),
-    ...mapActions(["getSearchResults"]),
+    ...mapMutations([
+      "setSearchQuery",
+      "setApiLoading",
+      "setPerPageOption",
+      "setPageOption",
+      "updateAnOptionProperty",
+    ]),
+    ...mapActions(["getSearchResults", "loadMoreResults"]),
     async getSearchSuggestion(val: string) {
       this.setApiLoading(true);
       try {
-        this.setSearchQuery(val);
+        this.updateAnOptionProperty({ key: "query", value: val });
         await this.getSearchResults();
       } catch (error) {
         console.log("error getting search suggestion: ", error);
       }
       this.setApiLoading(false);
     },
-    calculateTwoFoldHeight() {
-      // Get the height of the tiles container
-      // const tilesContainer = this.$refs.tilesContainer;
-      // console.log("the tiles container: ", tilesContainer.offsetHeight);
 
-      // if (tilesContainer) {
-      //   this.twoFoldHeight = 2 * tilesContainer.offsetHeight;
-      //   console.log("2 folds: ", this.twoFoldHeight);
-      // }
-    },
-
-    handleScroll() {
-      console.log("scrolling: ", this.twoFoldHeight);
-
-      // Check if the scroll position exceeds the two-fold height
-      if (window.scrollY >= this.twoFoldHeight) {
-        this.showLoginRegister = true;
-      } else {
-        this.showLoginRegister = false;
+    setupObserver() {
+      const options = {
+        root: null,
+        rootMargin: "0px",
+        threshold: 0.1,
+      };
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(async (entry) => {
+          if (entry.isIntersecting) {
+            this.setApiLoading(true);
+            try {
+              const val = this.$route.params.keyword;
+              this.updateAnOptionProperty({ key: "query", value: val });
+              await this.getSearchResults({ loadMoreData: true });
+            } catch (error) {
+              console.log("error fetching more data: ", error);
+            }
+            this.setApiLoading(false);
+          }
+        });
+      }, options);
+      const infiniteScrollTrigger = this.$refs.infiniteScrollTrigger as Element;
+      if (infiniteScrollTrigger) {
+        observer.observe(infiniteScrollTrigger);
       }
     },
   },

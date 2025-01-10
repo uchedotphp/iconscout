@@ -26,7 +26,7 @@
           </b-col>
           <b-col>
             <div class="main-content h-100">
-              <LoadingShimmer v-if="apiLoading" assetType="assets" />
+              <LoadingShimmer v-if="apiLoading" />
               <Nuxt v-else :key="$route.fullPath" />
             </div>
           </b-col>
@@ -38,17 +38,29 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import { mapState } from "vuex";
+import Vue from "vue";
+import { mapState, mapMutations } from "vuex";
 
-export default defineComponent({
+export default Vue.extend({
   name: "DefaultLayout",
   mounted() {
-    this.$store.commit("setSearchQuery", this.$route.params.keyword);
+    this.updateAnOptionProperty({
+      key: "query",
+      value: this.$route.params.keyword,
+    });
   },
 
   computed: {
-    ...mapState(["isFilterPanelExpanded", "apiLoading"]),
+    ...mapState(["isFilterPanelExpanded", "apiLoading", "options"]),
+    // ...mapState({
+    //   assetType: (state: any) => {
+    //     const { options } = state;
+    //     return options.asset;
+    //   },
+    // }),
+  },
+  methods: {
+    ...mapMutations(["updateAnOptionProperty"]),
   },
 });
 </script>

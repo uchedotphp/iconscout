@@ -1,8 +1,8 @@
 <template>
-  <div class="wrapper">
-    <TopHeader />
+  <div class="container-fluid px-0 wrapper">
+    <TopHeader :hideSearch="true" />
     <main>
-      <nuxt :key="$route.fullPath" />
+      <Nuxt :key="$route.fullPath" />
     </main>
   </div>
 </template>
@@ -14,3 +14,6 @@ export default defineComponent({
   name: "DefaultLayout",
 });
 </script>
+
+<style lang="scss" scoped>
+</style>
