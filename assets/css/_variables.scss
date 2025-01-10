@@ -1,4 +1,5 @@
 :root {
+  // colors
   --ics-blue: #0092e4;
   --ics-light-blue: #0058e3;
   --ics-gray-blue: #2f72bc;
@@ -10,4 +11,10 @@
   --ics-hover: #ebedf5;
   --ics-white: #ffffff;
   --ics-offwhite: #fcfcff;
+
+  // fonts sizes
+  --ics-font-size-sm: 1rem; // 14px
+  --ics-font-size-md: 1.14285714286rem; // 16px
+  --ics-font-size-lg: 1.5rem; // 21px
+  --ics-font-size-xl: 1.71428571429rem; //24px
 }

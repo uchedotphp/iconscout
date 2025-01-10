@@ -1,5 +1,5 @@
 @use "./global";
-@use "./colors";
+@use "./variables";
 @use "./typography";
 
 @font-face {
@@ -71,7 +71,7 @@
 
   h2 {
     font-family: "Averta Std", sans-serif;
-    font-size: 24px;
+    font-size: var(--ics-font-size-xl);
     font-weight: 600;
     line-height: 29.66px;
     padding-bottom: 14px;

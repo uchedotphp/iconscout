@@ -90,7 +90,11 @@ body {
   color: var(--ics-light-black);
   font-family: "Averta Std", sans-serif;
   font-weight: 400;
+  font-size: 14px;
   line-height: 1.5;
+  transition:
+    color 0.5s,
+    background-color 0.5s;
 }
 
 body {
