@@ -1,6 +1,6 @@
 <template>
   <div class="welcome">
-    <h1>Million+ in Design Assets available</h1>
+    <h1 class="text-capitalize">Million+ in {{ ads }} available</h1>
     <div class="d-flex justify-content-center search-area">
       <TopHeaderSearch class="w-100" />
     </div>
@@ -20,7 +20,6 @@
 <script lang="ts">
 import Vue from "vue";
 import { mapState, mapMutations } from "vuex";
-import type { assetType } from "~/data/dataTypes";
 
 export default Vue.extend({
   name: "Index",
@@ -49,6 +48,27 @@ export default Vue.extend({
     ...mapState({
       asset: (state: any) => state.options.asset,
     }),
+    ads(): string {
+      let text = "";
+      switch (this.asset) {
+        case "3d":
+          text = "3D Illustrations";
+          break;
+        case "lottie":
+          text = "Lottie Animations";
+          break;
+        case "illustration":
+          text = "Illustrations";
+          break;
+        case "icon":
+          text = "Icons";
+          break;
+        default:
+          text = "assets";
+          break;
+      }
+      return text;
+    },
   },
 
   methods: {
