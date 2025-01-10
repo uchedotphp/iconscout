@@ -1,11 +1,11 @@
 <template>
   <div class="d-flex align-items-center registration-buttons">
-    <BaseAvatar v-if="isUserLoggedIn" />
+    <BaseAvatar v-if="isUserLoggedIn" @click="handleLogin('logout')" />
     <template v-else>
-      <BaseBtn @click="handleLogin" class="login">
+      <BaseBtn @click="handleLogin('login')" class="login">
         <template #label> Login </template>
       </BaseBtn>
-      <BaseBtn @click="handleRegister" class="register">
+      <BaseBtn @click="handleLogin('login')" class="register">
         <template #label> Signup </template>
       </BaseBtn>
     </template>
@@ -13,20 +13,18 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import { mapState } from "vuex";
+import Vue from "vue";
+import { mapState, mapMutations } from "vuex";
 
-export default defineComponent({
+export default Vue.extend({
   name: "TopHeaderRegistrationBtns",
   computed: {
     ...mapState({ isUserLoggedIn: "isLoggedIn" }),
   },
   methods: {
-    handleLogin() {
-      this.$store.commit("logInUser");
-    },
-    handleRegister() {
-      this.$store.commit("logInUser");
+    ...mapMutations(["toggleLogin"]),
+    handleLogin(type: "login" | "signup" | "logout") {
+      this.toggleLogin(type);
     },
   },
 });
