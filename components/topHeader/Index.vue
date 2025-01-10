@@ -6,7 +6,7 @@
           <BaseLogo />
         </li>
         <li v-if="!hideSearch">
-          <TopHeaderSearch />
+          <Search />
         </li>
         <li>
           <TopHeaderLinks />
