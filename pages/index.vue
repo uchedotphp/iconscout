@@ -2,7 +2,7 @@
   <div class="welcome">
     <h1 class="text-capitalize">Million+ of {{ ads }} available</h1>
     <div class="d-flex justify-content-center search-area">
-      <TopHeaderSearch class="w-100" />
+      <Search class="w-100" />
     </div>
 
     <div class="text-center mt-2">
