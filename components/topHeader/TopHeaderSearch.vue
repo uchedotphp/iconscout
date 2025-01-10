@@ -1,5 +1,5 @@
 <template>
-  <div class="header-search">
+  <div :class="['header-search', { 'header-search-focused': isFocused }]">
     <span class="assets">
       <DropdownBtn
         :dropdownText="getCategoryName(storeAsset)"
@@ -18,6 +18,8 @@
       <input
         type="text"
         v-model.trim="searchTerm"
+        @focus="handleFocus"
+        @blur="handleBlur"
         @keyup.enter="performSearch"
         placeholder="Search from 8 Million+ assets"
       />
@@ -52,6 +54,7 @@ export default Vue.extend({
       assetOptions,
       searchTerm: "",
       getCategoryName,
+      isFocused: false,
     };
   },
   mounted() {
@@ -80,8 +83,7 @@ export default Vue.extend({
           // console.log("page option: ", this.currentPage.current_page);
           // this.setSearchQuery(val);
           // await this.loadMoreResults();
-          console.log('about to rerun search');
-
+          console.log("about to rerun search");
         } catch (error) {
           console.log("error fetching more data: ", error);
         }
@@ -99,6 +101,13 @@ export default Vue.extend({
       "setSearchQuery",
       "setPageOption",
     ]),
+    handleFocus() {
+      this.isFocused = true;
+      console.log("focused: ", this.isFocused);
+    },
+    handleBlur() {
+      this.isFocused = false;
+    },
     switchAsset(val: string) {
       const formattedVal = val.toLowerCase().replace(/\s+/g, "-");
       this.$store.commit("setAssetType", formattedVal);
@@ -151,6 +160,10 @@ export default Vue.extend({
     font-weight: 600;
     border-right: 1px solid #b4bad6;
   }
+}
+
+.header-search-focused {
+  outline: 1px solid #0092e4;
 }
 
 .search-cont {
