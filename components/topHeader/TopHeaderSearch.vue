@@ -21,7 +21,7 @@
         @focus="handleFocus"
         @blur="handleBlur"
         @keyup.enter="performSearch"
-        placeholder="Search from 8 Million+ assets"
+        :placeholder="placeHolderText"
       />
     </div>
     <BaseBtn disabled>
@@ -70,6 +70,13 @@ export default Vue.extend({
       storeSearchTerm: (state: any) => state.options.query,
       currentPage: (state: any) => state.apiResponse.current_page,
     }),
+    placeHolderText(): string {
+      const text =
+        this.storeAsset === "all-assets"
+          ? "assets"
+          : this.storeAsset.replace(/-/g, " ");
+      return `Search from Million+ of ${text}`;
+    },
   },
 
   watch: {
