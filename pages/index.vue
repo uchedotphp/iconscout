@@ -1,6 +1,6 @@
 <template>
   <div class="welcome">
-    <h1>Over 10.3 Million+ Design Assets</h1>
+    <h1>Million+ in Design Assets available</h1>
     <div class="d-flex justify-content-center search-area">
       <TopHeaderSearch class="w-100" />
     </div>
