@@ -71,10 +71,24 @@ export default Vue.extend({
       currentPage: (state: any) => state.apiResponse.current_page,
     }),
     placeHolderText(): string {
-      const text =
-        this.storeAsset === "all-assets"
-          ? "assets"
-          : this.storeAsset.replace(/-/g, " ");
+      let text = "";
+      switch (this.storeAsset) {
+        case "3d":
+          text = "3D Illustrations";
+          break;
+        case "lottie":
+          text = "Lottie Animations";
+          break;
+        case "illustration":
+          text = "Illustrations";
+          break;
+        case "icon":
+          text = "Icons";
+          break;
+        default:
+          text = "assets";
+          break;
+      }
       return `Search from Million+ of ${text}`;
     },
   },
