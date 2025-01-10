@@ -80,6 +80,7 @@ export default defineComponent({
   border-radius: 9999px;
   background: #fafafc;
   border: 3px solid var(--ics-blue);
+  cursor: pointer;
 
   span {
     font-size: 14px;
