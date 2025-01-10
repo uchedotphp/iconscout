@@ -82,8 +82,8 @@ export const mutations = {
     state.options.sort = payload;
   },
 
-  logInUser(state: State) {
-    state.isLoggedIn = true;
+  toggleLogin(state: State, payload: 'login' | 'logout' | 'signup') {
+    state.isLoggedIn = payload === 'login' || payload === 'signup' ? true : false;
   },
 
   setApiResponse(state: State, payload: any) {
