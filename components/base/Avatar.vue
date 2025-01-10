@@ -3,6 +3,7 @@
     v-if="!isImgAvaialble"
     class="display-initials relative-position"
     :style="alternateStyles"
+    @click="handleClick"
   >
     <span>{{ displayInitials }}</span>
   </article>
@@ -61,7 +62,12 @@ export default defineComponent({
         background: this.isBgWhite ? 'white' : '$light-blue'
       }
     }
-  }
+  },
+  methods: {
+    handleClick(event: Event) {
+      this.$emit("click", event);
+    },
+  },
 })
 </script>
 
