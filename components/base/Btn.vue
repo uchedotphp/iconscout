@@ -44,16 +44,9 @@ export default defineComponent({
 <style lang="scss" scoped>
 .base-button {
   font-family: "Averta Std", sans-serif;
-  // justify-content: center;
   &.disabled {
     cursor: not-allowed;
   }
-}
-
-button:focus,
-.btn:focus {
-  outline: none;
-  box-shadow: none;
 }
 
 /*:slotted {

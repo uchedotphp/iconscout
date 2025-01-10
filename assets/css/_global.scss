@@ -69,6 +69,12 @@ textarea {
   outline: none;
 }
 
+button:focus,
+.btn:focus {
+  outline: none;
+  box-shadow: none;
+}
+
 a {
   text-decoration: none;
   color: inherit;
