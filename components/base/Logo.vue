@@ -1,16 +1,16 @@
 <template>
-  <span>
+  <div class="logo">
     <NuxtLink to="/">
       <img src="~/assets/images/iconScout-logo.svg" />
     </NuxtLink>
-  </span>
+  </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import Vue from "vue";
 
-export default defineComponent({
-  name: "Logo",
+export default Vue.extend({
+  name: "Logo"
 });
 </script>
 
@@ -19,10 +19,11 @@ export default defineComponent({
   display: flex;
   justify-content: center;
   align-items: center;
-}
+}*/
 
 .logo img {
   max-width: 100%;
+  width: 100%;
   height: auto;
-} */
+}
 </style>

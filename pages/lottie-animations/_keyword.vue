@@ -1,12 +1,49 @@
 <template>
-  <div class="lottie-animations">
-    <h1>3D Illustrations</h1>
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis, velit vitae optio provident maiores recusandae consequatur dolorem reprehenderit quasi magnam cum molestias reiciendis quae autem, repellat officia unde voluptatum vero suscipit facilis odio numquam omnis. Numquam, culpa. Delectus, odit quidem, blanditiis veniam amet repudiandae itaque rem nemo eum natus, eius iure molestiae voluptatibus rerum corporis sint id ex beatae. Ducimus perferendis rerum quia cum illum hic porro, recusandae eius rem dolore nulla sit non ratione! Placeat doloremque, distinctio dolores quasi mollitia itaque, suscipit nesciunt fugiat quos facere soluta aperiam veniam ullam incidunt ipsa quibusdam sint eum necessitatibus consequuntur voluptates dolorum veritatis consequatur pariatur. Nam, dignissimos fugit error laudantium quas quidem rerum eaque! Possimus sint hic soluta inventore neque sapiente a labore earum error mollitia dolores reiciendis, aliquam sit, officiis enim explicabo nihil esse? Vel, inventore iusto vitae ipsam reprehenderit, aliquam quia ipsum minima veritatis illo hic facilis eum magnam saepe? Enim aperiam quos ea similique odio asperiores quisquam velit cum id, molestiae facere, reprehenderit amet ipsam error excepturi saepe nisi corporis delectus consectetur dicta. Accusamus repellat voluptates quibusdam tenetur magnam assumenda nam, molestiae dolores? Suscipit, expedita nam harum exercitationem est hic deleniti alias corrupti vero, maiores dignissimos eaque! Maxime ut suscipit, eligendi inventore aspernatur voluptate facilis asperiores nobis iure aut vitae vero modi sunt molestiae temporibus nemo tempora exercitationem repellendus eveniet. Saepe inventore deserunt voluptatibus sint in dolor. Consequatur itaque quaerat qui cum nobis. Expedita, et voluptas consequuntur debitis qui inventore illo? Placeat inventore, laboriosam quisquam repellendus totam consequuntur? Numquam impedit laboriosam nobis voluptate similique deleniti reprehenderit amet deserunt quos consectetur, tempore ullam molestias eveniet ducimus vitae molestiae, corrupti vel itaque maiores tempora sit nam eligendi tenetur quis? Illum exercitationem nihil voluptate facilis tempore? Dignissimos temporibus reiciendis ea, quisquam corrupti fugiat autem necessitatibus aspernatur, deserunt consectetur voluptas impedit saepe minima eligendi nobis vitae quas, dolore incidunt rem? Quae, repudiandae eum, temporibus ipsa quaerat amet facere et ea, sed natus exercitationem a labore at esse sint illo optio quas! Magnam debitis sit aliquam quidem nesciunt perspiciatis ex quae aperiam, eaque incidunt natus aliquid nulla sunt recusandae placeat tempora a, quisquam qui. Nulla deserunt impedit debitis expedita, aperiam quae error aliquid consequatur sapiente. Consectetur tenetur excepturi natus laboriosam earum assumenda. Provident saepe minus laborum. Laboriosam consequuntur fugit at ipsum animi, ab nobis provident dolore accusantium dolorem quis minima, ad autem assumenda. Corrupti culpa deserunt, a doloremque excepturi quia, ipsa, ratione neque nobis reiciendis voluptatum vitae unde perferendis totam quaerat id consequuntur soluta voluptates animi eum vel. Aliquam repudiandae aspernatur sint ipsum iusto consequuntur quos ex blanditiis dolor vero iste laudantium dolores laborum aut mollitia reprehenderit quam facilis doloribus nesciunt perferendis, dignissimos tenetur. Ratione voluptates, fuga sapiente eum laborum laboriosam vel est magni odio libero, harum aut, excepturi neque illum deleniti rerum aliquid blanditiis numquam. Autem, odio! Provident accusantium omnis illo deleniti. In, nemo libero quasi unde ea aliquam cupiditate a repellendus! Eveniet ipsa fugiat exercitationem reprehenderit? Molestiae, quasi. Omnis libero numquam laborum. Aperiam facere obcaecati quasi molestias praesentium fugit quaerat quia est nostrum, quidem animi tenetur, recusandae unde! Iste voluptates eveniet laborum, iusto, obcaecati magni officia molestiae debitis ipsa quidem magnam quibusdam perspiciatis. Itaque, eius mollitia. Illum adipisci impedit sit aperiam consequatur at dolorem dolorum odio, ipsam id aut sint repellat velit eveniet quis. Eaque delectus, et molestias adipisci pariatur perspiciatis? Velit adipisci nemo necessitatibus hic? Dolores, aliquid eaque autem laudantium velit repellat et nulla ullam quia eligendi dignissimos, blanditiis quaerat. Nam, dicta reprehenderit ratione in hic ullam, sint nesciunt maiores, odit illo modi! Dolor exercitationem temporibus dolorum aliquam maiores est laboriosam delectus vitae, modi consequuntur quod, deleniti voluptas dolores doloribus non maxime! Odit accusantium atque unde necessitatibus id impedit asperiores beatae aspernatur! Earum, laudantium asperiores nam labore placeat modi blanditiis sequi cum, beatae iste ducimus at repellat. Accusantium labore doloribus repellat eligendi quisquam dolorum id laboriosam, libero adipisci tenetur consequuntur ullam magnam placeat provident, quam, quae sunt odit vel molestiae explicabo? Nam nemo modi perspiciatis minima eum cum, dicta vel voluptatum accusamus expedita sit dignissimos magni quos fugit ea iusto consequuntur quis autem obcaecati quia. Illo doloribus cumque pariatur ipsam eligendi voluptatem officiis iusto debitis animi amet. Ratione cumque qui cum fugiat consequatur deleniti eius, perspiciatis facere fuga quis non molestias ipsa quo commodi quibusdam cupiditate laborum. Aut, odio inventore numquam quo, modi quod accusantium explicabo aspernatur aliquam sed expedita autem suscipit unde nisi nulla amet temporibus, voluptatem hic incidunt. Doloremque officia explicabo nobis perferendis. Quidem veniam hic vero quisquam eaque iste, ducimus, odio dignissimos est quia doloribus nihil excepturi mollitia iure eius ea laborum quis voluptatum. Minus sequi illum fugiat impedit quam corrupti neque doloremque blanditiis praesentium ullam deleniti ipsa modi esse architecto nemo voluptatibus, accusantium cupiditate explicabo dignissimos? Error, omnis quisquam ut perferendis aspernatur temporibus eaque asperiores tempora quo porro saepe eum quam enim illo vero odit in assumenda reprehenderit dolor nesciunt voluptatibus consequuntur? Molestiae eos harum cupiditate quaerat officiis ad earum repudiandae magni id deleniti. Voluptate odit ex provident veniam magnam voluptates necessitatibus sapiente non, impedit, corrupti, mollitia quisquam debitis neque dolor modi eos? Ab a repellendus vitae molestiae non rerum, distinctio vero natus, tempore numquam aut eum iure. Quibusdam ipsam aperiam odit cumque deserunt hic. Cumque possimus rerum deleniti, quae, reiciendis sit, est neque ullam porro amet veritatis vero accusamus soluta consequatur voluptate recusandae molestias voluptatum facere incidunt. Excepturi officiis quas quae cupiditate rerum earum ea praesentium blanditiis fuga optio magni, commodi dignissimos qui, ad neque et nam temporibus quidem molestiae nulla quo! Nihil mollitia similique aliquam nesciunt debitis architecto sunt molestias, alias quos atque nisi dolorum voluptas, voluptatem pariatur laboriosam dicta quasi dolores sint saepe sed dolore. Molestiae quaerat possimus consequatur ex nobis, dignissimos beatae, a quasi inventore, rerum quas ut animi in iure dolor sapiente ducimus accusamus quae voluptatem aliquam architecto modi! Ipsa, cum neque magnam pariatur eveniet obcaecati ad provident dolorum ab eaque necessitatibus asperiores, repellendus architecto dicta porro totam. Voluptas distinctio nemo officia ea sapiente reiciendis eum repellendus molestias animi unde dolore voluptatibus necessitatibus quam debitis neque, accusantium assumenda eveniet earum aperiam. Totam aliquam voluptas, recusandae corrupti in dignissimos, dolorum ipsa velit quas, qui delectus nam! Error fuga a facere asperiores odit, aliquid dicta perspiciatis pariatur dolorum repellendus labore ipsam rem nesciunt doloribus quos adipisci neque optio, ad ea minus repudiandae iusto alias ipsa aspernatur? Similique recusandae fugit quas, consequuntur officia quod aliquam, accusamus, odio cumque quibusdam consequatur error blanditiis laboriosam vitae at a voluptatem. Pariatur eos, eius eum autem deleniti quasi molestias necessitatibus consequatur assumenda blanditiis eaque quaerat sint est, consectetur libero laboriosam, ratione animi nam! Dolorum id aut ratione possimus nisi quaerat fugiat corrupti unde explicabo numquam iure sequi atque delectus quo accusantium deleniti, nam natus voluptatem autem odit. Repellendus quibusdam itaque doloremque exercitationem doloribus repudiandae iste similique aliquam expedita perspiciatis aliquid illo quod recusandae, non labore. Itaque odio amet, dolore qui nesciunt commodi magnam velit, est atque libero ipsam maiores ratione saepe reiciendis numquam neque reprehenderit animi recusandae ullam. At accusamus fugiat eos aliquid itaque quos deserunt. Earum, culpa odio odit itaque iusto fugiat quidem veniam non sed error quod, est ipsam dicta repellat? Velit pariatur possimus dolorem rerum ad in iste fugiat neque, quam magni accusantium praesentium doloremque ab eligendi nostrum quo porro doloribus eaque amet totam tenetur iure. Tempore vero distinctio magnam accusantium ex obcaecati reiciendis totam odio assumenda facere pariatur est laudantium accusamus quia perspiciatis, eos placeat, rerum deserunt adipisci provident doloremque id impedit. Neque error voluptate totam velit unde, eum deserunt aut itaque dicta ullam quae ratione laborum omnis reprehenderit doloremque minus vitae exercitationem, saepe veniam hic debitis, deleniti dolor repellat. Consequuntur, temporibus adipisci. Excepturi, laborum. In ullam a aliquam vitae laboriosam atque quis consequatur suscipit, blanditiis perferendis nostrum impedit optio excepturi aliquid, ducimus iure cupiditate, expedita odio? Repellat perspiciatis, amet placeat harum quidem aut eius molestias voluptatum eum minima aspernatur rem qui quas eveniet error ipsa dolorum? Unde dolores nostrum molestias quidem voluptatum consequatur qui, sapiente numquam officiis, nemo veritatis magnam! Ullam, obcaecati atque doloribus recusandae sunt nesciunt. Voluptate nihil, dicta odit est atque quos modi dolore maxime soluta, ut sit nisi, dignissimos harum! Ea aperiam ut maiores eveniet exercitationem deleniti delectus quos repellendus ab. Aliquid, vel quibusdam necessitatibus esse sed voluptatibus, iusto accusantium dicta accusamus quia unde maxime dignissimos repellendus sit dolorem velit modi. Possimus corporis natus enim atque ullam illo placeat assumenda eos, nulla inventore corrupti maxime omnis quaerat nemo ut ducimus iusto, eum, eligendi veniam labore reprehenderit distinctio officiis aliquam. Tenetur rerum, non fugit illum nostrum voluptatem? Voluptate debitis enim maxime, error amet provident? Vel doloremque consectetur error incidunt, quisquam fuga temporibus illo animi similique officiis itaque sint minus ex enim quam aspernatur dolorem, laboriosam amet explicabo perferendis sunt. Ducimus nesciunt ab quasi sed, modi minima ipsum atque illo nisi, laboriosam sequi adipisci laudantium dolore veritatis fugit architecto explicabo consequuntur, consectetur iste dignissimos ex voluptatem itaque? Distinctio minima maiores natus quibusdam iure ut aperiam voluptates saepe minus voluptatibus, hic voluptate adipisci maxime magni quod sed. Soluta ut fugiat exercitationem velit molestiae itaque inventore rerum natus? Voluptatem, ut id consectetur deserunt voluptatibus consequuntur atque suscipit quae explicabo exercitationem distinctio reiciendis temporibus, et facilis dignissimos autem dolorum aliquam nam nihil ex praesentium? Sequi incidunt dolores corrupti aut fuga, delectus ex tempora eligendi nulla totam recusandae ipsa cupiditate reiciendis laboriosam dolorem odit pariatur voluptatibus? Corrupti quisquam, omnis iste, quae enim blanditiis placeat provident dolorum, odit officiis labore iure harum! Possimus aspernatur vitae saepe minus facilis laborum voluptas cumque nemo. Possimus earum voluptatem officiis adipisci tenetur harum aliquid nobis corrupti excepturi ullam a eos facere impedit voluptates, error ad vel magnam nemo blanditiis similique sapiente vero repellat accusantium expedita! Blanditiis molestias praesentium repellat quidem adipisci itaque ratione voluptatibus porro, eveniet illo accusantium odit optio vel possimus dolore fuga libero dolorem atque. Repudiandae possimus voluptates rerum quae corrupti explicabo odit sunt est nulla necessitatibus dignissimos harum quasi fugit excepturi optio iusto dicta quaerat quod, ullam odio sint fuga, a in nobis. Earum nulla harum atque dolore voluptatem odio facilis dicta, labore repudiandae? Illo, quaerat dolores. Cumque commodi beatae molestias error ipsa? Laudantium earum ratione ipsum nisi exercitationem odit fuga, voluptatem accusamus at sequi temporibus ducimus optio accusantium labore neque vero a itaque deleniti non! Reprehenderit, atque. Eos mollitia laborum rem dolorem nulla qui voluptas, blanditiis consectetur necessitatibus corporis excepturi omnis quo odio a nobis officiis est illum odit esse? Qui veniam voluptatum porro maxime quia nemo quasi dolor animi ratione, ipsum neque exercitationem, saepe molestiae vel possimus, minus doloremque. Necessitatibus ad esse repudiandae, et itaque dolore, fuga ullam omnis delectus quisquam voluptate? Corrupti totam reiciendis architecto assumenda doloribus. Assumenda, nemo. Sunt vel provident aspernatur rem possimus nemo unde nulla! Tempora nihil ullam esse, eius illo repellendus culpa rerum maxime fugit nulla ipsam dolorum doloribus ab! Delectus rerum nemo, rem ex sint, harum illum ipsam ducimus laboriosam voluptates suscipit exercitationem autem, obcaecati nihil. Laboriosam fuga quas in aliquam recusandae ullam soluta dolores nostrum sit, fugiat repellat cum. Alias molestias velit illo fuga aperiam eaque rerum labore ea eum, aut itaque ipsa incidunt, consequatur, cupiditate nobis odit temporibus? Sequi perspiciatis est beatae laboriosam? Saepe beatae dolore illum accusamus maiores. In libero fugit odio nemo voluptatem, architecto dolorem deleniti eligendi atque, velit quod necessitatibus nobis laborum illum iste excepturi? Ut magni iure deleniti asperiores quo alias vel numquam aliquid ad minus veniam, non obcaecati consectetur est nostrum voluptatum impedit corporis? Beatae excepturi in cum distinctio id culpa alias laboriosam corrupti eum nihil hic quasi voluptas illum necessitatibus, natus consequatur. Doloribus modi deserunt et labore non? Rem vero quis nihil aut eum? Soluta nulla pariatur inventore suscipit. Dicta temporibus magni perspiciatis aliquam, odit nisi expedita ea repellendus doloribus beatae obcaecati adipisci tempore vero error optio dolor hic nulla ex nam quae libero minus blanditiis! Fugiat voluptas vel expedita voluptatem, voluptatum qui ex esse quasi ea assumenda voluptates magnam nemo placeat rerum beatae facilis doloremque! Quam deserunt ab, incidunt quibusdam dignissimos ipsum doloremque nisi perspiciatis unde vero voluptate eos modi eaque? Quod eligendi vitae possimus eius error nesciunt asperiores, veritatis culpa. Libero saepe sed temporibus provident ut velit omnis repudiandae maxime excepturi!
+  <div class="result-view h-100">
+    <template v-if="data.length">
+      <div
+        style="position: relative; height: 38px; margin-top: 13px"
+        class="align-items-center"
+      >
+        <SearchSuggestionNav
+          :suggestions="searchSuggestions"
+          asset="assets"
+          @selected="getSearchSuggestion($event)"
+        />
+      </div>
+      <section class="mt-4">
+        <h2 class="text-capitalize">
+          <NuxtLink to="#" no-prefetch>
+            Explore {{ filteredOptions.query }} Lottie Animation Packs
+          </NuxtLink>
+        </h2>
+        <div ref="tilesContainer" class="card-container">
+          <div v-for="item in data" :key="item.id">
+            <AnimationData :data="item" />
+          </div>
+        </div>
+
+        <!-- infinite scroll -->
+        <div ref="infiniteScrollTrigger" class="loading-trigger" v-if="!isEnd">
+          <span v-if="isLoadingMoreData">Loading more animations...</span>
+        </div>
+      </section>
+    </template>
+    <NoData v-else class="d-flex align-items-center h-100">
+      <template #message>
+        No result for {{ filteredOptions.query }} assets
+      </template>
+      <template #subMessage> Please try something else </template>
+    </NoData>
+
+    <StopView v-if="showLoginRegister" />
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
+import { mapState, mapMutations, mapActions, mapGetters } from "vuex";
+import { searchSuggestions } from "~/data/data";
 
 export default Vue.extend({
   name: 'LottieAnimations',
@@ -15,6 +52,15 @@ export default Vue.extend({
   data() {
     return {
       pageTitle: "Lottie Animations",
+      searchSuggestions,
+      isEnd: false,
+      isLoadingMoreData: false,
+
+      showGetStartedOverlay: false,
+      scrolledFolds: 0,
+      lastScrollTop: 0,
+      showLoginRegister: false,
+      twoFoldHeight: 0,
     };
   },
   head() {
@@ -29,11 +75,123 @@ export default Vue.extend({
       ],
     };
   },
+  fetchOnServer: true,
+  async fetch({ store, params }) {
+    console.log("1");
+    // check store for data
+    const query = store.state.options.query;
+    console.log("query: ", query);
+
+    if (query.length === 0) {
+      console.log("adding query: ", params.keyword);
+      store.commit("updateAnOptionProperty", { key: "query", value: params.keyword });
+    }
+    store.commit("setApiLoading", true);
+    try {
+      const res = await store.dispatch("getSearchResults", { asset: 'lottie-animations' });
+      console.log("fetching data pos: ", res);
+    } catch (error) {
+      console.log("error fetching data: ", error);
+    }
+    store.commit("setApiLoading", false);
+  },
+
+  computed: {
+    ...mapState({
+      filteredOptions: "options",
+      isUserLoggedIn: "isLoggedIn",
+      apiResponse: "apiResponse",
+    }),
+    ...mapGetters({ data: "apiData", pagesLeft: "pagesRemaing" }),
+  },
+
+  mounted() {
+    // console.log('2: ', this.$store.state.options);
+    this.updateAnOptionProperty({
+      key: "query",
+      value: this.$route.params.keyword,
+    });
+
+    console.log("in asset page");
+
+    try {
+      if (this.data.length) {
+        // and its not last page
+        this.setupObserver();
+      }
+    } catch (error) {
+      console.log("error setting up observer: ", error);
+    }
+
+    if (!this.isUserLoggedIn) {
+      console.log("not logged in");
+    }
+
+    // this.$nextTick(() => {
+    //   this.$nuxt.$loading.start()
+    //   setTimeout(() => this.$nuxt.$loading.finish(), 12000)
+    // })
+  },
+
+  // unmounted() {
+  //   // Remove scroll listener when component unmounts
+  //   window.removeEventListener("scroll", this.handleScroll);
+  // },
+
+  methods: {
+    ...mapMutations([
+      "setSearchQuery",
+      "setApiLoading",
+      "setPerPageOption",
+      "setPageOption",
+      "updateAnOptionProperty",
+    ]),
+    ...mapActions(["getSearchResults"]),
+    async getSearchSuggestion(val: string) {
+      this.setApiLoading(true);
+      try {
+        this.updateAnOptionProperty({ key: "query", value: val });
+        await this.getSearchResults({ asset: 'lottie-animations' });
+      } catch (error) {
+        console.log("error getting search suggestion: ", error);
+      }
+      this.setApiLoading(false);
+    },
+
+    setupObserver() {
+      const options = {
+        root: null,
+        rootMargin: "0px",
+        threshold: 0.1,
+      };
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(async (entry) => {
+          if (entry.isIntersecting) {
+            this.setApiLoading(true);
+            try {
+              const val = this.$route.params.keyword;
+              this.updateAnOptionProperty({ key: "query", value: val });
+              await this.getSearchResults({ loadMoreData: true, asset: 'lottie-animations' });
+            } catch (error) {
+              console.log("error fetching more data: ", error);
+            }
+            this.setApiLoading(false);
+          }
+        });
+      }, options);
+      const infiniteScrollTrigger = this.$refs.infiniteScrollTrigger as Element;
+      if (infiniteScrollTrigger) {
+        observer.observe(infiniteScrollTrigger);
+      }
+    },
+  },
 });
 </script>
 
 <style lang="scss" scoped>
-.lottie-animations {
-  /* Add your styles here */
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 12px;
 }
 </style>

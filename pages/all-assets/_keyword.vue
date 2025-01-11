@@ -1,33 +1,40 @@
 <template>
-  <div class="result-view">
-    <div
-      style="position: relative; height: 38px; margin-top: 13px"
-      class="align-items-center"
-    >
-      <SearchSuggestionNav
-        :suggestions="searchSuggestions"
-        asset="assets"
-        @selected="getSearchSuggestion($event)"
-      />
-    </div>
-
-    <section class="mt-4">
-      <h2 class="text-capitalize">
-        <NuxtLink to="#" no-prefetch>
-          Explore {{ filteredOptions.query }} Assets Packs
-        </NuxtLink>
-      </h2>
-      <div ref="tilesContainer" class="card-container">
-        <div v-for="item in data" :key="item.id">
-          <CardData :data="item" />
+  <div class="result-view h-100">
+    <template v-if="data.length">
+      <div
+        style="position: relative; height: 38px; margin-top: 13px"
+        class="align-items-center"
+      >
+        <SearchSuggestionNav
+          :suggestions="searchSuggestions"
+          asset="assets"
+          @selected="getSearchSuggestion($event)"
+        />
+      </div>
+      <section class="mt-4">
+        <h2 class="text-capitalize">
+          <NuxtLink to="#" no-prefetch>
+            Explore {{ filteredOptions.query }} Assets Packs
+          </NuxtLink>
+        </h2>
+        <div ref="tilesContainer" class="card-container">
+          <div v-for="item in data" :key="item.id">
+            <CardData :data="item" />
+          </div>
         </div>
-      </div>
 
-      <!-- infinite scroll -->
-      <div ref="infiniteScrollTrigger" class="loading-trigger" v-if="!isEnd">
-        <span v-if="isLoadingMoreData">Loading more animations...</span>
-      </div>
-    </section>
+        <!-- infinite scroll -->
+        <div ref="infiniteScrollTrigger" class="loading-trigger" v-if="!isEnd">
+          <span v-if="isLoadingMoreData">Loading more animations...</span>
+        </div>
+      </section>
+    </template>
+    <NoData v-else class="d-flex align-items-center h-100">
+      <template #message>
+        No result for {{ filteredOptions.query }} assets
+      </template>
+      <template #subMessage> Please try something else </template>
+    </NoData>
 
     <StopView v-if="showLoginRegister" />
   </div>
@@ -46,14 +53,13 @@ export default Vue.extend({
     return {
       pageTitle: "All Assets",
       searchSuggestions,
-      isEnd: false,
-      isLoadingMoreData: false,
-
       showGetStartedOverlay: false,
       scrolledFolds: 0,
       lastScrollTop: 0,
       showLoginRegister: false,
       twoFoldHeight: 0,
+      isEnd: false,
+      isLoadingMoreData: false,
     };
   },
 
@@ -70,11 +76,21 @@ export default Vue.extend({
     };
   },
 
-  async fetch({ store }) {
+  fetchOnServer: true,
+  async fetch({ store, params }) {
+    // check store for data
+    const query = store.state.options.query;
+    if (query.length === 0) {
+      console.log("adding query: ", params.keyword);
+      store.commit("updateAnOptionProperty", {
+        key: "query",
+        value: params.keyword,
+      });
+    }
     store.commit("setApiLoading", true);
     try {
       const res = await store.dispatch("getSearchResults", {
-        loadMoreData: true,
+        asset: "all-assets",
       });
       console.log("fetching data pos: ", res);
     } catch (error) {
@@ -89,30 +105,23 @@ export default Vue.extend({
       isUserLoggedIn: "isLoggedIn",
       apiResponse: "apiResponse",
     }),
-    ...mapGetters({ data: "apiData", pagesLeft: "pagesRemaing" }),
+    ...mapGetters({ data: "apiData", isLastPage: "isLastPage" }),
   },
 
   mounted() {
-    try {
+    this.updateAnOptionProperty({
+      key: "query",
+      value: this.$route.params.keyword,
+    });
+
+    if (this.data.length) {
       this.setupObserver();
-    } catch (error) {
-      console.log("error setting up observer: ", error);
     }
 
     if (!this.isUserLoggedIn) {
       console.log("not logged in");
     }
-
-    // this.$nextTick(() => {
-    //   this.$nuxt.$loading.start()
-    //   setTimeout(() => this.$nuxt.$loading.finish(), 12000)
-    // })
   },
-
-  // unmounted() {
-  //   // Remove scroll listener when component unmounts
-  //   window.removeEventListener("scroll", this.handleScroll);
-  // },
 
   methods: {
     ...mapMutations([
@@ -122,12 +131,12 @@ export default Vue.extend({
       "setPageOption",
       "updateAnOptionProperty",
     ]),
-    ...mapActions(["getSearchResults", "loadMoreResults"]),
+    ...mapActions(["getSearchResults"]),
     async getSearchSuggestion(val: string) {
       this.setApiLoading(true);
       try {
         this.updateAnOptionProperty({ key: "query", value: val });
-        await this.getSearchResults();
+        await this.getSearchResults({ asset: "all-assets" });
       } catch (error) {
         console.log("error getting search suggestion: ", error);
       }
@@ -143,15 +152,22 @@ export default Vue.extend({
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(async (entry) => {
           if (entry.isIntersecting) {
-            this.setApiLoading(true);
-            try {
-              const val = this.$route.params.keyword;
-              this.updateAnOptionProperty({ key: "query", value: val });
-              await this.getSearchResults({ loadMoreData: true });
-            } catch (error) {
-              console.log("error fetching more data: ", error);
+            if (this.isLastPage) {
+              observer.disconnect();
+            } else {
+              this.setApiLoading(true);
+              try {
+                const val = this.$route.params.keyword;
+                this.updateAnOptionProperty({ key: "query", value: val });
+                await this.getSearchResults({
+                  loadMoreData: true,
+                  asset: "all-assets",
+                });
+              } catch (error) {
+                console.log("error fetching more data: ", error);
+              }
+              this.setApiLoading(false);
             }
-            this.setApiLoading(false);
           }
         });
       }, options);

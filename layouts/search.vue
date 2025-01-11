@@ -43,21 +43,27 @@ import { mapState, mapMutations } from "vuex";
 
 export default Vue.extend({
   name: "DefaultLayout",
-  mounted() {
-    this.updateAnOptionProperty({
-      key: "query",
-      value: this.$route.params.keyword,
-    });
-  },
+  // mounted() {
+  //   console.log('in search layout');
+
+  //   this.updateAnOptionProperty({
+  //     key: "query",
+  //     value: this.$route.params.keyword,
+  //   });
+  // },
 
   computed: {
     ...mapState(["isFilterPanelExpanded", "apiLoading", "options"]),
-    // ...mapState({
-    //   assetType: (state: any) => {
-    //     const { options } = state;
-    //     return options.asset;
-    //   },
-    // }),
+    ...mapState({
+      assetType: (state: any) => {
+        const { options } = state;
+        return options.asset;
+      },
+      searchTerm: (state: any) => {
+        const { options } = state;
+        return options.query;
+      },
+    }),
   },
   methods: {
     ...mapMutations(["updateAnOptionProperty"]),

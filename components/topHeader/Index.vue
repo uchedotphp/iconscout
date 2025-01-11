@@ -5,8 +5,8 @@
         <li>
           <BaseLogo />
         </li>
-        <li v-if="!hideSearch">
-          <Search />
+        <li v-if="!hideSearch" style="max-width: 360px" class="w-100">
+          <Search class="w-100" />
         </li>
         <li>
           <TopHeaderLinks />

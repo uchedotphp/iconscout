@@ -45,6 +45,7 @@ export default {
     "~/plugins/dataApi.ts",
     { src: "~/plugins/bootstrap.js", mode: "client" },
     "~/plugins/axios.js",
+    { src: "~/plugins/lottie-player.js", mode: "client" },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

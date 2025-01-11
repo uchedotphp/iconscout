@@ -40,6 +40,8 @@ export default Vue.extend({
     };
   },
   mounted() {
+    console.log('mounting index page');
+
     this.updateAnOptionProperty({ key: "query", value: "" });
     this.updateAnOptionProperty({ key: "asset", value: "all-assets" });
   },

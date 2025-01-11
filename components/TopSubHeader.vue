@@ -6,6 +6,9 @@
       </template>
       <template v-else>
         {{ totalAssetCount }} {{ searchedKeyword }} {{ computedCategory }}
+        <template v-if="currentPage > 1">
+          - Page {{ currentPage }}
+        </template>
       </template>
     </h1>
     <h2 v-if="!apiLoading">
@@ -27,10 +30,7 @@ export default Vue.extend({
         const { options } = state;
         return options.query;
       },
-      // totalAssetCount: (state: any) => {
-      //   const { apiResponse } = state;
-      //   return Number(apiResponse.total)?.toLocaleString();
-      // },
+      currentPage: (state: any) => state.apiResponse.current_page
     }),
 
     ...mapGetters(['totalAssetCount']),

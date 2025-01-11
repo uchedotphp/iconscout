@@ -44,9 +44,12 @@ export default Vue.extend({
     }),
   },
   methods: {
-    ...mapMutations(["setAssetType"]),
+    ...mapMutations(["updateAnOptionProperty", "resetOptions"]),
     setAsset(param: assetType) {
-      this.setAssetType(param);
+      const storeSearchTerm = this.storeSearchTerm;
+      this.resetOptions();
+      this.updateAnOptionProperty({ key: "asset", value: param });
+      this.updateAnOptionProperty({ key: "query", value: storeSearchTerm });
     },
     goToLink(asset: assetType) {
       return `/${asset}/${this.storeSearchTerm}`;
