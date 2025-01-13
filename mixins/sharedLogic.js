@@ -70,6 +70,11 @@ export default Vue.extend({
     ]),
     ...mapActions(["getSearchResults"]),
     getSearchSuggestion(val) {
+      this.$store.commit("updateAnOptionProperty", {
+        key: "query",
+        value: val,
+      });
+
       this.setApiLoading({
         loading: true,
         type: this.routeSection,
