@@ -154,6 +154,7 @@ export default Vue.extend({
     this.filters.assetValue = (this.routeSection as string) || "all assets";
     if (this.$route.query.price) {
       this.filters.priceValue = this.$route.query.price as prices;
+      // @ts-ignore
       this.updateAnOptionProperty({
         key: "price",
         value: this.$route.query.price as prices,
@@ -161,6 +162,7 @@ export default Vue.extend({
     }
     if (this.$route.query.sort) {
       this.filters.sortValue = this.$route.query.sort as sortOptions;
+      // @ts-ignore
       this.updateAnOptionProperty({
         key: "sort",
         value: this.$route.query.sort as sortOptions,
@@ -168,6 +170,7 @@ export default Vue.extend({
     }
     if (this.$route.query.view) {
       this.filters.viewValue = this.$route.query.view as viewOptions;
+      // @ts-ignore
       this.updateAnOptionProperty({
         key: "view",
         value: this.$route.query.view as viewOptions,
@@ -225,7 +228,8 @@ export default Vue.extend({
           console.log("Error fetching search suggestion:", error);
         }
       } else {
-          this.updateAnOptionProperty({ key: type, value: val });
+        // @ts-ignore
+        this.updateAnOptionProperty({ key: type, value: val });
         const routeSection = this.$route.path.split("/")[1];
         const query = this.$route.params.keyword;
         const asset = routeSection;
@@ -264,7 +268,7 @@ export default Vue.extend({
               formatAsset = "3d";
               break;
           }
-          await this.getSearchResults({
+          await this.$store.dispatch("getSearchResults", {
             loadMoreData: false,
             query,
             asset: formatAsset,
@@ -272,7 +276,8 @@ export default Vue.extend({
             page,
             per_page,
             sort,
-            view,to: 'uche'
+            view,
+            to: "uche",
           });
         } catch (error) {
           console.log("Error fetching search suggestion:", error);
