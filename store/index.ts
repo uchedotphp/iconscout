@@ -8,6 +8,7 @@ interface State {
     loading: boolean;
     type: assetType;
   };
+  animationPlayer: 'lottie player' | 'dotlottie player',
   options: {
     per_page: number;
     page: number;
@@ -23,6 +24,7 @@ interface State {
 export const state = () => ({
   isLoggedIn: false,
   isFilterPanelExpanded: true,
+  animationPlayer: 'lottie player',
   options: {
     asset: 'all-assets',
     price: 'premium',
@@ -124,6 +126,9 @@ export const mutations = {
       per_page: 20,
       page: 1,
     }
+  },
+  setAnimationPlayer(state: State, payload: 'lottie player' | 'dotlottie player') {
+    state.animationPlayer = payload
   }
 }
 

@@ -71,13 +71,18 @@ import { assetOptions } from "~/data/data";
 import { mapState, mapMutations } from "vuex";
 
 function getCategoryName(assetType: string): string {
+  console.log('me: ', assetType);
+
   const categoryMap: { [key: string]: string } = {
+    'all-assets': "All",
     "3d-illustrations": "3D",
     "lottie-animations": "Animations",
     illustrations: "Illustrations",
     icons: "Icons",
   };
-  return categoryMap[assetType] || "All";
+  console.log('now: ', categoryMap[assetType]);
+
+  return categoryMap[assetType];
 }
 
 export default Vue.extend({
@@ -114,16 +119,16 @@ export default Vue.extend({
   },
 
   watch: {
-    "$route.params.keyword": {
-      handler: function (newSearch, oldSearch) {
-        console.log("newSearch ", newSearch, ' oldSearch ', oldSearch);
-        if (newSearch && newSearch.toLowerCase() !== this.searchTerm.toLowerCase()) {
-          this.searchTerm = newSearch;
-        }
-      },
-      deep: true,
-      immediate: true,
-    },
+    // "$route.params.keyword": {
+    //   handler: function (newSearch, oldSearch) {
+    //     console.log("newSearch ", newSearch, ' oldSearch ', oldSearch);
+    //     if (newSearch && newSearch.toLowerCase() !== this.searchTerm.toLowerCase()) {
+    //       this.searchTerm = newSearch;
+    //     }
+    //   },
+    //   deep: true,
+    //   immediate: true,
+    // },
   },
   methods: {
     ...mapMutations([
@@ -144,6 +149,7 @@ export default Vue.extend({
     },
     switchAsset(val: string) {
       const formattedVal = val.toLowerCase().replace(/\s+/g, "-");
+      console.log('ok: ', formattedVal);
       this.updateAnOptionProperty({ key: "asset", value: formattedVal });
       if (this.storeSearchTerm) {
         this.resetOptions();

@@ -24,7 +24,7 @@
                   :id="formatText(opt)"
                   name="assetType"
                   v-model="filters.assetValue"
-                  @change="getData(formatText(opt))"
+                  @change="getData('asset', formatText(opt))"
                   :value="opt"
                   :label="opt"
                 />
@@ -48,7 +48,7 @@
                   name="pricing"
                   :id="opt"
                   v-model="filters.priceValue"
-                  @change="getData(formatText(opt))"
+                  @change="getData('price', formatText(opt))"
                   :value="opt"
                   :label="opt"
                 />
@@ -72,7 +72,7 @@
                   name="views"
                   :id="opt"
                   v-model="filters.viewValue"
-                  @change="getData(formatText(opt))"
+                  @change="getData('view', formatText(opt))"
                   :value="opt"
                   :label="opt"
                 />
@@ -96,7 +96,7 @@
                   name="sort"
                   :id="opt"
                   v-model="filters.sortValue"
-                  @change="getData(formatText(opt))"
+                  @change="getData('sort', formatText(opt))"
                   :value="opt"
                   :label="opt"
                 />
@@ -155,6 +155,23 @@ export default Vue.extend({
     this.filters.priceValue = this.filterOptions.price || "free";
     this.filters.sortValue = this.filterOptions.sort || "popular";
     this.filters.viewValue = this.filterOptions.view || "pack";
+
+  },
+  watch: {
+    'routeSection': {
+      handler: function handler(newValue, oldValue) {
+        if (newValue !== oldValue) {
+          console.log('psss: ', newValue);
+
+          if (newValue.toLowerCase() === '3d illustrations') {
+            this.filters.assetValue = '3D illustrations';
+          } else {
+            this.filters.assetValue = newValue.toLowerCase();
+          }
+        }
+      },
+      // immediate: true,
+    }
   },
   computed: {
     ...mapState({
@@ -172,25 +189,34 @@ export default Vue.extend({
         .replace(/\.\w+$/, "")
         .replace(/\s+/g, "-");
     },
-    getData(val: string): void {
+    getData(type: string, val: string): void {
       if (this.$route.params.keyword === undefined) {
         return;
       }
-      this.$store.commit('updateAnOptionProperty', { key: "asset", value: val });
-      this.$store.commit('setApiLoading',{
+      this.$store.commit("updateAnOptionProperty", { key: type, value: val.toLowerCase() });
+      this.$store.commit("setApiLoading", {
         loading: true,
         type: this.$route.path.split("/")[1],
       });
-      try {
-        this.$router.push(`/${val}/${this.$route.params.keyword}`);
-      } catch (error) {
-        console.log("Error fetching search suggestion:", error);
+      if (val === "asset") {
+        try {
+          this.$router.push(`/${val}/${this.$route.params.keyword}`);
+        } catch (error) {
+          console.log("Error fetching search suggestion:", error);
+        }
+      } else {
+        try {
+          this.$router.push(
+            `/${this.$store.state.options.asset}/${this.$route.params.keyword}`
+          );
+        } catch (error) {
+          console.log("Error fetching search suggestion:", error);
+        }
       }
-      this.$store.commit('setApiLoading',{
-        loading: true,
+      this.$store.commit("setApiLoading", {
+        loading: false,
         type: this.$route.path.split("/")[1],
       });
-      console.log("the route still:", this.$store.state.options);
     },
   },
 });

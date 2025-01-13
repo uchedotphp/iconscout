@@ -85,6 +85,6 @@ export default {
   build: {},
 
   router: {
-    middleware:["routeTrigger"],
+    middleware: ['routeTrigger'],
   }
 };

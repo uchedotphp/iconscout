@@ -1,6 +1,6 @@
 <template>
   <nav class="h-100 d-flex align-items-center secondary-navigation">
-    <ul class="h-100 d-flex align-items-center">
+    <ul class="h-100 d-flex align-items-center w-100">
       <li
         v-for="{ id, asset, title } in navigationItems"
         :key="id"
@@ -13,6 +13,15 @@
           class="h-100 nav-item"
           >{{ title }}</router-link
         >
+      </li>
+      <li v-if="routeSection === 'lottie-animations'" class="text-capitalize ml-auto">
+        <b-form-checkbox
+          v-model="currentAnimationPlayer"
+          name="check-button"
+          switch
+        >
+          {{ animationPlayer }}
+        </b-form-checkbox>
       </li>
     </ul>
   </nav>
@@ -34,18 +43,40 @@ export default Vue.extend({
   data() {
     return {
       navigationItems: navItems as NavigationItem[],
+      currentAnimationPlayer: "",
     };
   },
+  mounted() {
+    this.currentAnimationPlayer = this.animationPlayer;
+  },
   computed: {
+    routeSection(): string {
+      return this.$route.path.split("/")[1];
+    },
     ...mapState({
       storeSearchTerm: (state: any) => {
         const { options } = state;
         return options.query;
       },
+      animationPlayer: (state: any) => state.animationPlayer,
     }),
   },
+  watch: {
+    currentAnimationPlayer(newValue, oldValue) {
+      const label = newValue ? "ON" : "OFF";
+      if (label === "ON") {
+        this.setAnimationPlayer("lottie player");
+      } else {
+        this.setAnimationPlayer("dotlottie player");
+      }
+    },
+  },
   methods: {
-    ...mapMutations(["updateAnOptionProperty", "resetOptions"]),
+    ...mapMutations([
+      "updateAnOptionProperty",
+      "resetOptions",
+      "setAnimationPlayer",
+    ]),
     setAsset(event: Event, param: assetType): void {
       const storeSearchTerm: string = this.storeSearchTerm;
       this.resetOptions();
@@ -83,7 +114,8 @@ export default Vue.extend({
         }
 
         // &.nuxt-link-exact-active {
-        &.nuxt-link-active, &.nuxt-link-exact-active {
+        &.nuxt-link-active,
+        &.nuxt-link-exact-active {
           color: var(--ics-black);
           &::before {
             content: "";
