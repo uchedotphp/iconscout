@@ -125,7 +125,7 @@
 import Vue from "vue";
 import { assetOptions } from "~/data/data";
 import type { prices, sortOptions, viewOptions } from "~/data/dataTypes";
-import { mapState, mapMutations } from "vuex";
+import { mapState, mapMutations, mapActions } from "vuex";
 
 export default Vue.extend({
   name: "LeftFilterPanel",
@@ -182,6 +182,7 @@ export default Vue.extend({
   },
   methods: {
     ...mapMutations(["setApiLoading", "updateAnOptionProperty"]),
+    ...mapActions(["getSearchResults"]),
     formatText(text: string = ""): string {
       return text
         .replace(/-/g, " ")
@@ -189,13 +190,12 @@ export default Vue.extend({
         .replace(/\s+/g, "-");
     },
 
-    getData(type: string, val: string): void {
+    async getData(type: string, val: string): Promise<void> {
       console.log("type: ", type, " val: ", val);
 
       if (this.$route.params.keyword === undefined) {
         return;
       }
-      // this.$store.commit("updateAnOptionProperty", { key: type, value: val.toLowerCase() });
 
       this.$store.commit("setApiLoading", {
         loading: true,
@@ -209,14 +209,59 @@ export default Vue.extend({
           console.log("Error fetching search suggestion:", error);
         }
       } else {
+        this.$router.replace({
+          path: `/${this.$route.path.split("/")[1]}/${
+            this.$route.params.keyword
+          }`,
+          query: { ...this.$route.query, [type]: val },
+        });
+        console.log('pricing: ', this.$route.query.price)
         try {
-          this.$router.push({
-            path: `/${this.$route.path.split("/")[1]}/${
-              this.$route.params.keyword
-            }`,
-            query: { [type]: val },
+          const routeSection = this.$route.path.split("/")[1];
+          const query = this.$route.params.keyword;
+          const asset = routeSection;
+          const price =
+            this.$route.query.price || this.$store.state.options.price;
+          const page = 1;
+          const per_page =
+            this.$route.query.per_page || this.$store.state.options.per_page;
+          const sort = this.$route.query.sort || this.$store.state.options.sort;
+          const view = this.$route.query.view || this.$store.state.options.view;
+
+          let formatAsset = "3d";
+          switch (asset) {
+            case "all-assets":
+              formatAsset = "3d";
+              break;
+            case "3d-illustrations":
+              formatAsset = "3d";
+              break;
+            case "lottie-animations":
+              formatAsset = "lottie";
+              break;
+            case "illustrations":
+              formatAsset = "illustration";
+              break;
+            case "icons":
+              formatAsset = "icon";
+              break;
+
+            default:
+              formatAsset = "3d";
+              break;
+          }
+          const val = this.$route.params.keyword;
+          this.updateAnOptionProperty({ key: "query", value: val });
+          await this.getSearchResults({
+            loadMoreData: false,
+            query,
+            asset: formatAsset,
+            price,
+            page,
+            per_page,
+            sort,
+            view,
           });
-          console.log('done here');
         } catch (error) {
           console.log("Error fetching search suggestion:", error);
         }
