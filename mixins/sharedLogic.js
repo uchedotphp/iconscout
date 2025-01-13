@@ -16,13 +16,13 @@ export default Vue.extend({
   fetchOnServer: true,
   async fetch({ store, params, route }) {
     const routeSection = route.path.split("/")[1];
-    const query = route.params.keyword;
+    const query = route.params?.keyword;
     const asset = routeSection;
-    const price = route.query.price || store.state.options.price;
-    const page = route.query.page || store.state.options.page;
-    const per_page = route.query.per_page || store.state.options.per_page;
-    const sort = route.query.sort || store.state.options.sort;
-    const view = route.query.view || store.state.options.view;
+    const price = route.query?.price || store.state.options.price;
+    const page = route.query?.page || store.state.options.page;
+    const per_page = route.query?.per_page || store.state.options.per_page;
+    const sort = route.query?.sort || store.state.options.sort;
+    const view = route.query?.view || store.state.options.view;
 
     let formatAsset = "3d";
     switch (asset) {
@@ -46,8 +46,8 @@ export default Vue.extend({
         formatAsset = "3d";
         break;
     }
+    if (route.params?.keyword) {
 
-    if (query.length === 0) {
       // TODO: check if this is necessary
       store.commit("updateAnOptionProperty", {
         key: "query",
@@ -56,8 +56,6 @@ export default Vue.extend({
     }
 
     if (!store.state.apiLoading.loading) {
-      console.log("fetching data on server");
-
       store.commit("setApiLoading", { loading: true, type: routeSection });
     }
 
@@ -87,7 +85,7 @@ export default Vue.extend({
 
   computed: {
     ...mapState({
-      filteredOptions: "options",
+      // filteredOptions: "options",
       apiResponse: "apiResponse",
     }),
     ...mapGetters({
@@ -98,6 +96,9 @@ export default Vue.extend({
     routeSection() {
       return this.$route.path.split("/")[1];
     },
+    searchedKeyword() {
+      return this.$route.params.keyword;
+    }
   },
 
   methods: {

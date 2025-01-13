@@ -14,7 +14,7 @@
       <section class="mt-4">
         <h2 class="text-capitalize">
           <b>
-            Explore {{ filteredOptions.query }} Assets Packs
+            Explore {{ searchedKeyword }} Assets Packs
           </b>
         </h2>
         <div class="card-container">
@@ -35,14 +35,14 @@
     </template>
     <NoData v-else class="d-flex align-items-center h-100">
       <template #message>
-        No result for {{ filteredOptions.query }} assets
+        No result for {{ searchedKeyword }} assets
       </template>
       <template #subMessage> {{ subMessage }} </template>
     </NoData>
 
     <ForceLogin v-if="restrictGuestUser">
       <template #message>
-        View all {{ filteredOptions.query }} 3D Illustrations
+        View all {{ searchedKeyword }} 3D Illustrations
       </template>
     </ForceLogin>
   </div>

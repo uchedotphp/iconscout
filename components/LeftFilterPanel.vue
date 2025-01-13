@@ -182,6 +182,22 @@ export default Vue.extend({
       return this.$route.path.split("/")[1].replace(/-/g, " ");
     },
   },
+  watch: {
+    routeSection: {
+      handler: function handler(newValue, oldValue) {
+        if (newValue !== oldValue) {
+          console.log("psss: ", newValue);
+
+          if (newValue.toLowerCase() === "3d illustrations") {
+            this.filters.assetValue = "3D illustrations";
+          } else {
+            this.filters.assetValue = newValue.toLowerCase();
+          }
+        }
+      },
+      // immediate: true,
+    },
+  },
   methods: {
     ...mapMutations(["setApiLoading", "updateAnOptionProperty"]),
     ...mapActions(["getSearchResults"]),

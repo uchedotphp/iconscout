@@ -14,7 +14,7 @@
       <section class="mt-4">
         <h2 class="text-capitalize">
           <b>
-            Explore {{ filteredOptions.query }} Lottie Animation Packs
+            Explore {{ searchedKeyword }} Lottie Animation Packs
           </b>
         </h2>
         <div class="card-container">
@@ -35,14 +35,14 @@
     </template>
     <NoData v-else class="d-flex align-items-center h-100">
       <template #message>
-        No result for {{ filteredOptions.query }} lottie animations
+        No result for {{ searchedKeyword }} lottie animations
       </template>
       <template #subMessage> {{ subMessage }} </template>
     </NoData>
 
     <ForceLogin v-if="restrictGuestUser">
       <template #message>
-        View all {{ filteredOptions.query }} Lottie Animations
+        View all {{ searchedKeyword }} Lottie Animations
       </template>
     </ForceLogin>
   </div>

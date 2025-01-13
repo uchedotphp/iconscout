@@ -17,7 +17,7 @@
       <section class="mt-4">
         <h2 class="text-capitalize">
           <b>
-            Explore {{ filteredOptions.query }} 3D Illustrations Packs
+            Explore {{ searchedKeyword }} 3D Illustrations Packs
           </b>
         </h2>
         <div  class="card-container">
@@ -38,14 +38,14 @@
     </template>
     <NoData v-else class="d-flex align-items-center h-100">
       <template #message>
-        No result for {{ filteredOptions.query }} 3d illustrations
+        No result for {{ searchedKeyword }} 3d illustrations
       </template>
       <template #subMessage> {{ subMessage }} </template>
     </NoData>
 
     <ForceLogin v-if="restrictGuestUser">
       <template #message>
-        View all {{ filteredOptions.query }} 3D Illustrations
+        View all {{ searchedKeyword }} 3D Illustrations
       </template>
     </ForceLogin>
   </div>

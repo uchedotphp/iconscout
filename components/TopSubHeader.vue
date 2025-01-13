@@ -35,9 +35,11 @@ export default Vue.extend({
     ...mapGetters(["totalAssetCount"]),
 
     searchedKeyword() {
-      return this.searchQuery
-        ? this.searchQuery.charAt(0).toUpperCase() + this.searchQuery.slice(1)
-        : "";
+      return (
+        this.$route.params.keyword.charAt(0).toUpperCase() +
+          this.$route.params.keyword.slice(1) ||
+        this.searchQuery.charAt(0).toUpperCase() + this.searchQuery.slice(1)
+      );
     },
 
     routeSection(): string {
