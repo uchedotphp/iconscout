@@ -152,25 +152,27 @@ export default Vue.extend({
   },
   mounted() {
     this.filters.assetValue = (this.routeSection as string) || "all assets";
-    this.filters.priceValue = this.filterOptions.price || "free";
-    this.filters.sortValue = this.filterOptions.sort || "popular";
-    this.filters.viewValue = this.filterOptions.view || "pack";
-  },
-  watch: {
-    routeSection: {
-      handler: function handler(newValue, oldValue) {
-        if (newValue !== oldValue) {
-          console.log("psss: ", newValue);
-
-          if (newValue.toLowerCase() === "3d illustrations") {
-            this.filters.assetValue = "3D illustrations";
-          } else {
-            this.filters.assetValue = newValue.toLowerCase();
-          }
-        }
-      },
-      // immediate: true,
-    },
+    if (this.$route.query.price) {
+      this.filters.priceValue = this.$route.query.price as prices;
+      this.updateAnOptionProperty({
+        key: "price",
+        value: this.$route.query.price as prices,
+      });
+    }
+    if (this.$route.query.sort) {
+      this.filters.sortValue = this.$route.query.sort as sortOptions;
+      this.updateAnOptionProperty({
+        key: "sort",
+        value: this.$route.query.sort as sortOptions,
+      });
+    }
+    if (this.$route.query.view) {
+      this.filters.viewValue = this.$route.query.view as viewOptions;
+      this.updateAnOptionProperty({
+        key: "view",
+        value: this.$route.query.view as viewOptions,
+      });
+    }
   },
   computed: {
     ...mapState({
@@ -191,8 +193,6 @@ export default Vue.extend({
     },
 
     async getData(type: string, val: string): Promise<void> {
-      console.log("type: ", type, " val: ", val);
-
       if (this.$route.params.keyword === undefined) {
         return;
       }
@@ -209,25 +209,23 @@ export default Vue.extend({
           console.log("Error fetching search suggestion:", error);
         }
       } else {
+          this.updateAnOptionProperty({ key: type, value: val });
+        const routeSection = this.$route.path.split("/")[1];
+        const query = this.$route.params.keyword;
+        const asset = routeSection;
+        const price = this.filters.priceValue;
+        const page = 1;
+        const per_page =
+          this.$route.query.per_page || this.$store.state.options.per_page;
+        const sort = this.filters.sortValue;
+        const view = this.filters.viewValue;
         this.$router.replace({
           path: `/${this.$route.path.split("/")[1]}/${
             this.$route.params.keyword
           }`,
           query: { ...this.$route.query, [type]: val },
         });
-        console.log('pricing: ', this.$route.query.price)
         try {
-          const routeSection = this.$route.path.split("/")[1];
-          const query = this.$route.params.keyword;
-          const asset = routeSection;
-          const price =
-            this.$route.query.price || this.$store.state.options.price;
-          const page = 1;
-          const per_page =
-            this.$route.query.per_page || this.$store.state.options.per_page;
-          const sort = this.$route.query.sort || this.$store.state.options.sort;
-          const view = this.$route.query.view || this.$store.state.options.view;
-
           let formatAsset = "3d";
           switch (asset) {
             case "all-assets":
@@ -250,8 +248,6 @@ export default Vue.extend({
               formatAsset = "3d";
               break;
           }
-          const val = this.$route.params.keyword;
-          this.updateAnOptionProperty({ key: "query", value: val });
           await this.getSearchResults({
             loadMoreData: false,
             query,
@@ -260,7 +256,7 @@ export default Vue.extend({
             page,
             per_page,
             sort,
-            view,
+            view,to: 'uche'
           });
         } catch (error) {
           console.log("Error fetching search suggestion:", error);

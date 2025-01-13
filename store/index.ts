@@ -142,7 +142,6 @@ export const actions = {
 
     const product_type = 'item'
     const { asset, query, price, page, per_page, sort, view } = payload;
-
     try {
       if (!loadMoreData) {
         // @ts-ignore
