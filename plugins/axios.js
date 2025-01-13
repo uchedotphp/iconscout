@@ -1,6 +1,6 @@
 export default function ({ $axios, redirect }) {
-  const secretkey = process.env.API_SECRET_KEY;
-  const clientid = process.env.API_CLIENT_ID;
+  const secretkey = process.env.NUXT_ENV_API_CLIENT_ID;
+  const clientid = process.env.NUXT_ENV_API_CLIENT_ID;
 
   $axios.setHeader("Authorization", `Bearer ${secretkey}`);
   $axios.setHeader("Client-ID", clientid);
