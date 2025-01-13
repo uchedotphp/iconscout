@@ -13,9 +13,9 @@
       </div>
       <section class="mt-4">
         <h2 class="text-capitalize">
-          <NuxtLink to="#" no-prefetch>
+          <b>
             Explore {{ filteredOptions.query }} Icons Packs
-          </NuxtLink>
+          </b>
         </h2>
         <div class="card-container">
           <div v-for="item in data" :key="item.id">

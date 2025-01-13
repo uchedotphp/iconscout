@@ -40,7 +40,6 @@ export default Vue.extend({
   width: 100%;
   height: 100%;
   background: linear-gradient(to top, white, rgba(255, 255, 255, 0));
-  // background: linear-gradient(to top, #FFFFFF 0%, #FFFFFF 90%, rgba(255, 255, 255, 0) 99%);
   display: flex;
   justify-content: center;
   z-index: 10;
@@ -69,7 +68,6 @@ button.login {
   margin-block: 20px 12px;
   padding: 13px 48px;
   font-size: 16px;
-  // cursor: pointer;
   background-color: var(--ics-blue);
   color: var(--ics-white);
   font-weight: 600;
