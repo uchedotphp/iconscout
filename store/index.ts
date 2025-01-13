@@ -60,8 +60,8 @@ export const getters = {
   twoFoldHeight: (state: { apiResponse: any }) => {
     return state.apiResponse.current_page > 2
   },
-  restrictGuestUser(state: { isLooggedIn: boolean }, getters: { twoFoldHeight: boolean }) {
-    return !state.isLooggedIn && getters.twoFoldHeight
+  restrictGuestUser(state: { isLoggedIn: boolean }, getters: { twoFoldHeight: boolean }) {
+    return !state.isLoggedIn && getters.twoFoldHeight
   }
 }
 
@@ -136,8 +136,10 @@ export const actions = {
     try {
       let result;
       if (!loadMoreData) {
-        const { query, price, page, per_page, sort } = state.options;
-        console.log('options: ', asset);
+        let { query, price, page, per_page, sort } = state.options;
+        if (asset === 'icons') {
+          per_page = 200
+        }
         let formatAsset = '3d';
         switch (asset) {
           case 'all-assets':
@@ -168,7 +170,11 @@ export const actions = {
         commit('updateAnOptionProperty', { key: 'page', value: state.apiResponse.current_page + 1 })
 
         const currentItems = state.apiResponse.data;
-        const { query, price, page, per_page, sort } = state.options;
+        let { query, price, page, per_page, sort } = state.options;
+
+        if (asset === 'icons') {
+          per_page = 200
+        }
 
         let formatAsset = '3d';
         switch (asset) {

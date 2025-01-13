@@ -1,6 +1,6 @@
 import Vue from "vue";
 import { mapState, mapMutations, mapActions, mapGetters } from "vuex";
-import { searchSuggestions } from '~/data/data'
+import { searchSuggestions } from "~/data/data";
 
 export default Vue.extend({
   data() {
@@ -41,15 +41,12 @@ export default Vue.extend({
   computed: {
     ...mapState({
       filteredOptions: "options",
-      isUserLoggedIn: "isLoggedIn",
       apiResponse: "apiResponse",
-    }),
-    ...mapState({
-      currentPage: (state) => state.apiResponse.current_page,
     }),
     ...mapGetters({
       data: "apiData",
       isLastPage: "isLastPage",
+      restrictGuestUser: "restrictGuestUser",
     }),
     routeSection() {
       return this.$route.path.split("/")[1];
@@ -73,14 +70,13 @@ export default Vue.extend({
         console.log("Error fetching search suggestion:", error);
       }
       this.setApiLoading(false);
-      console.log('the route still:', this.$store.state.options);
-
+      console.log("the route still:", this.$store.state.options);
     },
 
     setupObserver() {
       const options = {
         root: null,
-        rootMargin: "0px",
+        rootMargin: "100px",
         threshold: 0.1,
       };
       const observer = new IntersectionObserver((entries) => {
@@ -89,11 +85,18 @@ export default Vue.extend({
             if (this.isLastPage) {
               observer.disconnect();
             } else {
-              if (!this.isUserLoggedIn && this.currentPage > 2) {
+              if (this.restrictGuestUser) {
                 this.showGetStartedOverlay = true;
                 observer.disconnect();
               } else {
-                this.setApiLoading(true);
+                this.setApiLoading({
+                  loading: true,
+                  type: this.routeSection,
+                });
+                // window.scrollTo({
+                //   top: 0,
+                //   behavior: "smooth",
+                // });
                 try {
                   const val = this.$route.params.keyword;
                   this.updateAnOptionProperty({ key: "query", value: val });
@@ -104,7 +107,10 @@ export default Vue.extend({
                 } catch (error) {
                   console.log("Error fetching more data:", error);
                 }
-                this.setApiLoading(false);
+                this.setApiLoading({
+                  loading: false,
+                  type: this.routeSection,
+                });
               }
             }
           }

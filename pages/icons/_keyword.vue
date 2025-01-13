@@ -1,7 +1,7 @@
 <template>
   <div
     class="result-view position-relative h-100"
-    :class="{ 'force-login': !isUserLoggedIn && currentPage > 2 }"
+    :class="{ 'force-login': restrictGuestUser }"
   >
     <template v-if="data.length">
       <div class="align-items-center search-suggestion-nav">
@@ -17,7 +17,7 @@
             Explore {{ filteredOptions.query }} Icons Packs
           </NuxtLink>
         </h2>
-        <div ref="tilesContainer" class="card-container">
+        <div  class="card-container">
           <div v-for="item in data" :key="item.id">
             <IconCardData :data="item" />
           </div>
@@ -40,7 +40,7 @@
       <template #subMessage> {{ subMessage }} </template>
     </NoData>
 
-    <ForceLogin v-if="!isUserLoggedIn && currentPage > 2">
+    <ForceLogin v-if="restrictGuestUser">
       <template #message>
         View all {{ filteredOptions.query }} 3D Illustrations
       </template>
@@ -76,6 +76,7 @@ export default Vue.extend({
   },
 
   mounted() {
+    // @ts-ignore
     this.setupObserver();
   },
 });

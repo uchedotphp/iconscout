@@ -26,7 +26,7 @@
           </b-col>
           <b-col>
             <div class="main-content h-100">
-              <LoadingShimmer v-if="apiLoading.loading" />
+              <LoadingShimmer v-if="apiLoading.loading" :numberOfShimmers="shimmerCount" />
               <Nuxt v-else :key="$route.fullPath" />
             </div>
           </b-col>
@@ -43,14 +43,21 @@ import { mapState, mapMutations } from "vuex";
 
 export default Vue.extend({
   name: "DefaultLayout",
-  // mounted() {
-  //   console.log('in search layout');
 
-  //   this.updateAnOptionProperty({
-  //     key: "query",
-  //     value: this.$route.params.keyword,
-  //   });
-  // },
+  data() {
+    return {
+      shimmerCount: 30,
+    };
+  },
+
+  mounted() {
+    this.calculateShimmers();
+    window.addEventListener("resize", this.calculateShimmers);
+  },
+
+  beforeDestroy() {
+    window.removeEventListener("resize", this.calculateShimmers);
+  },
 
   computed: {
     ...mapState(["isFilterPanelExpanded", "apiLoading", "options"]),
@@ -67,6 +74,15 @@ export default Vue.extend({
   },
   methods: {
     ...mapMutations(["updateAnOptionProperty"]),
+    calculateShimmers() {
+      const containerWidth = window.innerWidth;
+      const containerHeight = window.innerHeight;
+      const shimmerWidth = 150;
+      const shimmerHeight = 150;
+      this.shimmerCount =
+        Math.floor(containerWidth / shimmerWidth) *
+        Math.floor(containerHeight / shimmerHeight);
+    },
   },
 });
 </script>
@@ -77,7 +93,7 @@ export default Vue.extend({
 }
 
 .secondary-navigation-area {
-  top: 82px;
+  top: 81px;
   position: sticky;
   z-index: 999;
   background-color: #fafafc;

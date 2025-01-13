@@ -1,39 +1,6 @@
 <template>
   <div class="contt" :class="assetType">
-    <div class="loading-shimmer" :class="assetType">
-      <div class="shimmer"></div>
-    </div>
-    <div class="loading-shimmer" :class="assetType">
-      <div class="shimmer"></div>
-    </div>
-    <div class="loading-shimmer" :class="assetType">
-      <div class="shimmer"></div>
-    </div>
-    <div class="loading-shimmer" :class="assetType">
-      <div class="shimmer"></div>
-    </div>
-    <div class="loading-shimmer" :class="assetType">
-      <div class="shimmer"></div>
-    </div>
-    <div class="loading-shimmer" :class="assetType">
-      <div class="shimmer"></div>
-    </div>
-    <div class="loading-shimmer" :class="assetType">
-      <div class="shimmer"></div>
-    </div>
-    <div class="loading-shimmer" :class="assetType">
-      <div class="shimmer"></div>
-    </div>
-    <div class="loading-shimmer" :class="assetType">
-      <div class="shimmer"></div>
-    </div>
-    <div class="loading-shimmer" :class="assetType">
-      <div class="shimmer"></div>
-    </div>
-    <div class="loading-shimmer" :class="assetType">
-      <div class="shimmer"></div>
-    </div>
-    <div class="loading-shimmer" :class="assetType">
+    <div v-for="(shimmer, index) in numberOfShimmers" :key="index" class="loading-shimmer" :class="assetType">
       <div class="shimmer"></div>
     </div>
   </div>
@@ -47,6 +14,12 @@ const ASSET_TYPE_3D_ILLUSTRATIONS = "3d-illustrations";
 
 export default Vue.extend({
   name: "LoadingShimmer",
+  props: {
+    numberOfShimmers: {
+      type: Number,
+      required: true,
+    },
+  },
   computed: {
     ...mapState({
       assetType: (state: any) => {

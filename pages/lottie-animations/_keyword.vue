@@ -1,10 +1,10 @@
 <template>
-  <div class="result-view h-100">
+  <div
+    class="result-view position-relative h-100"
+    :class="{ 'force-login': !isUserLoggedIn && currentPage > 2 }"
+  >
     <template v-if="data.length">
-      <div
-        style="position: relative; height: 38px; margin-top: 13px"
-        class="align-items-center"
-      >
+      <div class="align-items-center search-suggestion-nav">
         <SearchSuggestionNav
           :suggestions="searchSuggestions"
           asset="assets"
@@ -17,7 +17,7 @@
             Explore {{ filteredOptions.query }} Lottie Animation Packs
           </NuxtLink>
         </h2>
-        <div ref="tilesContainer" class="card-container">
+        <div class="card-container">
           <div v-for="item in data" :key="item.id">
             <AnimationData :data="item" />
           </div>
@@ -41,13 +41,13 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
+import Vue from "vue";
 import { mapState, mapMutations, mapActions, mapGetters } from "vuex";
 import { searchSuggestions } from "~/data/data";
 
 export default Vue.extend({
-  name: 'LottieAnimations',
-  layout: 'search',
+  name: "LottieAnimations",
+  layout: "search",
 
   data() {
     return {
@@ -84,11 +84,16 @@ export default Vue.extend({
 
     if (query.length === 0) {
       console.log("adding query: ", params.keyword);
-      store.commit("updateAnOptionProperty", { key: "query", value: params.keyword });
+      store.commit("updateAnOptionProperty", {
+        key: "query",
+        value: params.keyword,
+      });
     }
     store.commit("setApiLoading", true);
     try {
-      const res = await store.dispatch("getSearchResults", { asset: 'lottie-animations' });
+      const res = await store.dispatch("getSearchResults", {
+        asset: "lottie-animations",
+      });
       console.log("fetching data pos: ", res);
     } catch (error) {
       console.log("error fetching data: ", error);
@@ -150,7 +155,7 @@ export default Vue.extend({
       this.setApiLoading(true);
       try {
         this.updateAnOptionProperty({ key: "query", value: val });
-        await this.getSearchResults({ asset: 'lottie-animations' });
+        await this.getSearchResults({ asset: "lottie-animations" });
       } catch (error) {
         console.log("error getting search suggestion: ", error);
       }
@@ -170,7 +175,10 @@ export default Vue.extend({
             try {
               const val = this.$route.params.keyword;
               this.updateAnOptionProperty({ key: "query", value: val });
-              await this.getSearchResults({ loadMoreData: true, asset: 'lottie-animations' });
+              await this.getSearchResults({
+                loadMoreData: true,
+                asset: "lottie-animations",
+              });
             } catch (error) {
               console.log("error fetching more data: ", error);
             }

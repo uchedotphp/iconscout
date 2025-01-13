@@ -60,6 +60,8 @@ export default Vue.extend({
   methods: {
     ...mapMutations(["updateAnOptionProperty"]),
     goToLink(query: string) {
+      console.log('going here');
+
       return `/${this.asset}/${query}`;
     },
   },

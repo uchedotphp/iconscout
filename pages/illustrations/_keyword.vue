@@ -17,7 +17,7 @@
             Explore {{ filteredOptions.query }} Illustrations Packs
           </NuxtLink>
         </h2>
-        <div ref="tilesContainer" class="card-container">
+        <div  class="card-container">
           <div v-for="item in data" :key="item.id">
             <CardData :data="item" />
           </div>
@@ -76,6 +76,7 @@ export default Vue.extend({
   },
 
   mounted() {
+    // @ts-ignore
     this.setupObserver();
   }
 });
