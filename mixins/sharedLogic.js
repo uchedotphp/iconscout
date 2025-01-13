@@ -16,14 +16,45 @@ export default Vue.extend({
   fetchOnServer: true,
   async fetch({ store, params, route }) {
     const routeSection = route.path.split("/")[1];
-    // check store for data
-    const query = store.state.options.query;
+    const query = route.params.keyword;
+    const asset = routeSection;
+    const price = route.query.price || store.state.options.price;
+    const page = route.query.page || store.state.options.page;
+    const per_page = route.query.per_page || store.state.options.per_page;
+    const sort = route.query.sort || store.state.options.sort;
+    const view = route.query.view || store.state.options.view;
+
+    let formatAsset = "3d";
+    switch (asset) {
+      case "all-assets":
+        formatAsset = "3d";
+        break;
+      case "3d-illustrations":
+        formatAsset = "3d";
+        break;
+      case "lottie-animations":
+        formatAsset = "lottie";
+        break;
+      case "illustrations":
+        formatAsset = "illustration";
+        break;
+      case "icons":
+        formatAsset = "icon";
+        break;
+
+      default:
+        formatAsset = "3d";
+        break;
+    }
+
     if (query.length === 0) {
+      // TODO: check if this is necessary
       store.commit("updateAnOptionProperty", {
         key: "query",
         value: params.keyword,
       });
     }
+
     if (!store.state.apiLoading.loading) {
       store.commit("setApiLoading", { loading: true, type: routeSection });
     }
@@ -37,7 +68,14 @@ export default Vue.extend({
 
     try {
       const res = await store.dispatch("getSearchResults", {
-        asset: routeSection,
+        query,
+        asset: formatAsset,
+        price,
+        page,
+        per_page,
+        sort,
+        view,
+        loadMoreData: false,
       });
     } catch (error) {
       console.log("error fetching data: ", error);
@@ -88,7 +126,6 @@ export default Vue.extend({
         loading: false,
         type: this.routeSection,
       });
-      console.log("the route still:", this.$store.state.options);
     },
 
     setupObserver() {
@@ -111,16 +148,50 @@ export default Vue.extend({
                   loading: true,
                   type: this.routeSection,
                 });
-                // window.scrollTo({
-                //   top: 0,
-                //   behavior: "smooth",
-                // });
                 try {
+                  const routeSection = this.$route.path.split("/")[1];
+                  const query = this.$route.params.keyword;
+                  const asset = routeSection;
+                  const price = this.$route.query.price || this.$store.state.options.price;
+                  const page = this.$store.state.apiResponse.current_page + 1;
+                  const per_page =
+                    this.$route.query.per_page || this.$store.state.options.per_page;
+                  const sort = this.$route.query.sort || this.$store.state.options.sort;
+                  const view = this.$route.query.view || this.$store.state.options.view;
+
+                  let formatAsset = "3d";
+                  switch (asset) {
+                    case "all-assets":
+                      formatAsset = "3d";
+                      break;
+                    case "3d-illustrations":
+                      formatAsset = "3d";
+                      break;
+                    case "lottie-animations":
+                      formatAsset = "lottie";
+                      break;
+                    case "illustrations":
+                      formatAsset = "illustration";
+                      break;
+                    case "icons":
+                      formatAsset = "icon";
+                      break;
+
+                    default:
+                      formatAsset = "3d";
+                      break;
+                  }
                   const val = this.$route.params.keyword;
                   this.updateAnOptionProperty({ key: "query", value: val });
                   await this.getSearchResults({
                     loadMoreData: true,
-                    asset: this.routeSection,
+                    query,
+                    asset: formatAsset,
+                    price,
+                    page,
+                    per_page,
+                    sort,
+                    view,
                   });
                 } catch (error) {
                   console.log("Error fetching more data:", error);

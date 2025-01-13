@@ -71,8 +71,6 @@ import { assetOptions } from "~/data/data";
 import { mapState, mapMutations } from "vuex";
 
 function getCategoryName(assetType: string): string {
-  console.log('me: ', assetType);
-
   const categoryMap: { [key: string]: string } = {
     'all-assets': "All",
     "3d-illustrations": "3D",
@@ -80,8 +78,6 @@ function getCategoryName(assetType: string): string {
     illustrations: "Illustrations",
     icons: "Icons",
   };
-  console.log('now: ', categoryMap[assetType]);
-
   return categoryMap[assetType];
 }
 
@@ -147,20 +143,22 @@ export default Vue.extend({
       this.isFocused = false;
       this.showSuggestionPanel = false;
     },
+
     switchAsset(val: string) {
       const formattedVal = val.toLowerCase().replace(/\s+/g, "-");
-      console.log('ok: ', formattedVal);
       this.updateAnOptionProperty({ key: "asset", value: formattedVal });
-      if (this.storeSearchTerm) {
-        this.resetOptions();
-        this.updateAnOptionProperty({ key: "query", value: this.searchTerm });
-        this.$router.push(`/${formattedVal}/${this.storeSearchTerm}`);
+      // if (this.storeSearchTerm) {
+        // this.resetOptions();
+        // this.updateAnOptionProperty({ key: "query", value: this.searchTerm });
+        const searchTerm = this.$route.params.keyword;
+      if (searchTerm) {
+        this.$router.push(`/${formattedVal}/${searchTerm}`);
       }
     },
+
     performSearch() {
-      if (this.searchTerm.length) {
+      if (this.searchTerm.length && this.storeAsset) {
         this.showSuggestionPanel = false;
-        // this.resetOptions();
         this.updateAnOptionProperty({ key: "query", value: this.searchTerm });
         this.$router.push(`/${this.storeAsset}/${this.storeSearchTerm}`);
       }

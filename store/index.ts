@@ -27,7 +27,7 @@ export const state = () => ({
   animationPlayer: 'lottie player',
   options: {
     asset: 'all-assets',
-    price: 'premium',
+    price: 'free',
     view: 'pack',
     sort: 'popular',
     query: '',
@@ -133,80 +133,38 @@ export const mutations = {
 }
 
 export const actions = {
-  async getSearchResults({ state, commit }: { state: State, commit: any }, payload: { loadMoreData: boolean, asset: assetType } = { loadMoreData: false, asset: 'all-assets' }): Promise<any> {
+  async getSearchResults(
+    { state, commit }: { state: State, commit: any },
+    payload: {
+      loadMoreData: boolean,
+      asset: assetType,
+      query: string,
+      price: prices,
+      page: number,
+      per_page: number,
+      sort: sortOptions,
+      view: viewOptions
+    }): Promise<any> {
     const { loadMoreData } = payload; // loadMoreData is a boolean that determines if the user is loading more data
-    const { asset } = payload;
+
     const product_type = 'item'
+    const { asset, query, price, page, per_page, sort, view } = payload;
 
     try {
-      let result;
       if (!loadMoreData) {
-        let { query, price, page, per_page, sort, view } = state.options;
-        if (asset === 'icons') {
-          per_page = 200
-        }
-        let formatAsset = '3d';
-        switch (asset) {
-          case 'all-assets':
-            formatAsset = '3d';
-            break;
-          case '3d-illustrations':
-            formatAsset = '3d';
-            break;
-          case 'lottie-animations':
-            formatAsset = 'lottie';
-            break;
-          case 'illustrations':
-            formatAsset = 'illustration';
-            break;
-          case 'icons':
-            formatAsset = 'icon';
-            break;
-
-          default: formatAsset = '3d';
-            break;
-        }
         // @ts-ignore
-        result = await this.$axios.$get(`/v3/search?query=${query}&product_type=${product_type}&asset=${formatAsset}&price=${price}&sort=${sort}&per_page=${per_page}&page=${page}&view=${view}`)
+        const result = await this.$axios.$get(`/v3/search?query=${query}&product_type=${product_type}&asset=${asset}&price=${price}&sort=${sort}&per_page=${per_page}&page=${page}&view=${view}`)
         if (result.response.items) {
           commit('setApiResponse', result.response.items)
         }
       } else {
         commit('updateAnOptionProperty', { key: 'page', value: state.apiResponse.current_page + 1 })
-
         const currentItems = state.apiResponse.data;
-        let { query, price, page, per_page, sort, view } = state.options;
 
-        if (asset === 'icons') {
-          per_page = 200
-        }
-
-        let formatAsset = '3d';
-        switch (asset) {
-          case 'all-assets':
-            formatAsset = '3d';
-            break;
-          case '3d-illustrations':
-            formatAsset = '3d';
-            break;
-          case 'lottie-animations':
-            formatAsset = 'lottie';
-            break;
-          case 'illustrations':
-            formatAsset = 'illustration';
-            break;
-          case 'icons':
-            formatAsset = 'icon';
-            break;
-
-          default: formatAsset = '3d';
-            break;
-        }
         // @ts-ignore
-        result = await this.$axios.$get(`/v3/search?query=${query}&product_type=${product_type}&asset=${formatAsset}&price=${price}&sort=${sort}&per_page=${per_page}&page=${page}&view=${view}`)
+        const result = await this.$axios.$get(`/v3/search?query=${query}&product_type=${product_type}&asset=${asset}&price=${price}&sort=${sort}&per_page=${per_page}&page=${page}&view=${view}`)
         commit('setApiResponse', { ...result.response.items, data: [...currentItems, ...result.response.items.data] })
       }
-      return result.items
     } catch (error) {
       console.log('an error occurs: ', error);
     }
