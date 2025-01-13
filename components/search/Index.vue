@@ -146,9 +146,9 @@ export default Vue.extend({
 
     switchAsset(val: string) {
       const formattedVal = val.toLowerCase().replace(/\s+/g, "-");
+      this.resetOptions();
       this.updateAnOptionProperty({ key: "asset", value: formattedVal });
       // if (this.storeSearchTerm) {
-        // this.resetOptions();
         // this.updateAnOptionProperty({ key: "query", value: this.searchTerm });
         const searchTerm = this.$route.params.keyword;
       if (searchTerm) {

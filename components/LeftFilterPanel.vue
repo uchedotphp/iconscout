@@ -155,23 +155,22 @@ export default Vue.extend({
     this.filters.priceValue = this.filterOptions.price || "free";
     this.filters.sortValue = this.filterOptions.sort || "popular";
     this.filters.viewValue = this.filterOptions.view || "pack";
-
   },
   watch: {
-    'routeSection': {
+    routeSection: {
       handler: function handler(newValue, oldValue) {
         if (newValue !== oldValue) {
-          console.log('psss: ', newValue);
+          console.log("psss: ", newValue);
 
-          if (newValue.toLowerCase() === '3d illustrations') {
-            this.filters.assetValue = '3D illustrations';
+          if (newValue.toLowerCase() === "3d illustrations") {
+            this.filters.assetValue = "3D illustrations";
           } else {
             this.filters.assetValue = newValue.toLowerCase();
           }
         }
       },
       // immediate: true,
-    }
+    },
   },
   computed: {
     ...mapState({
@@ -189,16 +188,21 @@ export default Vue.extend({
         .replace(/\.\w+$/, "")
         .replace(/\s+/g, "-");
     },
+
     getData(type: string, val: string): void {
+      console.log("type: ", type, " val: ", val);
+
       if (this.$route.params.keyword === undefined) {
         return;
       }
-      this.$store.commit("updateAnOptionProperty", { key: type, value: val.toLowerCase() });
+      // this.$store.commit("updateAnOptionProperty", { key: type, value: val.toLowerCase() });
+
       this.$store.commit("setApiLoading", {
         loading: true,
         type: this.$route.path.split("/")[1],
       });
-      if (val === "asset") {
+
+      if (type === "asset") {
         try {
           this.$router.push(`/${val}/${this.$route.params.keyword}`);
         } catch (error) {
@@ -206,13 +210,18 @@ export default Vue.extend({
         }
       } else {
         try {
-          this.$router.push(
-            `/${this.$store.state.options.asset}/${this.$route.params.keyword}`
-          );
+          this.$router.push({
+            path: `/${this.$route.path.split("/")[1]}/${
+              this.$route.params.keyword
+            }`,
+            query: { [type]: val },
+          });
+          console.log('done here');
         } catch (error) {
           console.log("Error fetching search suggestion:", error);
         }
       }
+
       this.$store.commit("setApiLoading", {
         loading: false,
         type: this.$route.path.split("/")[1],

@@ -1,5 +1,14 @@
 import type { assetType, prices, sortOptions, viewOptions } from '~/data/dataTypes';
 
+const optionsData = {
+  asset: 'all-assets' as assetType,
+  price: 'free' as prices,
+  view: 'pack' as viewOptions,
+  sort: 'popular' as sortOptions,
+  query: '',
+  per_page: 20,
+  page: 1,
+}
 interface State {
   isLoggedIn: boolean;
   isFilterPanelExpanded: boolean;
@@ -25,15 +34,7 @@ export const state = () => ({
   isLoggedIn: false,
   isFilterPanelExpanded: true,
   animationPlayer: 'lottie player',
-  options: {
-    asset: 'all-assets',
-    price: 'free',
-    view: 'pack',
-    sort: 'popular',
-    query: '',
-    per_page: 20,
-    page: 1,
-  },
+  options: optionsData,
   apiLoading: {
     loading: false,
     type: 'all-assets',
@@ -117,15 +118,7 @@ export const mutations = {
     state.options[payload.key] = payload.value
   },
   resetOptions(state: State) {
-    state.options = {
-      asset: 'all-assets',
-      price: 'premium',
-      view: 'pack',
-      sort: 'popular',
-      query: '',
-      per_page: 20,
-      page: 1,
-    }
+    state.options = optionsData
   },
   setAnimationPlayer(state: State, payload: 'lottie player' | 'dotlottie player') {
     state.animationPlayer = payload
@@ -158,7 +151,6 @@ export const actions = {
           commit('setApiResponse', result.response.items)
         }
       } else {
-        commit('updateAnOptionProperty', { key: 'page', value: state.apiResponse.current_page + 1 })
         const currentItems = state.apiResponse.data;
 
         // @ts-ignore

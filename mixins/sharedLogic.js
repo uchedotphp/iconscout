@@ -56,6 +56,8 @@ export default Vue.extend({
     }
 
     if (!store.state.apiLoading.loading) {
+      console.log("fetching data on server");
+
       store.commit("setApiLoading", { loading: true, type: routeSection });
     }
 
