@@ -10,8 +10,14 @@
           style="width: 77px; height: 77px"
         ></canvas> -->
         <picture style="width: 194px">
-          <source :srcset="data.urls.thumb" class="img-fluid" />
-          <img :src="data.urls.thumb" class="img-fluid" alt="" />
+          <template v-if="data.urls.thumb">
+            <source :srcset="`${data.urls.thumb}`" class="img-fluid" />
+            <img :src="`${data.urls.thumb}`" class="img-fluid" alt="" />
+          </template>
+          <template v-else>
+            <source :srcset="`${data.urls['png_128']}`" class="img-fluid" />
+            <img :src="`${data.urls['png_128']}`" class="img-fluid" alt="" />
+          </template>
         </picture>
       </a>
     </div>

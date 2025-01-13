@@ -6,11 +6,12 @@
         :key="id"
         class="h-100 d-flex align-items-center"
       >
-        <NuxtLink
+        <router-link
           :to="goToLink(asset)"
-          @click.native="setAsset(asset)"
+          :event="''"
+          @click.native.prevent="setAsset($event, asset)"
           class="h-100 nav-item"
-          >{{ title }}</NuxtLink
+          >{{ title }}</router-link
         >
       </li>
     </ul>
@@ -45,11 +46,12 @@ export default Vue.extend({
   },
   methods: {
     ...mapMutations(["updateAnOptionProperty", "resetOptions"]),
-    setAsset(param: assetType) {
-      const storeSearchTerm = this.storeSearchTerm;
+    setAsset(event: Event, param: assetType): void {
+      const storeSearchTerm: string = this.storeSearchTerm;
       this.resetOptions();
       this.updateAnOptionProperty({ key: "asset", value: param });
       this.updateAnOptionProperty({ key: "query", value: storeSearchTerm });
+      this.$router.push(`/${param}/${this.storeSearchTerm}`);
     },
     goToLink(asset: assetType) {
       return `/${asset}/${this.storeSearchTerm}`;
@@ -81,7 +83,7 @@ export default Vue.extend({
         }
 
         // &.nuxt-link-exact-active {
-        &.nuxt-link-active {
+        &.nuxt-link-active, &.nuxt-link-exact-active {
           color: var(--ics-black);
           &::before {
             content: "";

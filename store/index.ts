@@ -4,7 +4,10 @@ interface State {
   isLoggedIn: boolean;
   isFilterPanelExpanded: boolean;
   apiResponse: any;
-  apiLoading: boolean;
+  apiLoading: {
+    loading: boolean;
+    type: assetType;
+  };
   options: {
     per_page: number;
     page: number;
@@ -29,7 +32,10 @@ export const state = () => ({
     per_page: 20,
     page: 1,
   },
-  apiLoading: false,
+  apiLoading: {
+    loading: false,
+    type: 'all-assets',
+  },
   apiResponse: {
     data: [],
     current_page: 0,
@@ -48,12 +54,15 @@ export const state = () => ({
 export const getters = {
   apiData: (state: { apiResponse: any }) => state.apiResponse.data,
   totalAssetCount: (state: { apiResponse: any }) => state.apiResponse.total.toLocaleString(),
-  pagesRemaing(state: { apiResponse: any }) {
-    return state.apiResponse.last_page - state.apiResponse.current_page
-  },
   isLastPage(state: { apiResponse: any }) {
     return state.apiResponse.current_page === state.apiResponse.last_page
   },
+  twoFoldHeight: (state: { apiResponse: any }) => {
+    return state.apiResponse.current_page > 2
+  },
+  restrictGuestUser(state: { isLooggedIn: boolean }, getters: { twoFoldHeight: boolean }) {
+    return !state.isLooggedIn && getters.twoFoldHeight
+  }
 }
 
 export const mutations = {
@@ -62,8 +71,6 @@ export const mutations = {
   },
 
   setAssetType(state: State, payload: string) {
-    console.log('payload', payload);
-
     const categoryMap: { [key: string]: string } = {
       'all-assets': "all",
       "3d-illustrations": "3d",
@@ -76,8 +83,6 @@ export const mutations = {
   },
 
   setSearchQuery(state: State, payload: string) {
-    console.log('setting query: ', payload);
-
     state.options.query = payload;
   },
 
@@ -93,8 +98,9 @@ export const mutations = {
     state.apiResponse = payload
   },
 
-  setApiLoading(state: State, payload: boolean) {
-    state.apiLoading = payload
+  setApiLoading(state: State, payload: { loading: boolean, type: assetType } = { loading: false, type: 'all-assets' }) {
+    state.apiLoading.loading = payload.loading;
+    state.apiLoading.type = payload.type;
   },
 
   setPerPageOption(state: State, payload: number) {
@@ -102,7 +108,6 @@ export const mutations = {
   },
 
   setPageOption(state: State, payload: number) {
-    console.log('setting page: ', payload);
     state.options.page + payload
   },
 
@@ -125,16 +130,14 @@ export const mutations = {
 export const actions = {
   async getSearchResults({ state, commit }: { state: State, commit: any }, payload: { loadMoreData: boolean, asset: assetType } = { loadMoreData: false, asset: 'all-assets' }): Promise<any> {
     const { loadMoreData } = payload; // loadMoreData is a boolean that determines if the user is loading more data
-    const { asset } = payload
-    console.log('asset setting: ', asset);
-
+    const { asset } = payload;
     const product_type = 'item'
 
     try {
       let result;
       if (!loadMoreData) {
         const { query, price, page, per_page, sort } = state.options;
-        console.log('options: ', state.options);
+        console.log('options: ', asset);
         let formatAsset = '3d';
         switch (asset) {
           case 'all-assets':
@@ -163,11 +166,9 @@ export const actions = {
         }
       } else {
         commit('updateAnOptionProperty', { key: 'page', value: state.apiResponse.current_page + 1 })
-        console.log('page after update: ', state.options.page);
 
         const currentItems = state.apiResponse.data;
         const { query, price, page, per_page, sort } = state.options;
-        console.log('options: ', state.options);
 
         let formatAsset = '3d';
         switch (asset) {

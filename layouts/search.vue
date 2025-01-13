@@ -26,7 +26,7 @@
           </b-col>
           <b-col>
             <div class="main-content h-100">
-              <LoadingShimmer v-if="apiLoading" />
+              <LoadingShimmer v-if="apiLoading.loading" />
               <Nuxt v-else :key="$route.fullPath" />
             </div>
           </b-col>

@@ -102,11 +102,10 @@ export default Vue.extend({
       isUserLoggedIn: "isLoggedIn",
       apiResponse: "apiResponse",
     }),
-    ...mapGetters({ data: "apiData", pagesLeft: "pagesRemaing" }),
+    ...mapGetters({ data: "apiData" }),
   },
 
   mounted() {
-    // console.log('2: ', this.$store.state.options);
     this.updateAnOptionProperty({
       key: "query",
       value: this.$route.params.keyword,

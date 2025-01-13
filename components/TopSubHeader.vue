@@ -1,18 +1,17 @@
 <template>
   <div class="sub-header">
     <h1>
-      <template v-if="apiLoading">
-        {{ searchedKeyword }} {{ computedCategory }}...
+      <template v-if="apiLoading.loading">
+        Searching {{ searchedKeyword }} {{ computedCategory }}...
       </template>
       <template v-else>
         {{ totalAssetCount }} {{ searchedKeyword }} {{ computedCategory }}
-        <template v-if="currentPage > 1">
-          - Page {{ currentPage }}
-        </template>
+        <template v-if="currentPage > 1"> - Page {{ currentPage }} </template>
       </template>
     </h1>
-    <h2 v-if="!apiLoading">
-      {{ totalAssetCount }} {{ computedCategory }} exclusively selected by our designer community.
+    <h2 v-if="!apiLoading.loading">
+      {{ totalAssetCount }} {{ computedCategory }} exclusively selected by our
+      designer community.
     </h2>
   </div>
 </template>
@@ -24,16 +23,16 @@ import { mapState, mapGetters } from "vuex";
 export default Vue.extend({
   name: "TopSubHeader",
   computed: {
-    ...mapState(['apiLoading']),
+    ...mapState(["apiLoading"]),
     ...mapState({
       searchQuery: (state: any) => {
         const { options } = state;
         return options.query;
       },
-      currentPage: (state: any) => state.apiResponse.current_page
+      currentPage: (state: any) => state.apiResponse.current_page,
     }),
 
-    ...mapGetters(['totalAssetCount']),
+    ...mapGetters(["totalAssetCount"]),
 
     searchedKeyword() {
       return this.searchQuery

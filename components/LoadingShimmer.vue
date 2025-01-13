@@ -1,75 +1,39 @@
 <template>
-  <div class="contt" :class="[assetType === 'icons' ? 'icons' : 'assets']">
-    <div
-      class="loading-shimmer"
-      :class="[assetType === 'icons' ? 'icons' : 'assets']"
-    >
+  <div class="contt" :class="assetType">
+    <div class="loading-shimmer" :class="assetType">
       <div class="shimmer"></div>
     </div>
-    <div
-      class="loading-shimmer"
-      :class="[assetType === 'icons' ? 'icons' : 'assets']"
-    >
+    <div class="loading-shimmer" :class="assetType">
       <div class="shimmer"></div>
     </div>
-    <div
-      class="loading-shimmer"
-      :class="[assetType === 'icons' ? 'icons' : 'assets']"
-    >
+    <div class="loading-shimmer" :class="assetType">
       <div class="shimmer"></div>
     </div>
-    <div
-      class="loading-shimmer"
-      :class="[assetType === 'icons' ? 'icons' : 'assets']"
-    >
+    <div class="loading-shimmer" :class="assetType">
       <div class="shimmer"></div>
     </div>
-    <div
-      class="loading-shimmer"
-      :class="[assetType === 'icons' ? 'icons' : 'assets']"
-    >
+    <div class="loading-shimmer" :class="assetType">
       <div class="shimmer"></div>
     </div>
-    <div
-      class="loading-shimmer"
-      :class="[assetType === 'icons' ? 'icons' : 'assets']"
-    >
+    <div class="loading-shimmer" :class="assetType">
       <div class="shimmer"></div>
     </div>
-    <div
-      class="loading-shimmer"
-      :class="[assetType === 'icons' ? 'icons' : 'assets']"
-    >
+    <div class="loading-shimmer" :class="assetType">
       <div class="shimmer"></div>
     </div>
-    <div
-      class="loading-shimmer"
-      :class="[assetType === 'icons' ? 'icons' : 'assets']"
-    >
+    <div class="loading-shimmer" :class="assetType">
       <div class="shimmer"></div>
     </div>
-    <div
-      class="loading-shimmer"
-      :class="[assetType === 'icons' ? 'icons' : 'assets']"
-    >
+    <div class="loading-shimmer" :class="assetType">
       <div class="shimmer"></div>
     </div>
-    <div
-      class="loading-shimmer"
-      :class="[assetType === 'icons' ? 'icons' : 'assets']"
-    >
+    <div class="loading-shimmer" :class="assetType">
       <div class="shimmer"></div>
     </div>
-    <div
-      class="loading-shimmer"
-      :class="[assetType === 'icons' ? 'icons' : 'assets']"
-    >
+    <div class="loading-shimmer" :class="assetType">
       <div class="shimmer"></div>
     </div>
-    <div
-      class="loading-shimmer"
-      :class="[assetType === 'icons' ? 'icons' : 'assets']"
-    >
+    <div class="loading-shimmer" :class="assetType">
       <div class="shimmer"></div>
     </div>
   </div>
@@ -78,15 +42,19 @@
 <script lang="ts">
 // import { PropType } from "vue";
 import Vue from "vue";
-import { mapState } from 'vuex'
+import { mapState } from "vuex";
+const ASSET_TYPE_3D_ILLUSTRATIONS = "3d-illustrations";
 
 export default Vue.extend({
   name: "LoadingShimmer",
   computed: {
     ...mapState({
       assetType: (state: any) => {
-        const { options } = state;
-        const assetType = options.asset;
+        const { apiLoading } = state;
+        const assetType =
+          apiLoading.type === ASSET_TYPE_3D_ILLUSTRATIONS
+            ? "all-assets"
+            : apiLoading.type;
         return assetType;
       },
     }),
@@ -98,7 +66,13 @@ export default Vue.extend({
 .contt {
   display: grid;
   gap: 12px;
-  &.assets {
+  &.all-assets {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
+  &.lottie-animations {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
+  &.illustrations {
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   }
   &.icons {
@@ -118,7 +92,16 @@ export default Vue.extend({
   );
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite linear;
-  &.assets {
+  &.all-assets {
+    height: 210px;
+  }
+  // &.3d-illustrations {
+  //   height: 210px;
+  // }
+  &.lottie-animations {
+    height: 210px;
+  }
+  &.illustrations {
     height: 210px;
   }
   &.icons {

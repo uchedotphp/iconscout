@@ -113,6 +113,18 @@ export default Vue.extend({
     },
   },
 
+  watch: {
+    "$route.params.keyword": {
+      handler: function (newSearch, oldSearch) {
+        console.log("newSearch ", newSearch, ' oldSearch ', oldSearch);
+        if (newSearch && newSearch.toLowerCase() !== this.searchTerm.toLowerCase()) {
+          this.searchTerm = newSearch;
+        }
+      },
+      deep: true,
+      immediate: true,
+    },
+  },
   methods: {
     ...mapMutations([
       "setSearchQuery",
@@ -120,7 +132,7 @@ export default Vue.extend({
       "setSearchQuery",
       "setPageOption",
       "updateAnOptionProperty",
-      "resetOptions"
+      "resetOptions",
     ]),
     handleFocus() {
       this.isFocused = true;
@@ -142,7 +154,7 @@ export default Vue.extend({
     performSearch() {
       if (this.searchTerm.length) {
         this.showSuggestionPanel = false;
-        this.resetOptions();
+        // this.resetOptions();
         this.updateAnOptionProperty({ key: "query", value: this.searchTerm });
         this.$router.push(`/${this.storeAsset}/${this.storeSearchTerm}`);
       }

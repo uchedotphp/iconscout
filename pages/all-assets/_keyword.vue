@@ -1,10 +1,10 @@
 <template>
-  <div class="result-view h-100">
+  <div
+    class="result-view position-relative h-100"
+    :class="{ 'force-login': !isUserLoggedIn && currentPage > 2 }"
+  >
     <template v-if="data.length">
-      <div
-        style="position: relative; height: 38px; margin-top: 13px"
-        class="align-items-center"
-      >
+      <div class="align-items-center search-suggestion-nav">
         <SearchSuggestionNav
           :suggestions="searchSuggestions"
           asset="assets"
@@ -24,7 +24,11 @@
         </div>
 
         <!-- infinite scroll -->
-        <div ref="infiniteScrollTrigger" class="loading-trigger" v-if="!isEnd">
+        <div
+          ref="infiniteScrollTrigger"
+          class="loading-trigger"
+          v-if="!isEnd && !showGetStartedOverlay"
+        >
           <span v-if="isLoadingMoreData">Loading more animations...</span>
         </div>
       </section>
@@ -33,33 +37,29 @@
       <template #message>
         No result for {{ filteredOptions.query }} assets
       </template>
-      <template #subMessage> Please try something else </template>
+      <template #subMessage> {{ subMessage }} </template>
     </NoData>
 
-    <StopView v-if="showLoginRegister" />
+    <ForceLogin v-if="!isUserLoggedIn && currentPage > 2">
+      <template #message>
+        View all {{ filteredOptions.query }} 3D Illustrations
+      </template>
+    </ForceLogin>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
-import { mapState, mapMutations, mapActions, mapGetters } from "vuex";
-import { searchSuggestions } from "~/data/data";
+import sharedLogic from "~/mixins/sharedLogic";
 
 export default Vue.extend({
   name: "AllAssets",
   layout: "search",
+  mixins: [sharedLogic],
 
   data() {
     return {
       pageTitle: "All Assets",
-      searchSuggestions,
-      showGetStartedOverlay: false,
-      scrolledFolds: 0,
-      lastScrollTop: 0,
-      showLoginRegister: false,
-      twoFoldHeight: 0,
-      isEnd: false,
-      isLoadingMoreData: false,
     };
   },
 
@@ -76,106 +76,8 @@ export default Vue.extend({
     };
   },
 
-  fetchOnServer: true,
-  async fetch({ store, params }) {
-    // check store for data
-    const query = store.state.options.query;
-    if (query.length === 0) {
-      console.log("adding query: ", params.keyword);
-      store.commit("updateAnOptionProperty", {
-        key: "query",
-        value: params.keyword,
-      });
-    }
-    store.commit("setApiLoading", true);
-    try {
-      const res = await store.dispatch("getSearchResults", {
-        asset: "all-assets",
-      });
-      console.log("fetching data pos: ", res);
-    } catch (error) {
-      console.log("error fetching data: ", error);
-    }
-    store.commit("setApiLoading", false);
-  },
-
-  computed: {
-    ...mapState({
-      filteredOptions: "options",
-      isUserLoggedIn: "isLoggedIn",
-      apiResponse: "apiResponse",
-    }),
-    ...mapGetters({ data: "apiData", isLastPage: "isLastPage" }),
-  },
-
   mounted() {
-    this.updateAnOptionProperty({
-      key: "query",
-      value: this.$route.params.keyword,
-    });
-
-    if (this.data.length) {
-      this.setupObserver();
-    }
-
-    if (!this.isUserLoggedIn) {
-      console.log("not logged in");
-    }
-  },
-
-  methods: {
-    ...mapMutations([
-      "setSearchQuery",
-      "setApiLoading",
-      "setPerPageOption",
-      "setPageOption",
-      "updateAnOptionProperty",
-    ]),
-    ...mapActions(["getSearchResults"]),
-    async getSearchSuggestion(val: string) {
-      this.setApiLoading(true);
-      try {
-        this.updateAnOptionProperty({ key: "query", value: val });
-        await this.getSearchResults({ asset: "all-assets" });
-      } catch (error) {
-        console.log("error getting search suggestion: ", error);
-      }
-      this.setApiLoading(false);
-    },
-
-    setupObserver() {
-      const options = {
-        root: null,
-        rootMargin: "0px",
-        threshold: 0.1,
-      };
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(async (entry) => {
-          if (entry.isIntersecting) {
-            if (this.isLastPage) {
-              observer.disconnect();
-            } else {
-              this.setApiLoading(true);
-              try {
-                const val = this.$route.params.keyword;
-                this.updateAnOptionProperty({ key: "query", value: val });
-                await this.getSearchResults({
-                  loadMoreData: true,
-                  asset: "all-assets",
-                });
-              } catch (error) {
-                console.log("error fetching more data: ", error);
-              }
-              this.setApiLoading(false);
-            }
-          }
-        });
-      }, options);
-      const infiniteScrollTrigger = this.$refs.infiniteScrollTrigger as Element;
-      if (infiniteScrollTrigger) {
-        observer.observe(infiniteScrollTrigger);
-      }
-    },
+    this.setupObserver();
   },
 });
 </script>
@@ -185,5 +87,10 @@ export default Vue.extend({
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 12px;
+}
+.search-suggestion-nav {
+  position: relative;
+  height: 38px;
+  margin-top: 13px;
 }
 </style>
