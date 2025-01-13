@@ -161,6 +161,13 @@ export default Vue.extend({
                   const sort = this.$route.query.sort || this.$store.state.options.sort;
                   const view = this.$route.query.view || this.$store.state.options.view;
 
+                  this.$router.replace({
+                    path: `/${this.$route.path.split("/")[1]}/${
+                      this.$route.params.keyword
+                    }`,
+                    query: { ...this.$route.query, page },
+                  });
+
                   let formatAsset = "3d";
                   switch (asset) {
                     case "all-assets":
