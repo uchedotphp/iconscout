@@ -1,7 +1,7 @@
 <template>
   <div class="left-filter-panel">
-    <div style="overflow-y: hidden;">
-      <div style="overflow-y: auto;">
+    <div style="overflow-y: hidden">
+      <div style="overflow-y: auto">
         <!-- Exclusive -->
         <div class="cont">
           <BaseSwitchBtn v-model="isExclusive" class="switch-btn">
@@ -23,8 +23,9 @@
                 <BaseRadioBtn
                   :id="formatText(opt)"
                   name="assetType"
-                  v-model="assetValue"
-                  :modelValue="opt"
+                  v-model="filters.assetValue"
+                  @change="getData(formatText(opt))"
+                  :value="opt"
                   :label="opt"
                 />
               </div>
@@ -46,8 +47,9 @@
                 <BaseRadioBtn
                   name="pricing"
                   :id="opt"
-                  v-model="priceValue"
-                  :modelValue="opt"
+                  v-model="filters.priceValue"
+                  @change="getData(formatText(opt))"
+                  :value="opt"
                   :label="opt"
                 />
               </div>
@@ -69,8 +71,9 @@
                 <BaseRadioBtn
                   name="views"
                   :id="opt"
-                  v-model="viewValue"
-                  :modelValue="opt"
+                  v-model="filters.viewValue"
+                  @change="getData(formatText(opt))"
+                  :value="opt"
                   :label="opt"
                 />
               </div>
@@ -92,8 +95,9 @@
                 <BaseRadioBtn
                   name="sort"
                   :id="opt"
-                  v-model="sortValue"
-                  :modelValue="opt"
+                  v-model="filters.sortValue"
+                  @change="getData(formatText(opt))"
+                  :value="opt"
                   :label="opt"
                 />
               </div>
@@ -103,7 +107,12 @@
 
         <!-- Category -->
         <div class="cont">
-          <BaseAccordion class="accord" uid="category" :expanded="categoryAccordion" @toggle="categoryAccordion = !categoryAccordion">
+          <BaseAccordion
+            class="accord"
+            uid="category"
+            :expanded="categoryAccordion"
+            @toggle="categoryAccordion = !categoryAccordion"
+          >
             <template #title> Categories </template>
           </BaseAccordion>
         </div>
@@ -113,11 +122,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import Vue from "vue";
 import { assetOptions } from "~/data/data";
-import type { prices, sortOptions, viewOptions } from '~/data/dataTypes';
+import type { prices, sortOptions, viewOptions } from "~/data/dataTypes";
+import { mapState, mapMutations } from "vuex";
 
-export default defineComponent({
+export default Vue.extend({
   name: "LeftFilterPanel",
   data() {
     return {
@@ -127,23 +137,60 @@ export default defineComponent({
       sortAccordion: true,
       categoryAccordion: true,
       isExclusive: false,
-      assetValue: "all assets",
-      priceValue: "free" as prices,
-      viewValue: "pack" as viewOptions,
-      sortValue: "popular" as sortOptions,
       assetOptions,
       pricingOptions: ["free", "premium"],
       viewsOptions: ["pack", "individual"],
       sortByOptions: ["popular", "latest", "relevant", "color"],
       categoriesOption: [],
+      filters: {
+        assetValue: "all assets",
+        priceValue: "free" as prices,
+        viewValue: "pack" as viewOptions,
+        sortValue: "popular" as sortOptions,
+      },
     };
   },
+  mounted() {
+    this.filters.assetValue = (this.routeSection as string) || "all assets";
+    this.filters.priceValue = this.filterOptions.price || "free";
+    this.filters.sortValue = this.filterOptions.sort || "popular";
+    this.filters.viewValue = this.filterOptions.view || "pack";
+  },
+  computed: {
+    ...mapState({
+      filterOptions: (state: any) => state.options,
+    }),
+    routeSection() {
+      return this.$route.path.split("/")[1].replace(/-/g, " ");
+    },
+  },
   methods: {
+    ...mapMutations(["setApiLoading", "updateAnOptionProperty"]),
     formatText(text: string = ""): string {
       return text
         .replace(/-/g, " ")
         .replace(/\.\w+$/, "")
         .replace(/\s+/g, "-");
+    },
+    getData(val: string): void {
+      if (this.$route.params.keyword === undefined) {
+        return;
+      }
+      this.$store.commit('updateAnOptionProperty', { key: "asset", value: val });
+      this.$store.commit('setApiLoading',{
+        loading: true,
+        type: this.$route.path.split("/")[1],
+      });
+      try {
+        this.$router.push(`/${val}/${this.$route.params.keyword}`);
+      } catch (error) {
+        console.log("Error fetching search suggestion:", error);
+      }
+      this.$store.commit('setApiLoading',{
+        loading: true,
+        type: this.$route.path.split("/")[1],
+      });
+      console.log("the route still:", this.$store.state.options);
     },
   },
 });

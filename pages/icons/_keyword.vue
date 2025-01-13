@@ -17,7 +17,7 @@
             Explore {{ filteredOptions.query }} Icons Packs
           </NuxtLink>
         </h2>
-        <div  class="card-container">
+        <div class="card-container">
           <div v-for="item in data" :key="item.id">
             <IconCardData :data="item" />
           </div>
@@ -29,7 +29,7 @@
           class="loading-trigger"
           v-if="!isEnd && !showGetStartedOverlay"
         >
-          <span v-if="isLoadingMoreData">Loading more animations...</span>
+          <span v-if="isLoadingMoreData">Loading more icons...</span>
         </div>
       </section>
     </template>
@@ -69,12 +69,11 @@ export default Vue.extend({
         {
           hid: "description",
           name: "description",
-          content: "This is the home page",
+          content: "This is the icons page",
         },
       ],
     };
   },
-
   mounted() {
     // @ts-ignore
     this.setupObserver();

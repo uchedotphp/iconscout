@@ -6,9 +6,8 @@
       :id="id"
       :name="name"
       :value="value"
-      v-model="modelValue"
       @change="handleChange"
-      :checked="modelValue === value"
+      :checked="isChecked"
     />
     <label class="radio-label" :for="id">{{ label }}</label>
   </div>
@@ -19,6 +18,10 @@ import { defineComponent, PropType } from "vue";
 
 export default defineComponent({
   name: "RadioBtn",
+  model: {
+    prop: 'modelValue',
+    event: 'change'
+  },
   props: {
     id: {
       type: String,
@@ -41,11 +44,15 @@ export default defineComponent({
       required: true,
     },
   },
-  emits: ["update:modelValue"],
+  computed: {
+    isChecked() {
+      return this.modelValue == this.value
+    }
+  },
   methods: {
     handleChange(event: Event) {
       const target = event.target as HTMLInputElement;
-      this.$emit("update:modelValue", target.value);
+      this.$emit("change", target.value);
     },
   },
 });

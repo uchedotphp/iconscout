@@ -1,7 +1,7 @@
 <template>
   <div
     class="result-view position-relative h-100"
-    :class="{ 'force-login': !isUserLoggedIn && currentPage > 2 }"
+    :class="{ 'force-login': restrictGuestUser }"
   >
     <template v-if="data.length">
       <div
@@ -32,18 +32,18 @@
           class="loading-trigger"
           v-if="!isEnd && !showGetStartedOverlay"
         >
-          <span v-if="isLoadingMoreData">Loading more animations...</span>
+          <span v-if="isLoadingMoreData">Loading more 3d illustrations...</span>
         </div>
       </section>
     </template>
     <NoData v-else class="d-flex align-items-center h-100">
       <template #message>
-        No result for {{ filteredOptions.query }} assets
+        No result for {{ filteredOptions.query }} 3d illustrations
       </template>
       <template #subMessage> {{ subMessage }} </template>
     </NoData>
 
-    <ForceLogin v-if="!isUserLoggedIn && currentPage > 2">
+    <ForceLogin v-if="restrictGuestUser">
       <template #message>
         View all {{ filteredOptions.query }} 3D Illustrations
       </template>

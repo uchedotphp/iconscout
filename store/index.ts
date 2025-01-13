@@ -136,7 +136,7 @@ export const actions = {
     try {
       let result;
       if (!loadMoreData) {
-        let { query, price, page, per_page, sort } = state.options;
+        let { query, price, page, per_page, sort, view } = state.options;
         if (asset === 'icons') {
           per_page = 200
         }
@@ -162,7 +162,7 @@ export const actions = {
             break;
         }
         // @ts-ignore
-        result = await this.$axios.$get(`/v3/search?query=${query}&product_type=${product_type}&asset=${formatAsset}&price=${price}&sort=${sort}&per_page=${per_page}&page=${page}`)
+        result = await this.$axios.$get(`/v3/search?query=${query}&product_type=${product_type}&asset=${formatAsset}&price=${price}&sort=${sort}&per_page=${per_page}&page=${page}&view=${view}`)
         if (result.response.items) {
           commit('setApiResponse', result.response.items)
         }
@@ -170,7 +170,7 @@ export const actions = {
         commit('updateAnOptionProperty', { key: 'page', value: state.apiResponse.current_page + 1 })
 
         const currentItems = state.apiResponse.data;
-        let { query, price, page, per_page, sort } = state.options;
+        let { query, price, page, per_page, sort, view } = state.options;
 
         if (asset === 'icons') {
           per_page = 200
@@ -198,7 +198,7 @@ export const actions = {
             break;
         }
         // @ts-ignore
-        result = await this.$axios.$get(`/v3/search?query=${query}&product_type=${product_type}&asset=${formatAsset}&price=${price}&sort=${sort}&per_page=${per_page}&page=${page}`)
+        result = await this.$axios.$get(`/v3/search?query=${query}&product_type=${product_type}&asset=${formatAsset}&price=${price}&sort=${sort}&per_page=${per_page}&page=${page}&view=${view}`)
         commit('setApiResponse', { ...result.response.items, data: [...currentItems, ...result.response.items.data] })
       }
       return result.items

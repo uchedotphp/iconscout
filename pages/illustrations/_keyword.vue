@@ -1,7 +1,7 @@
 <template>
   <div
     class="result-view position-relative h-100"
-    :class="{ 'force-login': !isUserLoggedIn && currentPage > 2 }"
+    :class="{ 'force-login': restrictGuestUser }"
   >
     <template v-if="data.length">
       <div class="align-items-center search-suggestion-nav">
@@ -29,7 +29,7 @@
           class="loading-trigger"
           v-if="!isEnd && !showGetStartedOverlay"
         >
-          <span v-if="isLoadingMoreData">Loading more animations...</span>
+          <span v-if="isLoadingMoreData">Loading more illustrations...</span>
         </div>
       </section>
     </template>
@@ -40,9 +40,9 @@
       <template #subMessage> {{ subMessage }} </template>
     </NoData>
 
-    <ForceLogin v-if="!isUserLoggedIn && currentPage > 2">
+    <ForceLogin v-if="restrictGuestUser">
       <template #message>
-        View all {{ filteredOptions.query }} 3D Illustrations
+        View all {{ filteredOptions.query }} Illustrations
       </template>
     </ForceLogin>
   </div>
@@ -69,7 +69,7 @@ export default Vue.extend({
         {
           hid: "description",
           name: "description",
-          content: "This is the home page",
+          content: "This is the illustrations page",
         },
       ],
     };
@@ -87,5 +87,11 @@ export default Vue.extend({
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 12px;
+}
+
+.search-suggestion-nav {
+  position: relative;
+  height: 38px;
+  margin-top: 13px;
 }
 </style>

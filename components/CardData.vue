@@ -1,10 +1,17 @@
 <template>
   <article class="display-card">
     <div class="h-100">
-      <a href="#" class="content">
+      <a href="#" class="content position-relative">
         <picture style="width: 194px">
           <source :srcset="data.urls.thumb" class="img-fluid" />
-          <img :src="data.urls.thumb" class="img-fluid" alt="" />
+          <img
+            @load="onImgLoad"
+            :src="data.urls.thumb"
+            class="img-fluid"
+            :class="{ blur: !isImgLoaded }"
+            alt=""
+          />
+          <ImageLoader v-show="!isImgLoaded" class="position-absolute" />
         </picture>
       </a>
     </div>
@@ -27,6 +34,7 @@ export default defineComponent({
   data() {
     return {
       showButtons: false,
+      isImgLoaded: false,
     };
   },
   mounted() {
@@ -36,6 +44,12 @@ export default defineComponent({
     ...mapState({ filteredOptions: "options" }),
     assetType(): "3d" | "lottie" | "illustrations" | "icons" {
       return this.data && this.data.asset;
+    },
+  },
+
+  methods: {
+    onImgLoad() {
+      this.isImgLoaded = true;
     },
   },
 });

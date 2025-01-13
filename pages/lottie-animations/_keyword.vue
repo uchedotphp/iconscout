@@ -1,7 +1,7 @@
 <template>
   <div
     class="result-view position-relative h-100"
-    :class="{ 'force-login': !isUserLoggedIn && currentPage > 2 }"
+    :class="{ 'force-login': restrictGuestUser }"
   >
     <template v-if="data.length">
       <div class="align-items-center search-suggestion-nav">
@@ -24,43 +24,42 @@
         </div>
 
         <!-- infinite scroll -->
-        <div ref="infiniteScrollTrigger" class="loading-trigger" v-if="!isEnd">
+        <div
+          ref="infiniteScrollTrigger"
+          class="loading-trigger"
+          v-if="!isEnd && !showGetStartedOverlay"
+        >
           <span v-if="isLoadingMoreData">Loading more animations...</span>
         </div>
       </section>
     </template>
     <NoData v-else class="d-flex align-items-center h-100">
       <template #message>
-        No result for {{ filteredOptions.query }} assets
+        No result for {{ filteredOptions.query }} lottie animations
       </template>
-      <template #subMessage> Please try something else </template>
+      <template #subMessage> {{ subMessage }} </template>
     </NoData>
 
-    <StopView v-if="showLoginRegister" />
+    <ForceLogin v-if="restrictGuestUser">
+      <template #message>
+        View all {{ filteredOptions.query }} Lottie Animations
+      </template>
+    </ForceLogin>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
-import { mapState, mapMutations, mapActions, mapGetters } from "vuex";
-import { searchSuggestions } from "~/data/data";
+import sharedLogic from "~/mixins/sharedLogic";
 
 export default Vue.extend({
   name: "LottieAnimations",
   layout: "search",
+  mixins: [sharedLogic],
 
   data() {
     return {
       pageTitle: "Lottie Animations",
-      searchSuggestions,
-      isEnd: false,
-      isLoadingMoreData: false,
-
-      showGetStartedOverlay: false,
-      scrolledFolds: 0,
-      lastScrollTop: 0,
-      showLoginRegister: false,
-      twoFoldHeight: 0,
     };
   },
   head() {
@@ -70,127 +69,15 @@ export default Vue.extend({
         {
           hid: "description",
           name: "description",
-          content: "This is the home page",
+          content: "This is the lottie animations page",
         },
       ],
     };
   },
-  fetchOnServer: true,
-  async fetch({ store, params }) {
-    console.log("1");
-    // check store for data
-    const query = store.state.options.query;
-    console.log("query: ", query);
-
-    if (query.length === 0) {
-      console.log("adding query: ", params.keyword);
-      store.commit("updateAnOptionProperty", {
-        key: "query",
-        value: params.keyword,
-      });
-    }
-    store.commit("setApiLoading", true);
-    try {
-      const res = await store.dispatch("getSearchResults", {
-        asset: "lottie-animations",
-      });
-      console.log("fetching data pos: ", res);
-    } catch (error) {
-      console.log("error fetching data: ", error);
-    }
-    store.commit("setApiLoading", false);
-  },
-
-  computed: {
-    ...mapState({
-      filteredOptions: "options",
-      isUserLoggedIn: "isLoggedIn",
-      apiResponse: "apiResponse",
-    }),
-    ...mapGetters({ data: "apiData" }),
-  },
 
   mounted() {
-    this.updateAnOptionProperty({
-      key: "query",
-      value: this.$route.params.keyword,
-    });
-
-    console.log("in asset page");
-
-    try {
-      if (this.data.length) {
-        // and its not last page
-        this.setupObserver();
-      }
-    } catch (error) {
-      console.log("error setting up observer: ", error);
-    }
-
-    if (!this.isUserLoggedIn) {
-      console.log("not logged in");
-    }
-
-    // this.$nextTick(() => {
-    //   this.$nuxt.$loading.start()
-    //   setTimeout(() => this.$nuxt.$loading.finish(), 12000)
-    // })
-  },
-
-  // unmounted() {
-  //   // Remove scroll listener when component unmounts
-  //   window.removeEventListener("scroll", this.handleScroll);
-  // },
-
-  methods: {
-    ...mapMutations([
-      "setSearchQuery",
-      "setApiLoading",
-      "setPerPageOption",
-      "setPageOption",
-      "updateAnOptionProperty",
-    ]),
-    ...mapActions(["getSearchResults"]),
-    async getSearchSuggestion(val: string) {
-      this.setApiLoading(true);
-      try {
-        this.updateAnOptionProperty({ key: "query", value: val });
-        await this.getSearchResults({ asset: "lottie-animations" });
-      } catch (error) {
-        console.log("error getting search suggestion: ", error);
-      }
-      this.setApiLoading(false);
-    },
-
-    setupObserver() {
-      const options = {
-        root: null,
-        rootMargin: "0px",
-        threshold: 0.1,
-      };
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(async (entry) => {
-          if (entry.isIntersecting) {
-            this.setApiLoading(true);
-            try {
-              const val = this.$route.params.keyword;
-              this.updateAnOptionProperty({ key: "query", value: val });
-              await this.getSearchResults({
-                loadMoreData: true,
-                asset: "lottie-animations",
-              });
-            } catch (error) {
-              console.log("error fetching more data: ", error);
-            }
-            this.setApiLoading(false);
-          }
-        });
-      }, options);
-      const infiniteScrollTrigger = this.$refs.infiniteScrollTrigger as Element;
-      if (infiniteScrollTrigger) {
-        observer.observe(infiniteScrollTrigger);
-      }
-    },
+    // @ts-ignore
+    this.setupObserver();
   },
 });
 </script>
@@ -200,5 +87,11 @@ export default Vue.extend({
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 12px;
+}
+
+.search-suggestion-nav {
+  position: relative;
+  height: 38px;
+  margin-top: 13px;
 }
 </style>

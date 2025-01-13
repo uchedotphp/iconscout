@@ -28,6 +28,13 @@ export default Vue.extend({
       store.commit("setApiLoading", { loading: true, type: routeSection });
     }
 
+    if (process.client) {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    }
+
     try {
       const res = await store.dispatch("getSearchResults", {
         asset: routeSection,
@@ -63,13 +70,19 @@ export default Vue.extend({
     ]),
     ...mapActions(["getSearchResults"]),
     getSearchSuggestion(val) {
-      this.setApiLoading(true);
+      this.setApiLoading({
+        loading: true,
+        type: this.routeSection,
+      });
       try {
         this.$router.push(`/${this.routeSection}/${val}`);
       } catch (error) {
         console.log("Error fetching search suggestion:", error);
       }
-      this.setApiLoading(false);
+      this.setApiLoading({
+        loading: false,
+        type: this.routeSection,
+      });
       console.log("the route still:", this.$store.state.options);
     },
 
