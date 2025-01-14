@@ -151,8 +151,14 @@ export default Vue.extend({
     };
   },
   mounted() {
-    this.filters.assetValue = (this.routeSection as string) || "all assets";
-    if (this.$route.query.price) {
+    if (this.routeSection === "3d illustrations") {
+      this.filters.assetValue = "3D illustrations";
+    } else {
+      this.filters.assetValue =
+        this.routeSection || this.$store.state.options.asset;
+    }
+
+    if (this.$route.query?.price) {
       this.filters.priceValue = this.$route.query.price as prices;
       // @ts-ignore
       this.updateAnOptionProperty({
@@ -160,6 +166,7 @@ export default Vue.extend({
         value: this.$route.query.price as prices,
       });
     }
+
     if (this.$route.query.sort) {
       this.filters.sortValue = this.$route.query.sort as sortOptions;
       // @ts-ignore
@@ -168,6 +175,7 @@ export default Vue.extend({
         value: this.$route.query.sort as sortOptions,
       });
     }
+
     if (this.$route.query.view) {
       this.filters.viewValue = this.$route.query.view as viewOptions;
       // @ts-ignore
@@ -224,7 +232,9 @@ export default Vue.extend({
       // @ts-ignore
       this.updateAnOptionProperty({ key: type, value: val.toLowerCase() });
       if (type === "asset") {
-        this.$router.push(`/${val.toLowerCase()}/${this.$route.params.keyword}`);
+        this.$router.push(
+          `/${val.toLowerCase()}/${this.$route.params.keyword}`
+        );
       } else {
         const routeSection = this.$route.path.split("/")[1];
         const query = this.$route.params.keyword;
