@@ -8,9 +8,12 @@
     <div class="text-center mt-2">
       Trending:
       <span v-for="(trend, index) in trending" :key="trend">
-        <NuxtLink :to="goToLink(trend)" class="font-weight-bold">{{
-          trend
-        }}</NuxtLink
+        <router-link
+          :to="goToLink(trend)"
+          :event="''"
+          @click.native.prevent="formatLink($event, trend)"
+          class="font-weight-bold"
+          >{{ trend }}</router-link
         ><span v-if="index !== trending.length - 1" class="mr-1">,</span>
       </span>
     </div>
@@ -40,7 +43,7 @@ export default Vue.extend({
     };
   },
   mounted() {
-    console.log('mounting index page');
+    console.log("mounting index page");
     this.updateAnOptionProperty({ key: "query", value: "" });
     this.updateAnOptionProperty({ key: "asset", value: "all-assets" });
   },
@@ -59,9 +62,12 @@ export default Vue.extend({
   methods: {
     ...mapMutations(["updateAnOptionProperty"]),
     goToLink(query: string) {
-      console.log('going here');
-
-      return `/${this.asset}/${query}`;
+      // @ts-ignore
+      return `/${this.$formatText.addHypen(this.asset)}/${query}`;
+    },
+    formatLink(event: Event, query: string) {
+      // @ts-ignore
+      this.$router.push(`/${this.asset}/${this.$formatText.addHypen(query)}`);
     },
   },
 });
