@@ -72,7 +72,7 @@ import { mapState, mapMutations } from "vuex";
 
 function getCategoryName(assetType: string): string {
   const categoryMap: { [key: string]: string } = {
-    'all-assets': "All",
+    "all-assets": "All",
     "3d-illustrations": "3D",
     "lottie-animations": "Animations",
     illustrations: "Illustrations",
@@ -86,14 +86,11 @@ export default Vue.extend({
   data() {
     return {
       assetOptions,
-      searchTerm: "",
+      // searchTerm: "",
       getCategoryName,
       isFocused: false,
       showSuggestionPanel: false,
     };
-  },
-  mounted() {
-    this.searchTerm = this.storeSearchTerm;
   },
   computed: {
     ...mapState({
@@ -102,9 +99,18 @@ export default Vue.extend({
         const assetType = options.asset;
         return assetType;
       },
-      storeSearchTerm: (state: any) => state.options.query,
-      currentPage: (state: any) => state.apiResponse.current_page,
+      storeSearchTerm: (state: any): string => state.options.query,
     }),
+    searchTerm: {
+      get(): string {
+        return this.formattedSearchQueryWithSpace(
+          this.$store.state.options.query
+        );
+      },
+      set(value: string) {
+        this.updateAnOptionProperty({ key: "query", value });
+      },
+    },
     placeHolderText(): string {
       const text =
         this.storeAsset === "all-assets"
@@ -127,14 +133,7 @@ export default Vue.extend({
     // },
   },
   methods: {
-    ...mapMutations([
-      "setSearchQuery",
-      "setApiLoading",
-      "setSearchQuery",
-      "setPageOption",
-      "updateAnOptionProperty",
-      "resetOptions",
-    ]),
+    ...mapMutations(["updateAnOptionProperty", "resetOptions"]),
     handleFocus() {
       this.isFocused = true;
       this.showSuggestionPanel = true;
@@ -143,24 +142,36 @@ export default Vue.extend({
       this.isFocused = false;
       this.showSuggestionPanel = false;
     },
+    formattedSearchQueryWithHypen(q: string): string {
+      // Replace spaces with hyphens in the search query
+      return q.trim().replace(/\s+/g, "-");
+    },
+    formattedSearchQueryWithSpace(q: string): string {
+      // Replace spaces with hyphens in the search query
+      return q.trim().replace(/-/g, " ");
+    },
 
     switchAsset(val: string) {
       const formattedVal = val.toLowerCase().replace(/\s+/g, "-");
       this.resetOptions();
       this.updateAnOptionProperty({ key: "asset", value: formattedVal });
       // if (this.storeSearchTerm) {
-        // this.updateAnOptionProperty({ key: "query", value: this.searchTerm });
-        const searchTerm = this.$route.params.keyword;
+      // this.updateAnOptionProperty({ key: "query", value: this.searchTerm });
+      const searchTerm = this.$route.params.keyword || this.storeSearchTerm;
       if (searchTerm) {
         this.$router.push(`/${formattedVal}/${searchTerm}`);
       }
     },
 
     performSearch() {
-      if (this.searchTerm.length && this.storeAsset) {
+      if (this.storeSearchTerm.length) {
         this.showSuggestionPanel = false;
-        this.updateAnOptionProperty({ key: "query", value: this.searchTerm });
-        this.$router.push(`/${this.storeAsset}/${this.storeSearchTerm}`);
+        // this.updateAnOptionProperty({ key: "query", value: this.searchTerm });
+        this.$router.push(
+          `/${this.storeAsset}/${this.formattedSearchQueryWithHypen(
+            this.storeSearchTerm
+          )}`
+        );
       }
     },
   },
