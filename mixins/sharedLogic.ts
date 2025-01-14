@@ -84,7 +84,6 @@ export default Vue.extend({
 
   computed: {
     ...mapState({
-      // filteredOptions: "options",
       apiResponse: "apiResponse",
     }),
     ...mapGetters({
@@ -96,6 +95,7 @@ export default Vue.extend({
       return this.$route.path.split("/")[1];
     },
     searchedKeyword() {
+      // @ts-ignore
       return this.$formatText.addSpace(this.$route.params.keyword);
     },
   },

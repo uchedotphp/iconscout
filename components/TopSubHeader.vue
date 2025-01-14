@@ -35,11 +35,8 @@ export default Vue.extend({
     ...mapGetters(["totalAssetCount"]),
 
     searchedKeyword() {
-      return (
-        this.$route.params.keyword.charAt(0).toUpperCase() +
-          this.$route.params.keyword.slice(1) ||
-        this.searchQuery.charAt(0).toUpperCase() + this.searchQuery.slice(1)
-      );
+      //@ts-ignore
+      return this.$formatText.addSpace(this.$route.params.keyword);
     },
 
     routeSection(): string {
@@ -61,11 +58,12 @@ export default Vue.extend({
             if (word.toLowerCase() === "3d") {
               return "3D";
             }
-            return word.charAt(0).toUpperCase() + word.slice(1);
+            //@ts-ignore
+            return this.$formatText.capitalizeFirstLetters(word);
           })
           .join(" ");
       } else {
-        return "Assets";
+        return 'Assets';
       }
     },
   },
