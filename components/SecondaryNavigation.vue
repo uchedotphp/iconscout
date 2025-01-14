@@ -14,14 +14,24 @@
           >{{ title }}</NuxtLink
         >
       </li>
-      <li v-if="routeSection === 'lottie-animations'" class="text-capitalize ml-auto">
-        <b-form-checkbox
+      <li
+        v-if="routeSection === 'lottie-animations'"
+        class="text-capitalize ml-auto"
+      >
+        <!-- <b-form-checkbox
           v-model="currentAnimationPlayer"
           name="check-button"
           switch
         >
           {{ animationPlayer }}
-        </b-form-checkbox>
+        </b-form-checkbox> -->
+        <DropdownBtn
+          :dropdownText="animationPlayer"
+          :options="['lottie player', 'dotlottie player']"
+          id="filter-options"
+          class="dropdown-btn text-capitalize"
+          @click="switchPlayer"
+        />
       </li>
     </ul>
   </nav>
@@ -43,11 +53,7 @@ export default Vue.extend({
   data() {
     return {
       navigationItems: navItems as NavigationItem[],
-      currentAnimationPlayer: "",
     };
-  },
-  mounted() {
-    this.currentAnimationPlayer = this.animationPlayer;
   },
   computed: {
     routeSection(): string {
@@ -60,6 +66,14 @@ export default Vue.extend({
       },
       animationPlayer: (state: any) => state.animationPlayer,
     }),
+    currentAnimationPlayer: {
+      get(): string {
+        return this.animationPlayer;
+      },
+      set(value: string) {
+        this.setAnimationPlayer(value);
+      },
+    },
   },
   watch: {
     currentAnimationPlayer(newValue, oldValue) {
@@ -86,6 +100,10 @@ export default Vue.extend({
     },
     goToLink(asset: assetType) {
       return `/${asset}/${this.storeSearchTerm}`;
+    },
+    switchPlayer(option: string) {
+      this.setAnimationPlayer(option);
+      this.currentAnimationPlayer = option;
     },
   },
 });

@@ -9,9 +9,9 @@
             <FiltersMenu />
           </b-col>
           <b-col>
-            <ScrollableArea class="h-100 scroll-area">
+            <div class="h-100 scroll-area">
               <SecondaryNavigation />
-            </ScrollableArea>
+            </div>
           </b-col>
         </b-row>
       </b-container>

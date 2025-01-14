@@ -82,11 +82,13 @@ export default defineComponent({
     this.updateScrollButtons();
 
     // Add event listener to track scrolling
+    // @ts-ignore
     container.addEventListener("scroll", this.updateScrollButtons);
   },
 
   beforeDestroy() {
     const container = this.$refs.scrollContainer;
+    // @ts-ignore
     container.removeEventListener("scroll", this.updateScrollButtons);
   },
 
@@ -97,18 +99,21 @@ export default defineComponent({
 
     updateScrollButtons() {
       const container = this.$refs.scrollContainer;
+      // @ts-ignore
       this.showLeftButton = container.scrollLeft > 0;
-      this.showRightButton =
-        container.scrollLeft + container.offsetWidth < container.scrollWidth;
+      // @ts-ignore
+      this.showRightButton = container.scrollLeft + container.offsetWidth < container.scrollWidth;
     },
 
     scrollLeft() {
       const container = this.$refs.scrollContainer;
+      // @ts-ignore
       container.scrollBy({ left: -container.offsetWidth, behavior: "smooth" });
       // container.scrollBy({ left: -200, behavior: "smooth" });
     },
     scrollRight() {
       const container = this.$refs.scrollContainer;
+      // @ts-ignore
       container.scrollBy({ left: container.offsetWidth, behavior: "smooth" });
       // container.scrollBy({ left: 200, behavior: "smooth" });
     },
