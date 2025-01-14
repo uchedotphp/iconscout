@@ -26,7 +26,10 @@
           </b-col>
           <b-col>
             <div class="main-content h-100">
-              <LoadingShimmer v-if="apiLoading.loading" :numberOfShimmers="shimmerCount" />
+              <LoadingShimmer
+                v-if="apiLoading.loading"
+                :numberOfShimmers="shimmerCount"
+              />
               <Nuxt v-else :key="$route.fullPath" />
             </div>
           </b-col>
@@ -53,6 +56,31 @@ export default Vue.extend({
   mounted() {
     this.calculateShimmers();
     window.addEventListener("resize", this.calculateShimmers);
+    // try to set store data from the route
+    this.updateAnOptionProperty({
+      key: "asset",
+      value: this.routeSection,
+    });
+    this.$route.query?.keyword &&
+      this.updateAnOptionProperty({
+        key: "query",
+        value: this.$route.query.keyword,
+      });
+    this.$route.query?.price &&
+      this.updateAnOptionProperty({
+        key: "price",
+        value: this.$route.query.price,
+      });
+    this.$route.query?.sort &&
+      this.updateAnOptionProperty({
+        key: "sort",
+        value: this.$route.query.sort,
+      });
+    this.$route.query?.view &&
+      this.updateAnOptionProperty({
+        key: "view",
+        value: this.$route.query.view,
+      });
   },
 
   beforeDestroy() {
@@ -69,6 +97,9 @@ export default Vue.extend({
       searchTerm: (state: any) => {
         const { options } = state;
         return options.query;
+      },
+      routeSection(this: any): string {
+        return this.$route.path.split("/")[1];
       },
     }),
   },
