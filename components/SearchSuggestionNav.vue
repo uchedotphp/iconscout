@@ -1,6 +1,6 @@
 <template>
   <div class="align-items-center search-suggestion-nav">
-    <BaseBtn class="nav-scroll-btn left-arrow">
+    <BaseBtn v-show="showLeftButton" class="nav-scroll-btn left-arrow" @click="scrollLeft">
       <template #iconRight>
         <svg
           width="8"
@@ -17,7 +17,7 @@
       </template>
     </BaseBtn>
 
-    <BaseBtn class="nav-scroll-btn right-arrow">
+    <BaseBtn v-show="showRightButton" class="nav-scroll-btn right-arrow" @click="scrollRight">
       <template #iconRight>
         <svg
           width="8"
@@ -34,7 +34,7 @@
       </template>
     </BaseBtn>
 
-    <nav>
+    <nav ref="scrollContainer">
       <ul class="d-flex data-nav">
         <li v-for="(suggestion, index) in suggestions" :key="index" class="">
           <BaseBtn @click="selectSuggestion(suggestion)">
@@ -61,9 +61,36 @@ export default defineComponent({
       required: true,
     },
   },
+  data() {
+    return {
+      showLeftButton: false,
+      showRightButton: true,
+    }
+  },
+  mounted() {
+    this.handleScroll();
+  },
   methods: {
     selectSuggestion(suggestion: string) {
       this.$emit("selected", suggestion);
+    },
+    scrollLeft() {
+      const container = this.$refs.scrollContainer;
+      container.scrollBy({ left: -container.offsetWidth, behavior: "smooth" });
+    },
+    scrollRight() {
+      const container = this.$refs.scrollContainer;
+      container.scrollBy({ left: container.offsetWidth, behavior: "smooth" });
+    },
+    handleScroll() {
+      const container = this.$refs.scrollContainer;
+      const maxScrollLeft = container.scrollWidth - container.clientWidth;
+
+      // Check if scrolled to the start
+      this.showLeftButton = container.scrollLeft > 0;
+
+      // Check if scrolled to the end
+      this.showRightButton = container.scrollLeft < maxScrollLeft;
     },
   },
 });

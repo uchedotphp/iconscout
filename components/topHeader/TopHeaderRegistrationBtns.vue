@@ -1,14 +1,14 @@
 <template>
   <div class="d-flex align-items-center registration-buttons">
     <BaseAvatar v-if="isUserLoggedIn" @click="handleLogin('logout')" />
-    <template v-else>
-      <BaseBtn @click="handleLogin('login')" class="login">
-        <template #label> Login </template>
-      </BaseBtn>
-      <BaseBtn @click="handleLogin('login')" class="register">
-        <template #label> Signup </template>
-      </BaseBtn>
-    </template>
+      <span v-else class="d-none d-lg-flex">
+        <BaseBtn @click="handleLogin('login')" class="login">
+          <template #label> Login </template>
+        </BaseBtn>
+        <BaseBtn @click="handleLogin('login')" class="register">
+          <template #label> Signup </template>
+        </BaseBtn>
+      </span>
   </div>
 </template>
 

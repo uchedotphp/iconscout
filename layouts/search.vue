@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper">
+  <div class="container-fluid px-0 wrapper">
     <TopHeader />
     <TopSubHeader class="sub-header" />
     <main>

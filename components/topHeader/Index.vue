@@ -5,10 +5,10 @@
         <li>
           <BaseLogo />
         </li>
-        <li v-if="!hideSearch" style="max-width: 360px" class="w-100">
+        <li v-if="!hideSearch"  class="flex-fill">
           <Search class="w-100" />
         </li>
-        <li>
+        <li class="d-none d-lg-block">
           <TopHeaderLinks />
         </li>
         <li>
