@@ -221,11 +221,11 @@ export default Vue.extend({
         type: this.$route.path.split("/")[1],
       });
 
+      // @ts-ignore
+      this.updateAnOptionProperty({ key: type, value: val.toLowerCase() });
       if (type === "asset") {
         this.$router.push(`/${val.toLowerCase()}/${this.$route.params.keyword}`);
       } else {
-        // @ts-ignore
-        this.updateAnOptionProperty({ key: type, value: val });
         const routeSection = this.$route.path.split("/")[1];
         const query = this.$route.params.keyword;
         const asset = routeSection;
