@@ -96,7 +96,7 @@ export default Vue.extend({
       return this.$route.path.split("/")[1];
     },
     searchedKeyword() {
-      return this.$route.params.keyword;
+      return this.$formatText.addSpace(this.$route.params.keyword);
     },
   },
 
