@@ -46,6 +46,7 @@ export default {
     { src: "~/plugins/bootstrap.js", mode: "client" },
     "~/plugins/axios.js",
     { src: "~/plugins/lottie-player.js", mode: "client" },
+    "~/plugins/formatText.ts",
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -69,22 +70,22 @@ export default {
     baseURL: process.env.NUXT_ENV_API_URL,
   },
 
-  // publicRuntimeConfig: {
-  //   axios: {
-  //     browserBaseURL: process.env.BROWSER_BASE_URL,
-  //   },
-  // },
+  publicRuntimeConfig: {
+    axios: {
+      browserBaseURL: process.env.BROWSER_BASE_URL,
+    },
+  },
 
-  // privateRuntimeConfig: {
-  //   axios: {
-  //     baseURL: process.env.NUXT_ENV_API_URL,
-  //   },
-  // },
+  privateRuntimeConfig: {
+    axios: {
+      baseURL: process.env.NUXT_ENV_API_URL,
+    },
+  },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
 
   router: {
-    middleware: ['routeTrigger'],
-  }
+    middleware: ["routeTrigger"],
+  },
 };

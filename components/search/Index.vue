@@ -86,7 +86,6 @@ export default Vue.extend({
   data() {
     return {
       assetOptions,
-      // searchTerm: "",
       getCategoryName,
       isFocused: false,
       showSuggestionPanel: false,
@@ -103,7 +102,8 @@ export default Vue.extend({
     }),
     searchTerm: {
       get(): string {
-        return this.formattedSearchQueryWithSpace(
+        // @ts-ignore
+        return this.formatText.addSpace(
           this.$store.state.options.query
         );
       },
@@ -119,19 +119,6 @@ export default Vue.extend({
       return `Search from Million+ of ${text}`;
     },
   },
-
-  watch: {
-    // "$route.params.keyword": {
-    //   handler: function (newSearch, oldSearch) {
-    //     console.log("newSearch ", newSearch, ' oldSearch ', oldSearch);
-    //     if (newSearch && newSearch.toLowerCase() !== this.searchTerm.toLowerCase()) {
-    //       this.searchTerm = newSearch;
-    //     }
-    //   },
-    //   deep: true,
-    //   immediate: true,
-    // },
-  },
   methods: {
     ...mapMutations(["updateAnOptionProperty", "resetOptions"]),
     handleFocus() {
@@ -141,10 +128,6 @@ export default Vue.extend({
     handleBlur() {
       this.isFocused = false;
       this.showSuggestionPanel = false;
-    },
-    formattedSearchQueryWithHypen(q: string): string {
-      // Replace spaces with hyphens in the search query
-      return q.trim().replace(/\s+/g, "-");
     },
     formattedSearchQueryWithSpace(q: string): string {
       // Replace spaces with hyphens in the search query
@@ -167,8 +150,8 @@ export default Vue.extend({
       if (this.storeSearchTerm.length) {
         this.showSuggestionPanel = false;
         // this.updateAnOptionProperty({ key: "query", value: this.searchTerm });
-        this.$router.push(
-          `/${this.storeAsset}/${this.formattedSearchQueryWithHypen(
+        // @ts-ignore
+        this.$router.push(`/${this.storeAsset}/${this.$formatText.addHypen(
             this.storeSearchTerm
           )}`
         );
