@@ -222,11 +222,7 @@ export default Vue.extend({
       });
 
       if (type === "asset") {
-        try {
-          this.$router.push(`/${val}/${this.$route.params.keyword}`);
-        } catch (error) {
-          console.log("Error fetching search suggestion:", error);
-        }
+        this.$router.push(`/${val.toLowerCase()}/${this.$route.params.keyword}`);
       } else {
         // @ts-ignore
         this.updateAnOptionProperty({ key: type, value: val });
