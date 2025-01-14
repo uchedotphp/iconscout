@@ -8,12 +8,12 @@
     <div class="text-center mt-2">
       Trending:
       <span v-for="(trend, index) in trending" :key="trend">
-        <router-link
+        <NuxtLink
           :to="goToLink(trend)"
           :event="''"
           @click.native.prevent="formatLink($event, trend)"
           class="font-weight-bold"
-          >{{ trend }}</router-link
+          >{{ trend }}</NuxtLink
         ><span v-if="index !== trending.length - 1" class="mr-1">,</span>
       </span>
     </div>

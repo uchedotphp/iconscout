@@ -6,12 +6,12 @@
         :key="id"
         class="h-100 d-flex align-items-center"
       >
-        <router-link
+        <NuxtLink
           :to="goToLink(asset)"
           :event="''"
           @click.native.prevent="setAsset($event, asset)"
           class="h-100 nav-item"
-          >{{ title }}</router-link
+          >{{ title }}</NuxtLink
         >
       </li>
       <li v-if="routeSection === 'lottie-animations'" class="text-capitalize ml-auto">
