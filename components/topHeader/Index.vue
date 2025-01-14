@@ -5,7 +5,7 @@
         <li>
           <BaseLogo />
         </li>
-        <li v-if="!hideSearch"  class="flex-fill">
+        <li v-if="!hideSearch" style="max-width: 360px" class="w-100">
           <Search class="w-100" />
         </li>
         <li class="d-none d-lg-block">
