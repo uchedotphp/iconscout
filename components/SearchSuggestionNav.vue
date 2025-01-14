@@ -1,6 +1,10 @@
 <template>
   <div class="align-items-center search-suggestion-nav">
-    <BaseBtn v-show="showLeftButton" class="nav-scroll-btn left-arrow" @click="scrollLeft">
+    <BaseBtn
+      v-if="showLeftButton"
+      class="nav-scroll-btn left-arrow"
+      @click="scrollLeft"
+    >
       <template #iconRight>
         <svg
           width="8"
@@ -17,7 +21,11 @@
       </template>
     </BaseBtn>
 
-    <BaseBtn v-show="showRightButton" class="nav-scroll-btn right-arrow" @click="scrollRight">
+    <BaseBtn
+      v-if="showRightButton"
+      class="nav-scroll-btn right-arrow"
+      @click="scrollRight"
+    >
       <template #iconRight>
         <svg
           width="8"
@@ -65,32 +73,44 @@ export default defineComponent({
     return {
       showLeftButton: false,
       showRightButton: true,
-    }
+    };
   },
+
   mounted() {
-    this.handleScroll();
+    const container = this.$refs.scrollContainer;
+    // Initial button visibility
+    this.updateScrollButtons();
+
+    // Add event listener to track scrolling
+    container.addEventListener("scroll", this.updateScrollButtons);
   },
+
+  beforeDestroy() {
+    const container = this.$refs.scrollContainer;
+    container.removeEventListener("scroll", this.updateScrollButtons);
+  },
+
   methods: {
     selectSuggestion(suggestion: string) {
       this.$emit("selected", suggestion);
     },
+
+    updateScrollButtons() {
+      const container = this.$refs.scrollContainer;
+      this.showLeftButton = container.scrollLeft > 0;
+      this.showRightButton =
+        container.scrollLeft + container.offsetWidth < container.scrollWidth;
+    },
+
     scrollLeft() {
       const container = this.$refs.scrollContainer;
       container.scrollBy({ left: -container.offsetWidth, behavior: "smooth" });
+      // container.scrollBy({ left: -200, behavior: "smooth" });
     },
     scrollRight() {
       const container = this.$refs.scrollContainer;
       container.scrollBy({ left: container.offsetWidth, behavior: "smooth" });
-    },
-    handleScroll() {
-      const container = this.$refs.scrollContainer;
-      const maxScrollLeft = container.scrollWidth - container.clientWidth;
-
-      // Check if scrolled to the start
-      this.showLeftButton = container.scrollLeft > 0;
-
-      // Check if scrolled to the end
-      this.showRightButton = container.scrollLeft < maxScrollLeft;
+      // container.scrollBy({ left: 200, behavior: "smooth" });
     },
   },
 });
