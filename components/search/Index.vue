@@ -103,7 +103,7 @@ export default Vue.extend({
     searchTerm: {
       get(): string {
         // @ts-ignore
-        return this.formatText.addSpace(
+        return this.$formatText.addSpace(
           this.$store.state.options.query
         );
       },
