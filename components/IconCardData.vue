@@ -8,12 +8,15 @@
         <picture style="width: 78px">
           <template v-if="data.urls.thumb">
             <source :srcset="`${data.urls.thumb}`" class="img-fluid" />
-            <img :src="`${data.urls.thumb}`" class="img-fluid" alt="" />
+            <img @load="onImgLoad" :src="`${data.urls.thumb}`" :class="['img-fluid', { 'pic-on': showButtons }, { blur: !isImgLoaded }]" />
           </template>
           <template v-else>
             <source :srcset="`${data.urls['png_128']}`" class="img-fluid" />
-            <img :src="`${data.urls['png_128']}`" :class="['img-fluid', { 'pic-on': showButtons }]" alt="" />
+            <img @load="onImgLoad" :src="`${data.urls['png_128']}`" :class="['img-fluid', { 'pic-on': showButtons }, { blur: !isImgLoaded }]" />
           </template>
+          <div class="position-absolute d-flex justify-content-center align-items-center" style="top: 0; bottom: 0; left: 0; width: 100%;">
+            <ImageLoader v-show="!isImgLoaded" />
+          </div>
         </picture>
       </a>
     </div>
@@ -96,6 +99,7 @@ export default defineComponent({
   data() {
     return {
       showButtons: false,
+      isImgLoaded: false,
     };
   },
   mounted() {
@@ -111,6 +115,11 @@ export default defineComponent({
     //     ctx.drawImage(base_image, 0, 0);
     //   };
     // },
+  },
+  methods: {
+    onImgLoad() {
+      this.isImgLoaded = true;
+    },
   },
 });
 </script>

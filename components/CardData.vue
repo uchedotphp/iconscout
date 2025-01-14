@@ -16,7 +16,9 @@
             :class="[{ blur: !isImgLoaded }, { 'pic-on': showButtons }]"
             alt=""
           />
-          <ImageLoader v-show="!isImgLoaded" class="position-absolute" />
+          <div class="position-absolute d-flex justify-content-center align-items-center" style="top: 0; bottom: 0; left: 0; width: 100%;">
+            <ImageLoader v-show="!isImgLoaded" />
+          </div>
         </picture>
       </a>
     </div>
