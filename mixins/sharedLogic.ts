@@ -107,10 +107,6 @@ export default Vue.extend({
     ]),
     ...mapActions(["getSearchResults"]),
     getSearchSuggestion(val: string) {
-      this.$store.commit("updateAnOptionProperty", {
-        key: "query",
-        value: val,
-      });
       // @ts-ignore
       this.setApiLoading({
         loading: true,
@@ -118,16 +114,10 @@ export default Vue.extend({
       });
       try {
         // @ts-ignore
-        const formatVal = this.$formatText.addHypen(val);
-        // @ts-ignore
-        this.updateAnOptionProperty({ key: "query", value: formatVal });
-        const lastSegment = this.$route.path.split("/").pop();
-        if (['lottie-player', 'dotlottie-player'].includes(lastSegment as string)) {
-          // @ts-ignore
-          this.$router.push(`/${this.routeSection}/${formatVal}/${lastSegment}`);
-        } else {
-          this.$router.push(`/${this.routeSection}/${formatVal}`);
-        }
+        this.$helpers.gotoRoute({
+          asset: this.routeSection,
+          query: val,
+        });
       } catch (error) {
         console.log("Error fetching search suggestion:", error);
       }
@@ -174,10 +164,11 @@ export default Vue.extend({
                   const view =
                     this.$route.query.view || this.$store.state.options.view;
 
-                  this.$router.replace({
-                    path: `/${this.$route.path.split("/")[1]}/${this.$route.params.keyword
-                      }`,
-                    query: { ...this.$route.query, page },
+                  // @ts-ignore
+                  this.$helpers.gotoRoute({
+                    asset: this.routeSection,
+                    query: this.$route.params.keyword,
+                    queryParams: { page },
                   });
 
                   let formatAsset = "3d";

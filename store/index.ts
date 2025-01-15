@@ -1,14 +1,6 @@
-import type { assetType, prices, sortOptions, viewOptions } from '~/data/dataTypes';
+import type { assetType, prices, sortOptions, viewOptions, animationPlayer } from '~/data/dataTypes';
+import { filterOptionsDefaultData } from '~/data/data';
 
-const optionsData = {
-  asset: 'all-assets' as assetType,
-  price: 'free' as prices,
-  view: 'pack' as viewOptions,
-  sort: 'popular' as sortOptions,
-  query: '',
-  per_page: 20,
-  page: 1,
-}
 interface State {
   isLoggedIn: boolean;
   isFilterPanelExpanded: boolean;
@@ -17,7 +9,7 @@ interface State {
     loading: boolean;
     type: assetType;
   };
-  animationPlayer: 'lottie player' | 'dotlottie player',
+  animationPlayer: animationPlayer,
   options: {
     per_page: number;
     page: number;
@@ -34,7 +26,7 @@ export const state = () => ({
   isLoggedIn: false,
   isFilterPanelExpanded: true,
   animationPlayer: 'lottie player',
-  options: optionsData,
+  options: filterOptionsDefaultData,
   apiLoading: {
     loading: false,
     type: 'all-assets',
@@ -118,7 +110,7 @@ export const mutations = {
     state.options[payload.key] = payload.value
   },
   resetOptions(state: State) {
-    state.options = optionsData
+    state.options = filterOptionsDefaultData
   },
   setAnimationPlayer(state: State, payload: 'lottie player' | 'dotlottie player') {
     state.animationPlayer = payload

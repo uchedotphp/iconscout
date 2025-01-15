@@ -1,3 +1,5 @@
+import type { assetType, prices, sortOptions, viewOptions } from '~/data/dataTypes';
+
 export const assetOptions = [
   'all assets',
   '3D illustrations',
@@ -5,6 +7,16 @@ export const assetOptions = [
   'illustrations',
   'icons',
 ]
+
+export const filterOptionsDefaultData = {
+  asset: 'all-assets' as assetType,
+  price: 'free' as prices,
+  view: 'pack' as viewOptions,
+  sort: 'popular' as sortOptions,
+  query: '' as string,
+  per_page: 20,
+  page: 1,
+}
 
 export const searchSuggestions = [
   "Conversation Design",

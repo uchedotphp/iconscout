@@ -198,8 +198,6 @@ export default Vue.extend({
     routeSection: {
       handler: function handler(newValue, oldValue) {
         if (newValue !== oldValue) {
-          console.log("psss: ", newValue);
-
           if (newValue.toLowerCase() === "3d illustrations") {
             this.filters.assetValue = "3D illustrations";
           } else {
@@ -220,7 +218,10 @@ export default Vue.extend({
         .replace(/\s+/g, "-");
     },
 
-    async getData(type: string, val: string): Promise<void> {
+    async getData(
+      type: "asset" | "price" | "sort" | "view",
+      val: string
+    ): Promise<void> {
       if (this.$route.params.keyword === undefined) {
         return;
       }
@@ -233,14 +234,11 @@ export default Vue.extend({
       // @ts-ignore
       this.updateAnOptionProperty({ key: type, value: val.toLowerCase() });
       if (type === "asset") {
-        if (val.toLowerCase() === "lottie-animations") {
-          // @ts-ignore
-          this.$router.push(`/${val.toLowerCase()}/${this.$route.params.keyword}/${this.$formatText.addHypen(this.defaultAnimationPlayer)}`);
-        } else {
-          this.$router.push(
-            `/${val.toLowerCase()}/${this.$route.params.keyword}`
-          );
-        }
+        // @ts-ignore
+        this.$helpers.gotoRoute({
+          asset: val.toLocaleLowerCase(),
+          query: this.$route.params.keyword,
+        });
       } else {
         const routeSection = this.$route.path.split("/")[1];
         const query = this.$route.params.keyword;
@@ -251,23 +249,13 @@ export default Vue.extend({
           this.$route.query.per_page || this.$store.state.options.per_page;
         const sort = this.filters.sortValue;
         const view = this.filters.viewValue;
-        // let lastSegment = this.$route.path.split("/").pop();
-        console.log('see: ', type);
 
-        if (this.$route.path.split("/")[1] === "lottie-animations") {
-          this.$router.replace({
-            // @ts-ignore
-          path: `/${this.$route.path.split("/")[1]}/${this.$route.params.keyword}/${this.$formatText.addHypen(this.$store.state.animationPlayer)}`,
-          query: { ...this.$route.query, [type]: val },
+        // @ts-ignore
+        this.$helpers.gotoRoute({
+          asset: this.$route.path.split("/")[1],
+          query: this.$route.params.keyword,
+          queryParams: { [type]: val },
         });
-        } else {
-          this.$router.replace({
-            path: `/${this.$route.path.split("/")[1]}/${
-              this.$route.params.keyword
-            }`,
-            query: { ...this.$route.query, [type]: val },
-          });
-        }
         try {
           let formatAsset = "3d";
           switch (asset) {
@@ -299,7 +287,7 @@ export default Vue.extend({
             page,
             per_page,
             sort,
-            view
+            view,
           });
         } catch (error) {
           console.log("Error fetching search suggestion:", error);

@@ -26,7 +26,6 @@ export default Vue.extend({
     ...mapMutations(['toggleLogin']),
     login() {
       this.toggleLogin('login');
-      console.log("Login button clicked");
     },
   },
 });

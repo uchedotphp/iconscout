@@ -71,24 +71,18 @@ export default Vue.extend({
       this.resetOptions();
       this.updateAnOptionProperty({ key: "asset", value: param });
       this.updateAnOptionProperty({ key: "query", value: storeSearchTerm });
-      if (param === "lottie-animations") {
-        // @ts-ignore
-        this.$router.push(`/${param}/${this.storeSearchTerm}/${this.$formatText.addHypen(this.animationPlayer)}`);
-      } else {
-        this.$router.push(`/${param}/${this.storeSearchTerm}`);
-      }
+      // @ts-ignore
+      this.$helpers.gotoRoute({ asset: param, query: this.storeSearchTerm });
     },
     goToLink(asset: assetType) {
+      // this is ignored due to native.prevent
       return `/${asset}/${this.storeSearchTerm}`;
     },
     switchPlayer(option: string) {
       this.setAnimationPlayer(option);
+      const asset = this.$route.path.split("/")[1];
       // @ts-ignore
-      const childRoute = this.$formatText.addHypen(option);
-      const newRoute = `/${this.$route.path.split("/")[1]}/${
-        this.$route.params.keyword
-      }/${childRoute}`;
-      this.$router.push({ path: newRoute, query: { ...this.$route.query } });
+      this.$helpers.gotoRoute({ asset, query: this.storeSearchTerm });
     },
   },
 });
