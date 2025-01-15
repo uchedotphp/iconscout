@@ -9,11 +9,12 @@
       <a href="#" class="content position-relative">
         <!-- in dotlottie -->
         <div class="lottie">
-          <DotLottiePlayer
+          lottie animation goes here
+          <!-- <DotLottiePlayer
             src="https://lottie.host/4db68bbd-31f6-4cd8-84eb-189de081159a/IGmMCqhzpt.lottie"
             autoplay="true"
             loop="true"
-          />
+          /> -->
         </div>
       </a>
     </div>

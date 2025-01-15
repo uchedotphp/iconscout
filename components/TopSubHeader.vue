@@ -59,7 +59,8 @@ export default Vue.extend({
               return "3D";
             }
             //@ts-ignore
-            return this.$formatText.capitalizeFirstLetters(word);
+            // return this.$formatText.capitalizeFirstLetters(word);
+            return word.charAt(0).toUpperCase() + word.slice(1);
           })
           .join(" ");
       } else {

@@ -145,7 +145,7 @@ export default Vue.extend({
       // if (this.storeSearchTerm) {
       // this.updateAnOptionProperty({ key: "query", value: this.searchTerm });
       if (searchTerm) {
-        if (formattedVal === 'lotto-animations') {
+        if (formattedVal === 'lottie-animations') {
           // @ts-ignore
           this.$router.push(`/${formattedVal}/${searchTerm}/${this.$formatText.addHypen(this.defaultAnimationPlayer)}`);
         } else {
