@@ -251,13 +251,23 @@ export default Vue.extend({
           this.$route.query.per_page || this.$store.state.options.per_page;
         const sort = this.filters.sortValue;
         const view = this.filters.viewValue;
-        let lastSegment = this.$route.path.split("/").pop();
-        this.$router.replace({
-          path: `/${this.$route.path.split("/")[1]}/${
-            this.$route.params.keyword
-          }/${lastSegment}`,
+        // let lastSegment = this.$route.path.split("/").pop();
+        console.log('see: ', type);
+
+        if (this.$route.path.split("/")[1] === "lottie-animations") {
+          this.$router.replace({
+            // @ts-ignore
+          path: `/${this.$route.path.split("/")[1]}/${this.$route.params.keyword}/${this.$formatText.addHypen(this.$store.state.animationPlayer)}`,
           query: { ...this.$route.query, [type]: val },
         });
+        } else {
+          this.$router.replace({
+            path: `/${this.$route.path.split("/")[1]}/${
+              this.$route.params.keyword
+            }`,
+            query: { ...this.$route.query, [type]: val },
+          });
+        }
         try {
           let formatAsset = "3d";
           switch (asset) {
@@ -289,8 +299,7 @@ export default Vue.extend({
             page,
             per_page,
             sort,
-            view,
-            to: "uche",
+            view
           });
         } catch (error) {
           console.log("Error fetching search suggestion:", error);

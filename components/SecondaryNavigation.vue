@@ -58,25 +58,7 @@ export default Vue.extend({
         return options.query;
       },
       animationPlayer: (state: any) => state.animationPlayer,
-    }),
-    currentAnimationPlayer: {
-      get(): string {
-        return this.animationPlayer;
-      },
-      set(value: string) {
-        this.setAnimationPlayer(value);
-      },
-    },
-  },
-  watch: {
-    currentAnimationPlayer(newValue, oldValue) {
-      const label = newValue ? "ON" : "OFF";
-      if (label === "ON") {
-        this.setAnimationPlayer("lottie player");
-      } else {
-        this.setAnimationPlayer("dotlottie player");
-      }
-    },
+    })
   },
   methods: {
     ...mapMutations([

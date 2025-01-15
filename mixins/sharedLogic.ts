@@ -121,7 +121,13 @@ export default Vue.extend({
         const formatVal = this.$formatText.addHypen(val);
         // @ts-ignore
         this.updateAnOptionProperty({ key: "query", value: formatVal });
-        this.$router.push(`/${this.routeSection}/${formatVal}`);
+        const lastSegment = this.$route.path.split("/").pop();
+        if (['lottie-player', 'dotlottie-player'].includes(lastSegment as string)) {
+          // @ts-ignore
+          this.$router.push(`/${this.routeSection}/${formatVal}/${lastSegment}`);
+        } else {
+          this.$router.push(`/${this.routeSection}/${formatVal}`);
+        }
       } catch (error) {
         console.log("Error fetching search suggestion:", error);
       }
