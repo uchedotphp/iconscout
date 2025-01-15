@@ -235,7 +235,7 @@ export default Vue.extend({
       if (type === "asset") {
         if (val.toLowerCase() === "lottie-animations") {
           // @ts-ignore
-          this.$router.push(`/${val.toLowerCase()}/${this.$formatText.addHypen(this.defaultAnimationPlayer)}`);
+          this.$router.push(`/${val.toLowerCase()}/${this.$route.params.keyword}/${this.$formatText.addHypen(this.defaultAnimationPlayer)}`);
         } else {
           this.$router.push(
             `/${val.toLowerCase()}/${this.$route.params.keyword}`
