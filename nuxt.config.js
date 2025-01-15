@@ -46,6 +46,7 @@ export default {
     { src: "~/plugins/bootstrap.js", mode: "client" },
     "~/plugins/axios.js",
     { src: "~/plugins/lottie-player.js", mode: "client" },
+    { src: "~/plugins/dotlottie-player.js", mode: "client" },
     "~/plugins/formatText.ts",
   ],
 
