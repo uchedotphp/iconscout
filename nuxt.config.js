@@ -31,14 +31,7 @@ export default {
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: ["~/assets/css/main.scss"],
 
-  // loading: {
-  //   color: "red",
-  //   height: "5px",
-  //   throttle: 0,
-  // },
-
-  // loading: "~/components/LoadingShimmer.vue",
-  loading: false,
+  loading: { color: "#0092e4" },
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
