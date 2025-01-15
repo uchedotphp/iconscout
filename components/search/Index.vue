@@ -105,9 +105,7 @@ export default Vue.extend({
     searchTerm: {
       get(): string {
         // @ts-ignore
-        return this.$formatText.addSpace(
-          this.$store.state.options.query
-        );
+        return this.$formatText.addSpace(this.$store.state.options.query);
       },
       set(value: string) {
         this.updateAnOptionProperty({ key: "query", value });
@@ -142,32 +140,24 @@ export default Vue.extend({
       this.resetOptions();
       this.updateAnOptionProperty({ key: "asset", value: formattedVal });
       const searchTerm = this.$route.params.keyword || this.storeSearchTerm;
-      // if (this.storeSearchTerm) {
-      // this.updateAnOptionProperty({ key: "query", value: this.searchTerm });
+
       if (searchTerm) {
-        if (formattedVal === 'lottie-animations') {
-          // @ts-ignore
-          this.$router.push(`/${formattedVal}/${searchTerm}/${this.$formatText.addHypen(this.defaultAnimationPlayer)}`);
-        } else {
-          this.$router.push(`/${formattedVal}/${searchTerm}`);
-        }
+        // @ts-ignore
+        this.$helpers.gotoRoute({
+          asset: formattedVal,
+          query: searchTerm,
+        });
       }
     },
 
     performSearch() {
       if (this.storeSearchTerm.length) {
         this.showSuggestionPanel = false;
-        if (this.storeAsset === 'lottie-animations') {
-          // @ts-ignore
-          this.$router.push(`/${this.storeAsset}/${this.$formatText.addHypen(this.storeSearchTerm)}/${this.$formatText.addHypen(this.defaultAnimationPlayer)}`);
-        } else {
-          // this.updateAnOptionProperty({ key: "query", value: this.searchTerm });
-          // @ts-ignore
-          this.$router.push(`/${this.storeAsset}/${this.$formatText.addHypen(
-              this.storeSearchTerm
-            )}`
-          );
-        }
+        // @ts-ignore
+        this.$helpers.gotoRoute({
+          asset: this.storeAsset,
+          query: this.storeSearchTerm,
+        });
       }
     },
   },
