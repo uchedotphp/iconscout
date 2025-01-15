@@ -7,19 +7,17 @@
   >
     <div class="h-100">
       <a href="#" class="content position-relative">
-        <picture style="width: 194px">
-          <source :srcset="data.urls.thumb" class="img-fluid" />
-          <img
-            @load="onImgLoad"
-            :src="data.urls.thumb"
-            class="img-fluid"
-            :class="[{ blur: !isImgLoaded }, { 'pic-on': showButtons }]"
-            alt=""
+        <div class="lottie">
+          <lottie-player
+            autoplay
+            loop
+            style="width: 194px; height: 194px"
+            src="https://assets3.lottiefiles.com/packages/lf20_RItkEz.json"
+            speed="1"
+            debug
+            mode="normal"
           />
-          <div class="position-absolute d-flex justify-content-center align-items-center" style="top: 0; bottom: 0; left: 0; width: 100%;">
-            <ImageLoader v-show="!isImgLoaded" />
-          </div>
-        </picture>
+        </div>
       </a>
     </div>
     <div v-show="showButtons" class="ext-buttons">
@@ -88,35 +86,21 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import { mapState } from "vuex";
+import Vue from "vue";
 
-export default defineComponent({
-  name: "CardData",
+export default Vue.extend({
+  name: "LottieAnimationPlayer",
   props: {
-    data: {
-      type: Object,
-      required: true,
-    },
+    // animationPath: {
+    //   type: String,
+    //   required: true,
+    // },
   },
   data() {
     return {
-      showButtons: false,
-      isImgLoaded: false,
+      showButtons: false
     };
-  },
-  computed: {
-    ...mapState({ filteredOptions: "options" }),
-    assetType(): "3d" | "lottie" | "illustrations" | "icons" {
-      return this.data && this.data.asset;
-    },
-  },
-
-  methods: {
-    onImgLoad() {
-      this.isImgLoaded = true;
-    },
-  },
+  }
 });
 </script>
 

@@ -18,13 +18,6 @@
         v-if="routeSection === 'lottie-animations'"
         class="text-capitalize ml-auto"
       >
-        <!-- <b-form-checkbox
-          v-model="currentAnimationPlayer"
-          name="check-button"
-          switch
-        >
-          {{ animationPlayer }}
-        </b-form-checkbox> -->
         <DropdownBtn
           :dropdownText="animationPlayer"
           :options="['lottie player', 'dotlottie player']"
@@ -65,6 +58,8 @@ export default Vue.extend({
         return options.query;
       },
       animationPlayer: (state: any) => state.animationPlayer,
+      // @ts-ignore
+      defaultAnimationPlayer: (state: any) => this.$formatText.addHypen(state.animationPlayer),
     }),
     currentAnimationPlayer: {
       get(): string {
@@ -96,14 +91,23 @@ export default Vue.extend({
       this.resetOptions();
       this.updateAnOptionProperty({ key: "asset", value: param });
       this.updateAnOptionProperty({ key: "query", value: storeSearchTerm });
-      this.$router.push(`/${param}/${this.storeSearchTerm}`);
+      if (param === "lottie-animations") {
+        this.$router.push(`/${param}/${this.storeSearchTerm}/${this.defaultAnimationPlayer}`);
+      } else {
+        this.$router.push(`/${param}/${this.storeSearchTerm}`);
+      }
     },
     goToLink(asset: assetType) {
       return `/${asset}/${this.storeSearchTerm}`;
     },
     switchPlayer(option: string) {
       this.setAnimationPlayer(option);
-      this.currentAnimationPlayer = option;
+      // @ts-ignore
+      const childRoute = this.$formatText.addHypen(option);
+      const newRoute = `/${this.$route.path.split("/")[1]}/${
+        this.$route.params.keyword
+      }/${childRoute}`;
+      this.$router.push({ path: newRoute, query: { ...this.$route.query } });
     },
   },
 });

@@ -1,0 +1,105 @@
+<template>
+  <div
+    class="result-view position-relative h-100"
+    :class="{ 'force-login': restrictGuestUser }"
+  >
+    <template v-if="data.length">
+      <div class="align-items-center search-suggestion-nav">
+        <SearchSuggestionNav
+          :suggestions="searchSuggestions"
+          asset="assets"
+          @selected="getSearchSuggestion($event)"
+        />
+      </div>
+      <section class="mt-4">
+        <h2 class="text-capitalize">
+          <b> Explore {{ searchedKeyword }} Lottie Animation Player </b>
+        </h2>
+        <div class="card-container">
+          <div v-for="item in data" :key="item.id">
+            <LottieAnimationPlayer :animationPath="item.urls.thumb" />
+          </div>
+        </div>
+
+        <!-- infinite scroll -->
+        <div
+          ref="infiniteScrollTrigger"
+          class="loading-trigger"
+          v-if="!isEnd && !showGetStartedOverlay"
+        >
+          <span v-if="isLoadingMoreData">Loading more animations...</span>
+        </div>
+      </section>
+    </template>
+    <NoData v-else class="d-flex align-items-center h-100">
+      <template #message>
+        No result for {{ searchedKeyword }} lottie animations
+      </template>
+      <template #subMessage> {{ subMessage }} </template>
+    </NoData>
+
+    <ForceLogin v-if="restrictGuestUser">
+      <template #message>
+        View all {{ searchedKeyword }} Lottie Animations
+      </template>
+    </ForceLogin>
+  </div>
+</template>
+
+<script lang="ts">
+import Vue from "vue";
+import sharedLogic from "~/mixins/sharedLogic";
+import { mapState } from "vuex";
+
+export default Vue.extend({
+  name: "LottiePlayer",
+  layout: "search",
+  mixins: [sharedLogic],
+
+  data() {
+    return {
+      pageTitle: "Lottie Animations",
+    };
+  },
+  head() {
+    return {
+      title: this.pageTitle,
+      meta: [
+        {
+          hid: "description",
+          name: "description",
+          content: "This is the lottie animations page",
+        },
+      ],
+    };
+  },
+
+  mounted() {
+    // @ts-ignore
+    this.setupObserver();
+  },
+
+  computed: {
+    ...mapState({
+      animationPlayer: (state: any) => {
+        const { animationPlayer } = state;
+        return animationPlayer.toLowerCase();
+      },
+    }),
+  },
+});
+</script>
+
+<style lang="scss" scoped>
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 12px;
+}
+
+.search-suggestion-nav {
+  position: relative;
+  height: 38px;
+  margin-top: 13px;
+}
+</style>

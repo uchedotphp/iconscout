@@ -188,6 +188,8 @@ export default Vue.extend({
   computed: {
     ...mapState({
       filterOptions: (state: any) => state.options,
+      // @ts-ignore
+      defaultAnimationPlayer: (state: any) => this.$formatText.addHypen(state.animationPlayer),
     }),
     routeSection() {
       return this.$route.path.split("/")[1].replace(/-/g, " ");
@@ -232,9 +234,15 @@ export default Vue.extend({
       // @ts-ignore
       this.updateAnOptionProperty({ key: type, value: val.toLowerCase() });
       if (type === "asset") {
-        this.$router.push(
-          `/${val.toLowerCase()}/${this.$route.params.keyword}`
-        );
+        if (val.toLowerCase() === "lottie-animations") {
+          this.$router.push(
+            `/${val.toLowerCase()}/${this.defaultAnimationPlayer}`
+          );
+        } else {
+          this.$router.push(
+            `/${val.toLowerCase()}/${this.$route.params.keyword}`
+          );
+        }
       } else {
         const routeSection = this.$route.path.split("/")[1];
         const query = this.$route.params.keyword;
@@ -245,10 +253,11 @@ export default Vue.extend({
           this.$route.query.per_page || this.$store.state.options.per_page;
         const sort = this.filters.sortValue;
         const view = this.filters.viewValue;
+        let lastSegment = this.$route.path.split("/").pop();
         this.$router.replace({
           path: `/${this.$route.path.split("/")[1]}/${
             this.$route.params.keyword
-          }`,
+          }/${lastSegment}`,
           query: { ...this.$route.query, [type]: val },
         });
         try {

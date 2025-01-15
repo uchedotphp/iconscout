@@ -69,6 +69,7 @@
 import Vue from "vue";
 import { assetOptions } from "~/data/data";
 import { mapState, mapMutations } from "vuex";
+import { assetType } from "~/data/dataTypes";
 
 function getCategoryName(assetType: string): string {
   const categoryMap: { [key: string]: string } = {
@@ -99,6 +100,8 @@ export default Vue.extend({
         return assetType;
       },
       storeSearchTerm: (state: any): string => state.options.query,
+      // @ts-ignore
+      defaultAnimationPlayer: (state: any) => this.$formatText.addHypen(state.animationPlayer),
     }),
     searchTerm: {
       get(): string {
@@ -134,27 +137,39 @@ export default Vue.extend({
       return q.trim().replace(/-/g, " ");
     },
 
-    switchAsset(val: string) {
-      const formattedVal = val.toLowerCase().replace(/\s+/g, "-");
+    switchAsset(val: assetType) {
+      // @ts-ignore
+      const formattedVal = this.$formatText.addHypen(val);
       this.resetOptions();
       this.updateAnOptionProperty({ key: "asset", value: formattedVal });
       const searchTerm = this.$route.params.keyword || this.storeSearchTerm;
       // if (this.storeSearchTerm) {
       // this.updateAnOptionProperty({ key: "query", value: this.searchTerm });
       if (searchTerm) {
-        this.$router.push(`/${formattedVal}/${searchTerm}`);
+        if (formattedVal === 'lotto-animations') {
+          this.$router.push(`/${formattedVal}/${searchTerm}/${this.defaultAnimationPlayer}`);
+        } else {
+          this.$router.push(`/${formattedVal}/${searchTerm}`);
+        }
       }
     },
 
     performSearch() {
       if (this.storeSearchTerm.length) {
         this.showSuggestionPanel = false;
-        // this.updateAnOptionProperty({ key: "query", value: this.searchTerm });
-        // @ts-ignore
-        this.$router.push(`/${this.storeAsset}/${this.$formatText.addHypen(
-            this.storeSearchTerm
-          )}`
-        );
+        if (this.storeAsset === 'lotto-animations') {
+          // @ts-ignore
+          this.$router.push(`/${this.storeAsset}/${this.$formatText.addHypen(
+              this.storeSearchTerm
+            )}/${this.defaultAnimationPlayer}`);
+        } else {
+          // this.updateAnOptionProperty({ key: "query", value: this.searchTerm });
+          // @ts-ignore
+          this.$router.push(`/${this.storeAsset}/${this.$formatText.addHypen(
+              this.storeSearchTerm
+            )}`
+          );
+        }
       }
     },
   },
