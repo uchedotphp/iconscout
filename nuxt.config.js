@@ -72,7 +72,8 @@ export default {
 
   publicRuntimeConfig: {
     axios: {
-      browserBaseURL: process.env.BROWSER_BASE_URL,
+      browserBaseURL:
+        process.env.BROWSER_BASE_URL || process.env.NUXT_ENV_API_URL,
     },
   },
 
