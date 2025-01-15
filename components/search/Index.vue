@@ -100,8 +100,7 @@ export default Vue.extend({
         return assetType;
       },
       storeSearchTerm: (state: any): string => state.options.query,
-      // @ts-ignore
-      defaultAnimationPlayer: (state: any) => this.$formatText.addHypen(state.animationPlayer),
+      defaultAnimationPlayer: (state: any) => state.animationPlayer,
     }),
     searchTerm: {
       get(): string {
@@ -147,7 +146,8 @@ export default Vue.extend({
       // this.updateAnOptionProperty({ key: "query", value: this.searchTerm });
       if (searchTerm) {
         if (formattedVal === 'lotto-animations') {
-          this.$router.push(`/${formattedVal}/${searchTerm}/${this.defaultAnimationPlayer}`);
+          // @ts-ignore
+          this.$router.push(`/${formattedVal}/${searchTerm}/${this.$formatText.addHypen(this.defaultAnimationPlayer)}`);
         } else {
           this.$router.push(`/${formattedVal}/${searchTerm}`);
         }
@@ -159,9 +159,7 @@ export default Vue.extend({
         this.showSuggestionPanel = false;
         if (this.storeAsset === 'lotto-animations') {
           // @ts-ignore
-          this.$router.push(`/${this.storeAsset}/${this.$formatText.addHypen(
-              this.storeSearchTerm
-            )}/${this.defaultAnimationPlayer}`);
+          this.$router.push(`/${this.storeAsset}/${this.$formatText.addHypen(this.storeSearchTerm)}/${this.$formatText.addHypen(this.defaultAnimationPlayer)}`);
         } else {
           // this.updateAnOptionProperty({ key: "query", value: this.searchTerm });
           // @ts-ignore

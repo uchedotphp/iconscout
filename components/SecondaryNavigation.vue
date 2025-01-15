@@ -58,8 +58,6 @@ export default Vue.extend({
         return options.query;
       },
       animationPlayer: (state: any) => state.animationPlayer,
-      // @ts-ignore
-      defaultAnimationPlayer: (state: any) => this.$formatText.addHypen(state.animationPlayer),
     }),
     currentAnimationPlayer: {
       get(): string {
@@ -92,7 +90,8 @@ export default Vue.extend({
       this.updateAnOptionProperty({ key: "asset", value: param });
       this.updateAnOptionProperty({ key: "query", value: storeSearchTerm });
       if (param === "lottie-animations") {
-        this.$router.push(`/${param}/${this.storeSearchTerm}/${this.defaultAnimationPlayer}`);
+        // @ts-ignore
+        this.$router.push(`/${param}/${this.storeSearchTerm}/${this.$formatText.addHypen(this.animationPlayer)}`);
       } else {
         this.$router.push(`/${param}/${this.storeSearchTerm}`);
       }

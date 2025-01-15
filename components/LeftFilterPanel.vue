@@ -188,8 +188,7 @@ export default Vue.extend({
   computed: {
     ...mapState({
       filterOptions: (state: any) => state.options,
-      // @ts-ignore
-      defaultAnimationPlayer: (state: any) => this.$formatText.addHypen(state.animationPlayer),
+      defaultAnimationPlayer: (state: any) => state.animationPlayer,
     }),
     routeSection() {
       return this.$route.path.split("/")[1].replace(/-/g, " ");
@@ -235,9 +234,8 @@ export default Vue.extend({
       this.updateAnOptionProperty({ key: type, value: val.toLowerCase() });
       if (type === "asset") {
         if (val.toLowerCase() === "lottie-animations") {
-          this.$router.push(
-            `/${val.toLowerCase()}/${this.defaultAnimationPlayer}`
-          );
+          // @ts-ignore
+          this.$router.push(`/${val.toLowerCase()}/${this.$formatText.addHypen(this.defaultAnimationPlayer)}`);
         } else {
           this.$router.push(
             `/${val.toLowerCase()}/${this.$route.params.keyword}`
