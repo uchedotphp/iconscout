@@ -66,13 +66,15 @@ export default Vue.extend({
       return `/${this.$formatText.addHypen(this.asset)}/${query}`;
     },
     formatLink(event: Event, query: string) {
-      if (this.asset === 'lottie-animations') {
-        // @ts-ignore
-        this.$router.push(`/${this.asset}/${this.$formatText.addHypen(query)}/${this.$formatText.addHypen(this.$store.state.animationPlayer)}`);
-      } else {
-        // @ts-ignore
-        this.$router.push(`/${this.asset}/${this.$formatText.addHypen(query)}`);
-      }
+      // @ts-ignore
+      this.$helpers.gotoRoute({ asset: this.asset, query });
+      // if (this.asset === 'lottie-animations') {
+      //   // @ts-ignore
+      //   this.$router.push(`/${this.asset}/${this.$formatText.addHypen(query)}/${this.$formatText.addHypen(this.$store.state.animationPlayer)}`);
+      // } else {
+      //   // @ts-ignore
+      //   this.$router.push(`/${this.asset}/${this.$formatText.addHypen(query)}`);
+      // }
     },
   },
 });

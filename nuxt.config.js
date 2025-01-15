@@ -35,12 +35,12 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-    "~/plugins/dataApi.ts",
     { src: "~/plugins/bootstrap.js", mode: "client" },
     "~/plugins/axios.js",
     { src: "~/plugins/lottie-player.js", mode: "client" },
     { src: "~/plugins/dotlottie-player.js", mode: "client" },
     "~/plugins/formatText.ts",
+    "~/plugins/helpers.ts",
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
