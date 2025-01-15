@@ -52,9 +52,7 @@ export default defineComponent({
   methods: {
     handleChange(event: Event) {
       const target = event.target as HTMLInputElement;
-      console.log('selected value: ', target.value);
       this.$emit("change", target.value);
-
     },
   },
 });

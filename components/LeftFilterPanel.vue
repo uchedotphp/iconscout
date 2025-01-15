@@ -198,8 +198,6 @@ export default Vue.extend({
     routeSection: {
       handler: function handler(newValue, oldValue) {
         if (newValue !== oldValue) {
-          console.log("psss: ", newValue);
-
           if (newValue.toLowerCase() === "3d illustrations") {
             this.filters.assetValue = "3D illustrations";
           } else {

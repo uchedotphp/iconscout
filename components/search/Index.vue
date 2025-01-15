@@ -158,8 +158,6 @@ export default Vue.extend({
       if (this.storeSearchTerm.length) {
         this.showSuggestionPanel = false;
         if (this.storeAsset === 'lottie-animations') {
-          console.log('inside lottie-animations');
-
           // @ts-ignore
           this.$router.push(`/${this.storeAsset}/${this.$formatText.addHypen(this.storeSearchTerm)}/${this.$formatText.addHypen(this.defaultAnimationPlayer)}`);
         } else {
