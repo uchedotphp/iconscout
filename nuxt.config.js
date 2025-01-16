@@ -64,9 +64,11 @@ export default {
     baseURL: process.env.NUXT_ENV_API_URL,
   },
 
+  // comment this area out during local development. This is used for production only
   publicRuntimeConfig: {
     axios: {
-      browserBaseURL: process.env.NUXT_ENV_API_URL,
+      browserBaseURL:
+        process.env.BROWSER_BASE_URL || process.env.NUXT_ENV_API_URL,
     },
   },
 
@@ -75,6 +77,7 @@ export default {
       baseURL: process.env.NUXT_ENV_API_URL,
     },
   },
+  // stop commenting here
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
