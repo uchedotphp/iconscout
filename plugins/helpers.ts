@@ -2,6 +2,9 @@ import { assetType } from "~/data/dataTypes";
 
 export default (context: any, inject: any) => {
   function gotoRoute({ asset, query, queryParams = {} }: { asset: assetType; query: string; queryParams?: any }) {
+    if (query.length === 0) {
+      query = context.route.params.keyword
+    }
     if (!asset || !query) {
       context.error({ statusCode: 400, message: 'Asset or query is missing' });
       return;
