@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="result-view position-relative h-100"
-    :class="{ 'force-login': restrictGuestUser }"
-  >
+  <div class="result-view position-relative h-100">
     <template v-if="data.length">
       <div class="align-items-center search-suggestion-nav">
         <SearchSuggestionNav
@@ -19,6 +16,12 @@
           <div v-for="item in data" :key="item.id">
             <DotlottieAnimationPlayer :animationPath="item.urls.thumb" />
           </div>
+
+          <ForceLogin v-if="restrictGuestUser">
+            <template #message>
+              View all {{ searchedKeyword }} 3D Illustrations
+            </template>
+          </ForceLogin>
         </div>
 
         <!-- infinite scroll -->
@@ -37,12 +40,6 @@
       </template>
       <template #subMessage> {{ subMessage }} </template>
     </NoData>
-
-    <ForceLogin v-if="restrictGuestUser">
-      <template #message>
-        View all {{ searchedKeyword }} Lottie Animations
-      </template>
-    </ForceLogin>
   </div>
 </template>
 

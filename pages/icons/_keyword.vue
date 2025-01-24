@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="result-view position-relative h-100"
-    :class="{ 'force-login': restrictGuestUser }"
-  >
+  <div class="result-view position-relative h-100">
     <template v-if="data.length">
       <div class="align-items-center search-suggestion-nav">
         <SearchSuggestionNav
@@ -13,14 +10,18 @@
       </div>
       <section class="mt-4">
         <h2 class="text-capitalize">
-          <b>
-            Explore {{ searchedKeyword }} Icons Packs
-          </b>
+          <b> Explore {{ searchedKeyword }} Icons Packs </b>
         </h2>
         <div class="card-container">
           <div v-for="item in data" :key="item.id">
             <IconCardData :data="item" />
           </div>
+
+          <ForceLogin v-if="restrictGuestUser">
+            <template #message>
+              View all {{ searchedKeyword }} 3D Illustrations
+            </template>
+          </ForceLogin>
         </div>
 
         <!-- infinite scroll -->
@@ -34,17 +35,9 @@
       </section>
     </template>
     <NoData v-else class="d-flex align-items-center h-100">
-      <template #message>
-        No result for {{ searchedKeyword }} icons
-      </template>
+      <template #message> No result for {{ searchedKeyword }} icons </template>
       <template #subMessage> {{ subMessage }} </template>
     </NoData>
-
-    <ForceLogin v-if="restrictGuestUser">
-      <template #message>
-        View all {{ searchedKeyword }} 3D Illustrations
-      </template>
-    </ForceLogin>
   </div>
 </template>
 
