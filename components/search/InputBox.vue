@@ -74,8 +74,8 @@ export default Vue.extend({
 .input-box {
   width: 100%;
   &::placeholder {
-    font-family: "Averta Std", sans-serif;
-    font-size: var(--ics-font-size-sm);
+    font-family: var(--ics-font-family);
+    font-size: var(--ics-font-size-base);
     font-weight: 400;
     line-height: 24px;
     color: var(--ics-light-black);

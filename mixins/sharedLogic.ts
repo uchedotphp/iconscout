@@ -6,7 +6,6 @@ export default Vue.extend({
   data() {
     return {
       searchSuggestions,
-      showGetStartedOverlay: false,
       isEnd: false,
       isLoadingMoreData: false,
       subMessage: "Please try something else",
@@ -85,6 +84,7 @@ export default Vue.extend({
   computed: {
     ...mapState({
       apiResponse: "apiResponse",
+      showGetStartedOverlay: "showGetStartedOverlay",
     }),
     ...mapGetters({
       data: "apiData",
@@ -100,10 +100,22 @@ export default Vue.extend({
     },
   },
 
+  watch: {
+    'restrictGuestUser'(newValue) {
+      console.log('see: ', newValue);
+
+      if (!newValue) {
+        // @ts-ignore
+        this.setupObserver();
+      }
+    },
+  },
+
   methods: {
     ...mapMutations([
       "setApiLoading",
       "updateAnOptionProperty",
+      "toggleOverlay"
     ]),
     ...mapActions(["getSearchResults"]),
     getSearchSuggestion(val: string) {
@@ -141,7 +153,8 @@ export default Vue.extend({
               observer.disconnect();
             } else {
               if (this.restrictGuestUser) {
-                this.showGetStartedOverlay = true;
+                // @ts-ignore
+                this.toggleOverlay(true);
                 observer.disconnect();
               } else {
                 // @ts-ignore

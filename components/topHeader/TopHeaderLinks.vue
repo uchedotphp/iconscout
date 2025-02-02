@@ -95,7 +95,7 @@ ul.header-links {
     }
 
     button {
-      font-family: "Averta Std", sans-serif;
+      font-family: var(--ics-font-family);
       font-size: 16px;
       font-weight: 600;
       line-height: 19.78px;

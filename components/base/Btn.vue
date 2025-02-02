@@ -43,7 +43,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .base-button {
-  font-family: "Averta Std", sans-serif;
+  font-family: var(--ics-font-family);
   &.disabled {
     cursor: not-allowed;
   }

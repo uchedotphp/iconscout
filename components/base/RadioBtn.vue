@@ -62,7 +62,7 @@ export default defineComponent({
 .radio-label {
   margin-bottom: 0;
   padding-left: 12px;
-  font-family: "Averta Std", sans-serif;
+  font-family: var(--ics-font-family);
   font-size: 14px;
   font-weight: 400;
   line-height: 17.3px;

@@ -51,7 +51,7 @@ export default Vue.extend({
   border: 1px solid #d8dbeb;
 
   h3 {
-    font-size: var(--ics-font-size-sm);
+    font-size: var(--ics-font-size-base);
     line-height: 24px;
     font-weight: 700;
   }

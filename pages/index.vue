@@ -10,7 +10,6 @@
       <span v-for="(trend, index) in trending" :key="trend">
         <NuxtLink
           :to="goToLink(trend)"
-          :event="''"
           @click.native.prevent="formatLink($event, trend)"
           class="font-weight-bold"
           >{{ trend }}</NuxtLink
@@ -67,13 +66,6 @@ export default Vue.extend({
     formatLink(event: Event, query: string) {
       // @ts-ignore
       this.$helpers.gotoRoute({ asset: this.asset, query });
-      // if (this.asset === 'lottie-animations') {
-      //   // @ts-ignore
-      //   this.$router.push(`/${this.asset}/${this.$formatText.addHypen(query)}/${this.$formatText.addHypen(this.$store.state.animationPlayer)}`);
-      // } else {
-      //   // @ts-ignore
-      //   this.$router.push(`/${this.asset}/${this.$formatText.addHypen(query)}`);
-      // }
     },
   },
 });
@@ -88,7 +80,7 @@ export default Vue.extend({
     margin-top: 100px;
     font-size: 48px;
     line-height: 58px;
-    font-family: "Averta Std", sans-serif;
+    font-family: var(--ics-font-family);
   }
 
   .search-area {

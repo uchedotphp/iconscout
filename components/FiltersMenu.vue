@@ -69,7 +69,7 @@ export default defineComponent({
 
   button {
     padding: 12px 30px 12px 24px;
-    font-family: "Averta Std", sans-serif;
+    font-family: var(--ics-font-family);
     font-size: 16px;
     font-weight: 600;
     line-height: 24px;

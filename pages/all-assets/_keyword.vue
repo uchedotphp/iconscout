@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="result-view position-relative h-100"
-  >
+  <div class="result-view position-relative h-100">
     <template v-if="data.length">
       <div class="align-items-center search-suggestion-nav">
         <SearchSuggestionNav
@@ -24,15 +22,14 @@
               View all {{ searchedKeyword }} 3D Illustrations
             </template>
           </ForceLogin>
-        </div>
-
-        <!-- infinite scroll -->
-        <div
-          ref="infiniteScrollTrigger"
-          class="loading-trigger"
-          v-if="!isEnd && !showGetStartedOverlay"
-        >
-          <span v-if="isLoadingMoreData">Loading more asets...</span>
+          <!-- infinite scroll -->
+          <div
+            ref="infiniteScrollTrigger"
+            class="loading-trigger"
+            v-else-if="!isEnd && !showGetStartedOverlay"
+          >
+            <span v-if="isLoadingMoreData">Loading more asets...</span>
+          </div>
         </div>
       </section>
     </template>

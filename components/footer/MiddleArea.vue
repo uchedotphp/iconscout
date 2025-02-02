@@ -103,7 +103,7 @@ export default defineComponent({
 .middle-area {
   .footer-links {
     h5 {
-      font-family: "Averta Std", sans-serif;
+      font-family: var(--ics-font-family);
       font-size: 14px;
       font-weight: 700;
       line-height: 24px;
@@ -122,7 +122,7 @@ export default defineComponent({
       li {
         a {
           text-decoration: none;
-          font-family: "Averta Std", sans-serif;
+          font-family: var(--ics-font-family);
           font-size: 14px;
           font-weight: 400;
           line-height: 24px;

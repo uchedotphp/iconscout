@@ -65,18 +65,18 @@ export default {
   },
 
   // comment this area out during local development. This is used for production only
-  publicRuntimeConfig: {
-    axios: {
-      browserBaseURL:
-        process.env.BROWSER_BASE_URL || process.env.NUXT_ENV_API_URL,
-    },
-  },
+  // publicRuntimeConfig: {
+  //   axios: {
+  //     browserBaseURL:
+  //       process.env.BROWSER_BASE_URL || process.env.NUXT_ENV_API_URL,
+  //   },
+  // },
 
-  privateRuntimeConfig: {
-    axios: {
-      baseURL: process.env.NUXT_ENV_API_URL,
-    },
-  },
+  // privateRuntimeConfig: {
+  //   axios: {
+  //     baseURL: process.env.NUXT_ENV_API_URL,
+  //   },
+  // },
   // stop commenting here
 
   // Build Configuration: https://go.nuxtjs.dev/config-build

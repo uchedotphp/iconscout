@@ -81,7 +81,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 .dropdown {
   button {
-    font-family: "Averta Std", sans-serif;
+    font-family: var(--ics-font-family);
     font-size: 14px;
     font-weight: 700;
     color: #2e334c;

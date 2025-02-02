@@ -88,7 +88,7 @@ table {
 html,
 body {
   color: var(--ics-light-black);
-  font-family: "Averta Std", sans-serif;
+  font-family: var(--ics-font-family);
   font-weight: 400;
   font-size: 14px;
   line-height: 1.5;

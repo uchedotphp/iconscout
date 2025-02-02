@@ -63,7 +63,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 button {
   text-align: left;
-  font-family: "Averta Std", sans-serif;
+  font-family: var(--ics-font-family);
   font-size: 14px;
   font-weight: 600;
   line-height: 17.3px;

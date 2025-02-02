@@ -77,7 +77,7 @@ export default Vue.extend({
 
   h1 {
     color: var(--ics-black);
-    font-family: "Averta Std", sans-serif;
+    font-family: var(--ics-font-family);
     font-size: 35px;
     font-weight: 700;
     line-height: 52.5px;
@@ -87,7 +87,7 @@ export default Vue.extend({
 
   h2 {
     color: var(--ics-gray);
-    font-family: "Averta Std", sans-serif;
+    font-family: var(--ics-font-family);
     font-size: 14px;
     font-weight: 400;
     line-height: 21px;

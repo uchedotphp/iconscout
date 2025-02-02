@@ -14,8 +14,11 @@
   --ics-dark-gray: #b4bad6;
 
   // fonts sizes
-  --ics-font-size-sm: 1rem; // 14px
+  --ics-font-size-base: 1rem; // 14px
   --ics-font-size-md: 1.14285714286rem; // 16px
   --ics-font-size-lg: 1.5rem; // 21px
   --ics-font-size-xl: 1.71428571429rem; //24px
+
+  // font-family
+  --ics-font-family: "Averta Std", sans-serif;
 }

@@ -20,6 +20,7 @@ interface State {
     price: prices;
     [key: string]: string | number | any;
   };
+  showGetStartedOverlay: boolean
 }
 
 export const state = () => ({
@@ -27,6 +28,7 @@ export const state = () => ({
   isFilterPanelExpanded: true,
   animationPlayer: 'lottie player',
   options: filterOptionsDefaultData,
+  showGetStartedOverlay: false,
   apiLoading: {
     loading: false,
     type: 'all-assets',
@@ -87,6 +89,15 @@ export const mutations = {
 
   toggleLogin(state: State, payload: 'login' | 'logout' | 'signup') {
     state.isLoggedIn = payload === 'login' || payload === 'signup' ? true : false;
+    if (state.isLoggedIn) {
+      state.showGetStartedOverlay = false
+    }
+  },
+
+  toggleOverlay(state: State, payload: boolean) {
+    console.log('toggling overlay');
+
+    state.showGetStartedOverlay = payload
   },
 
   setApiResponse(state: State, payload: any) {

@@ -38,7 +38,7 @@ export default defineComponent({
   padding-block: 24px;
 
   .logo-area {
-    font-family: "Averta Std", sans-serif;
+    font-family: var(--ics-font-family);
     font-size: 14px;
     font-weight: 400;
     line-height: 21px;

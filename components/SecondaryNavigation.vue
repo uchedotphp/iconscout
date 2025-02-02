@@ -98,7 +98,7 @@ export default Vue.extend({
       }
       .nav-item {
         text-decoration: none;
-        font-family: "Averta Std", sans-serif;
+        font-family: var(--ics-font-family);
         font-size: 14px;
         font-weight: 600;
         line-height: 21px;
